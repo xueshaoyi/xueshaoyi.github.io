@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Hbase on Shao Yi`s Blog</title>
-    <link>https://xueblog.github.io/tags/hbase/</link>
+    <link>hhtp://xueshaoyi.github.io/tags/hbase/</link>
     <description>Recent content in Hbase on Shao Yi`s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Fri, 14 Apr 2017 12:13:19 +0800</lastBuildDate>
     
-	<atom:link href="https://xueblog.github.io/tags/hbase/feed.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="hhtp://xueshaoyi.github.io/tags/hbase/feed.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>HBase简单配置学习</title>
-      <link>https://xueblog.github.io/post/2017/hbase%E9%85%8D%E7%BD%AE/</link>
+      <link>hhtp://xueshaoyi.github.io/post/2017/hbase%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Fri, 14 Apr 2017 12:13:19 +0800</pubDate>
       
-      <guid>https://xueblog.github.io/post/2017/hbase%E9%85%8D%E7%BD%AE/</guid>
+      <guid>hhtp://xueshaoyi.github.io/post/2017/hbase%E9%85%8D%E7%BD%AE/</guid>
       <description>一、HBASE概述 HBase是一个分布式的、面向列的开源数据库。HBase不同于一般关系数据库，它是一个适合于非结构化数据存储的数据库。另一</description>
     </item>
     
