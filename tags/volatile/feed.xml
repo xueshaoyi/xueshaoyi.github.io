@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Volatile on Shao Yi`s Blog</title>
-    <link>hhtp://xueshaoyi.github.io/tags/volatile/</link>
+    <link>http://xueshaoyi.github.io/tags/volatile/</link>
     <description>Recent content in Volatile on Shao Yi`s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Tue, 18 Jul 2017 14:39:19 +0800</lastBuildDate>
     
-	<atom:link href="hhtp://xueshaoyi.github.io/tags/volatile/feed.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://xueshaoyi.github.io/tags/volatile/feed.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>java volatile</title>
-      <link>hhtp://xueshaoyi.github.io/post/2017/java-volatile/</link>
+      <link>http://xueshaoyi.github.io/post/2017/java-volatile/</link>
       <pubDate>Tue, 18 Jul 2017 14:39:19 +0800</pubDate>
       
-      <guid>hhtp://xueshaoyi.github.io/post/2017/java-volatile/</guid>
+      <guid>http://xueshaoyi.github.io/post/2017/java-volatile/</guid>
       <description>volatile是共享变量“可见性”关键字，当该变量在一处更改后，在其他线程里读到的是这个修改后的值。它是轻量级的synchronized，</description>
     </item>
     

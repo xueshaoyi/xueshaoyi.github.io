@@ -2,30 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Hashmap on Shao Yi`s Blog</title>
-    <link>hhtp://xueshaoyi.github.io/tags/hashmap/</link>
+    <link>http://xueshaoyi.github.io/tags/hashmap/</link>
     <description>Recent content in Hashmap on Shao Yi`s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Tue, 20 Jun 2017 13:13:19 +0800</lastBuildDate>
     
-	<atom:link href="hhtp://xueshaoyi.github.io/tags/hashmap/feed.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://xueshaoyi.github.io/tags/hashmap/feed.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>HashMap、HashTable和ConcurrentHashMap的区别</title>
-      <link>hhtp://xueshaoyi.github.io/post/2017/hashmaphashtable%E5%92%8Cconcurrenthashmap%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
+      <link>http://xueshaoyi.github.io/post/2017/hashmaphashtable%E5%92%8Cconcurrenthashmap%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
       <pubDate>Tue, 20 Jun 2017 13:13:19 +0800</pubDate>
       
-      <guid>hhtp://xueshaoyi.github.io/post/2017/hashmaphashtable%E5%92%8Cconcurrenthashmap%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
+      <guid>http://xueshaoyi.github.io/post/2017/hashmaphashtable%E5%92%8Cconcurrenthashmap%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
       <description>HashMap和HashTable的区别 HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄清楚它们之间的分别。主</description>
     </item>
     
     <item>
       <title>HashMap的实现原理</title>
-      <link>hhtp://xueshaoyi.github.io/post/2017/hashmap%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</link>
+      <link>http://xueshaoyi.github.io/post/2017/hashmap%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</link>
       <pubDate>Mon, 15 May 2017 13:13:19 +0800</pubDate>
       
-      <guid>hhtp://xueshaoyi.github.io/post/2017/hashmap%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</guid>
+      <guid>http://xueshaoyi.github.io/post/2017/hashmap%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</guid>
       <description>HashMap概述： HashMap是基于哈希表的Map接口的非同步实现。此实现提供所有可选的映射操作，并允许使用null值和null键。此类</description>
     </item>
     

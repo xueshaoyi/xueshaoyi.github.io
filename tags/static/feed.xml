@@ -2,39 +2,39 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Static on Shao Yi`s Blog</title>
-    <link>hhtp://xueshaoyi.github.io/tags/static/</link>
+    <link>http://xueshaoyi.github.io/tags/static/</link>
     <description>Recent content in Static on Shao Yi`s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Wed, 12 Jul 2017 14:13:19 +0800</lastBuildDate>
     
-	<atom:link href="hhtp://xueshaoyi.github.io/tags/static/feed.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://xueshaoyi.github.io/tags/static/feed.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>static特殊用法--Java包静态导入</title>
-      <link>hhtp://xueshaoyi.github.io/post/2017/static%E7%89%B9%E6%AE%8A%E7%94%A8%E6%B3%95--java%E5%8C%85%E9%9D%99%E6%80%81%E5%AF%BC%E5%85%A5/</link>
+      <link>http://xueshaoyi.github.io/post/2017/static%E7%89%B9%E6%AE%8A%E7%94%A8%E6%B3%95--java%E5%8C%85%E9%9D%99%E6%80%81%E5%AF%BC%E5%85%A5/</link>
       <pubDate>Wed, 12 Jul 2017 14:13:19 +0800</pubDate>
       
-      <guid>hhtp://xueshaoyi.github.io/post/2017/static%E7%89%B9%E6%AE%8A%E7%94%A8%E6%B3%95--java%E5%8C%85%E9%9D%99%E6%80%81%E5%AF%BC%E5%85%A5/</guid>
+      <guid>http://xueshaoyi.github.io/post/2017/static%E7%89%B9%E6%AE%8A%E7%94%A8%E6%B3%95--java%E5%8C%85%E9%9D%99%E6%80%81%E5%AF%BC%E5%85%A5/</guid>
       <description>静态导包就是Java包的静态导入，用import static代替import静态导入包是JDK1.5中的新特性。 一般我们导入一个类都用 import co</description>
     </item>
     
     <item>
       <title>static{}静态块</title>
-      <link>hhtp://xueshaoyi.github.io/post/2017/static%E9%9D%99%E6%80%81%E5%9D%97/</link>
+      <link>http://xueshaoyi.github.io/post/2017/static%E9%9D%99%E6%80%81%E5%9D%97/</link>
       <pubDate>Mon, 10 Jul 2017 13:13:19 +0800</pubDate>
       
-      <guid>hhtp://xueshaoyi.github.io/post/2017/static%E9%9D%99%E6%80%81%E5%9D%97/</guid>
+      <guid>http://xueshaoyi.github.io/post/2017/static%E9%9D%99%E6%80%81%E5%9D%97/</guid>
       <description>static{}静态块会在类被加载的时候执行一次，一般用来初始化静态变量和调用静态方法。 1、static{}语句块执行的时机，类被加载的准确</description>
     </item>
     
     <item>
       <title>static用法详解</title>
-      <link>hhtp://xueshaoyi.github.io/post/2017/static%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/</link>
+      <link>http://xueshaoyi.github.io/post/2017/static%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/</link>
       <pubDate>Mon, 10 Jul 2017 13:13:19 +0800</pubDate>
       
-      <guid>hhtp://xueshaoyi.github.io/post/2017/static%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/</guid>
+      <guid>http://xueshaoyi.github.io/post/2017/static%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/</guid>
       <description>如果一个类成员被声明为static，它就能够在类的任何对象创建之前被访问，而不必引用任何对象。static 成员的最常见的例子是main( ) 。</description>
     </item>
     
