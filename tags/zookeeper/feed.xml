@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Zookeeper on Shao Yi`s Blog</title>
+    <link>https://xueblog.github.io/tags/zookeeper/</link>
+    <description>Recent content in Zookeeper on Shao Yi`s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 27 Jun 2017 13:13:19 +0800</lastBuildDate>
+    
+	<atom:link href="https://xueblog.github.io/tags/zookeeper/feed.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>zookeeper通信模式</title>
+      <link>https://xueblog.github.io/post/2017/zookeeper%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Tue, 27 Jun 2017 13:13:19 +0800</pubDate>
+      
+      <guid>https://xueblog.github.io/post/2017/zookeeper%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <description>Zookeeper的通信架构 在Zookeeper整个系统中，有3中角色的服务，client、Follower、leader。其中client</description>
+    </item>
+    
+    <item>
+      <title>Zookeeper</title>
+      <link>https://xueblog.github.io/post/2017/zookeeper/</link>
+      <pubDate>Thu, 11 May 2017 13:13:19 +0800</pubDate>
+      
+      <guid>https://xueblog.github.io/post/2017/zookeeper/</guid>
+      <description>Zookeeper概述 Zookeeper是一个工具，可以实现集群中的分布式协调服务。 所谓的分布式协调服务，就是在集群的节点中进行可靠的消息传</description>
+    </item>
+    
+  </channel>
+</rss>

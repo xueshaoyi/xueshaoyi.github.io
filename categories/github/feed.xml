@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Github on Shao Yi`s Blog</title>
+    <link>https://xueblog.github.io/categories/github/</link>
+    <description>Recent content in Github on Shao Yi`s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 01 Jul 2017 13:13:19 +0800</lastBuildDate>
+    
+	<atom:link href="https://xueblog.github.io/categories/github/feed.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>GitHub git clone错误</title>
+      <link>https://xueblog.github.io/post/2017/github-git-clone%E9%94%99%E8%AF%AF/</link>
+      <pubDate>Sat, 01 Jul 2017 13:13:19 +0800</pubDate>
+      
+      <guid>https://xueblog.github.io/post/2017/github-git-clone%E9%94%99%E8%AF%AF/</guid>
+      <description>问题描述： 是Git管理代码，从git服务器上获取Contacts模块的代码： git clone your-git-server 提示：warning: remote HEAD refers to nonexistent ref, unable to checkout. 并且Contact</description>
+    </item>
+    
+  </channel>
+</rss>

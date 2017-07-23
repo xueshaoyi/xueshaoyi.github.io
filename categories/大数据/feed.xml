@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>大数据 on Shao Yi`s Blog</title>
+    <link>https://xueblog.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/</link>
+    <description>Recent content in 大数据 on Shao Yi`s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 27 Jun 2017 13:13:19 +0800</lastBuildDate>
+    
+	<atom:link href="https://xueblog.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/feed.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>zookeeper通信模式</title>
+      <link>https://xueblog.github.io/post/2017/zookeeper%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Tue, 27 Jun 2017 13:13:19 +0800</pubDate>
+      
+      <guid>https://xueblog.github.io/post/2017/zookeeper%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <description>Zookeeper的通信架构 在Zookeeper整个系统中，有3中角色的服务，client、Follower、leader。其中client</description>
+    </item>
+    
+    <item>
+      <title>Zookeeper</title>
+      <link>https://xueblog.github.io/post/2017/zookeeper/</link>
+      <pubDate>Thu, 11 May 2017 13:13:19 +0800</pubDate>
+      
+      <guid>https://xueblog.github.io/post/2017/zookeeper/</guid>
+      <description>Zookeeper概述 Zookeeper是一个工具，可以实现集群中的分布式协调服务。 所谓的分布式协调服务，就是在集群的节点中进行可靠的消息传</description>
+    </item>
+    
+    <item>
+      <title>HBase简单配置学习</title>
+      <link>https://xueblog.github.io/post/2017/hbase%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Fri, 14 Apr 2017 12:13:19 +0800</pubDate>
+      
+      <guid>https://xueblog.github.io/post/2017/hbase%E9%85%8D%E7%BD%AE/</guid>
+      <description>一、HBASE概述 HBase是一个分布式的、面向列的开源数据库。HBase不同于一般关系数据库，它是一个适合于非结构化数据存储的数据库。另一</description>
+    </item>
+    
+    <item>
+      <title>Hadoop 特点 和缺点</title>
+      <link>https://xueblog.github.io/post/2017/hadooptq/</link>
+      <pubDate>Thu, 23 Mar 2017 12:13:19 +0800</pubDate>
+      
+      <guid>https://xueblog.github.io/post/2017/hadooptq/</guid>
+      <description>一、 Hadoop 特点 1、支持超大文件 一般来说，HDFS存储的文件可以支持TB和PB级别的数据。 2、检测和快速应对硬件故障 在集群环境中，硬件故障是常见性</description>
+    </item>
+    
+    <item>
+      <title>hadoop基本介绍及简单安装配置</title>
+      <link>https://xueblog.github.io/post/2017/hadoopbase/</link>
+      <pubDate>Mon, 20 Mar 2017 12:13:19 +0800</pubDate>
+      
+      <guid>https://xueblog.github.io/post/2017/hadoopbase/</guid>
+      <description>1、hadoop简单介绍 Hadoop实现了一个分布式文件系统（Hadoop Distributed File System），简称HDFS。HDFS有高容错性的特点，并且设</description>
+    </item>
+    
+  </channel>
+</rss>
