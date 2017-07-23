@@ -2,156 +2,156 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Shao Yi`s Blog</title>
-    <link>http://xueshaoyi.github.io/tags/</link>
+    <link>https://xueshaoyi.github.io/tags/</link>
     <description>Recent content in Tags on Shao Yi`s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Sat, 22 Jul 2017 13:13:19 +0800</lastBuildDate>
     
-	<atom:link href="http://xueshaoyi.github.io/tags/feed.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://xueshaoyi.github.io/tags/feed.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Arraylist</title>
-      <link>http://xueshaoyi.github.io/tags/arraylist/</link>
+      <link>https://xueshaoyi.github.io/tags/arraylist/</link>
       <pubDate>Sat, 22 Jul 2017 13:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/tags/arraylist/</guid>
+      <guid>https://xueshaoyi.github.io/tags/arraylist/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Bigdata</title>
-      <link>http://xueshaoyi.github.io/tags/bigdata/</link>
+      <link>https://xueshaoyi.github.io/tags/bigdata/</link>
       <pubDate>Fri, 14 Apr 2017 12:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/tags/bigdata/</guid>
+      <guid>https://xueshaoyi.github.io/tags/bigdata/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Concurrenthashmap</title>
-      <link>http://xueshaoyi.github.io/tags/concurrenthashmap/</link>
+      <link>https://xueshaoyi.github.io/tags/concurrenthashmap/</link>
       <pubDate>Tue, 20 Jun 2017 13:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/tags/concurrenthashmap/</guid>
+      <guid>https://xueshaoyi.github.io/tags/concurrenthashmap/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Final</title>
-      <link>http://xueshaoyi.github.io/tags/final/</link>
+      <link>https://xueshaoyi.github.io/tags/final/</link>
       <pubDate>Mon, 17 Jul 2017 13:13:55 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/tags/final/</guid>
+      <guid>https://xueshaoyi.github.io/tags/final/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Git</title>
-      <link>http://xueshaoyi.github.io/tags/git/</link>
+      <link>https://xueshaoyi.github.io/tags/git/</link>
       <pubDate>Sat, 01 Jul 2017 13:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/tags/git/</guid>
+      <guid>https://xueshaoyi.github.io/tags/git/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Hadoop</title>
-      <link>http://xueshaoyi.github.io/tags/hadoop/</link>
+      <link>https://xueshaoyi.github.io/tags/hadoop/</link>
       <pubDate>Fri, 14 Apr 2017 12:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/tags/hadoop/</guid>
+      <guid>https://xueshaoyi.github.io/tags/hadoop/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Hashmap</title>
-      <link>http://xueshaoyi.github.io/tags/hashmap/</link>
+      <link>https://xueshaoyi.github.io/tags/hashmap/</link>
       <pubDate>Tue, 20 Jun 2017 13:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/tags/hashmap/</guid>
+      <guid>https://xueshaoyi.github.io/tags/hashmap/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Hashtable</title>
-      <link>http://xueshaoyi.github.io/tags/hashtable/</link>
+      <link>https://xueshaoyi.github.io/tags/hashtable/</link>
       <pubDate>Tue, 20 Jun 2017 13:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/tags/hashtable/</guid>
+      <guid>https://xueshaoyi.github.io/tags/hashtable/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Hbase</title>
-      <link>http://xueshaoyi.github.io/tags/hbase/</link>
+      <link>https://xueshaoyi.github.io/tags/hbase/</link>
       <pubDate>Fri, 14 Apr 2017 12:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/tags/hbase/</guid>
+      <guid>https://xueshaoyi.github.io/tags/hbase/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Java</title>
-      <link>http://xueshaoyi.github.io/tags/java/</link>
+      <link>https://xueshaoyi.github.io/tags/java/</link>
       <pubDate>Sat, 22 Jul 2017 13:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/tags/java/</guid>
+      <guid>https://xueshaoyi.github.io/tags/java/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Mysql</title>
-      <link>http://xueshaoyi.github.io/tags/mysql/</link>
+      <link>https://xueshaoyi.github.io/tags/mysql/</link>
       <pubDate>Sat, 20 May 2017 13:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/tags/mysql/</guid>
+      <guid>https://xueshaoyi.github.io/tags/mysql/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Redis</title>
-      <link>http://xueshaoyi.github.io/tags/redis/</link>
+      <link>https://xueshaoyi.github.io/tags/redis/</link>
       <pubDate>Wed, 17 May 2017 13:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/tags/redis/</guid>
+      <guid>https://xueshaoyi.github.io/tags/redis/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Static</title>
-      <link>http://xueshaoyi.github.io/tags/static/</link>
+      <link>https://xueshaoyi.github.io/tags/static/</link>
       <pubDate>Wed, 12 Jul 2017 14:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/tags/static/</guid>
+      <guid>https://xueshaoyi.github.io/tags/static/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Transient</title>
-      <link>http://xueshaoyi.github.io/tags/transient/</link>
+      <link>https://xueshaoyi.github.io/tags/transient/</link>
       <pubDate>Mon, 17 Jul 2017 13:10:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/tags/transient/</guid>
+      <guid>https://xueshaoyi.github.io/tags/transient/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Volatile</title>
-      <link>http://xueshaoyi.github.io/tags/volatile/</link>
+      <link>https://xueshaoyi.github.io/tags/volatile/</link>
       <pubDate>Tue, 18 Jul 2017 14:39:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/tags/volatile/</guid>
+      <guid>https://xueshaoyi.github.io/tags/volatile/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Zookeeper</title>
-      <link>http://xueshaoyi.github.io/tags/zookeeper/</link>
+      <link>https://xueshaoyi.github.io/tags/zookeeper/</link>
       <pubDate>Tue, 27 Jun 2017 13:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/tags/zookeeper/</guid>
+      <guid>https://xueshaoyi.github.io/tags/zookeeper/</guid>
       <description></description>
     </item>
     

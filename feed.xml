@@ -2,201 +2,201 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Shao Yi`s Blog</title>
-    <link>http://xueshaoyi.github.io/</link>
+    <link>https://xueshaoyi.github.io/</link>
     <description>Recent content on Shao Yi`s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Sat, 22 Jul 2017 13:13:19 +0800</lastBuildDate>
     
-	<atom:link href="http://xueshaoyi.github.io/feed.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://xueshaoyi.github.io/feed.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>LinkedList源码(1)</title>
-      <link>http://xueshaoyi.github.io/post/2017/linkedlist%E6%BA%90%E7%A0%811/</link>
+      <link>https://xueshaoyi.github.io/post/2017/linkedlist%E6%BA%90%E7%A0%811/</link>
       <pubDate>Sat, 22 Jul 2017 13:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/linkedlist%E6%BA%90%E7%A0%811/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/linkedlist%E6%BA%90%E7%A0%811/</guid>
       <description>在使用List的 时候经常是ArrayList和LinkedList他们两个各有千秋，根据自己的业务使用情况来使用，现在咱们看看LinkedL</description>
     </item>
     
     <item>
       <title>ArrayList源码(2)</title>
-      <link>http://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%812/</link>
+      <link>https://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%812/</link>
       <pubDate>Tue, 18 Jul 2017 18:49:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%812/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%812/</guid>
       <description>现在接着说ArrayList的另外一个常用方法remove(). remove同样也是存在两个方法 １. public E remove(int index) { rangeCheck(index); modCount++; E oldValue = elementData(index); int numMoved = size - index - 1; if</description>
     </item>
     
     <item>
       <title>java volatile</title>
-      <link>http://xueshaoyi.github.io/post/2017/java-volatile/</link>
+      <link>https://xueshaoyi.github.io/post/2017/java-volatile/</link>
       <pubDate>Tue, 18 Jul 2017 14:39:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/java-volatile/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/java-volatile/</guid>
       <description>volatile是共享变量“可见性”关键字，当该变量在一处更改后，在其他线程里读到的是这个修改后的值。它是轻量级的synchronized，</description>
     </item>
     
     <item>
       <title>ArrayList源码(1)</title>
-      <link>http://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%811/</link>
+      <link>https://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%811/</link>
       <pubDate>Tue, 18 Jul 2017 13:19:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%811/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%811/</guid>
       <description>ArrayList继承了AbstractList并实现了List接口。 三种初始化的方法： 第一种：规定List长度的参数 public ArrayList(int initialCapacity) { super(); if (initialCapacity &amp;lt; 0) throw new</description>
     </item>
     
     <item>
       <title>java的final关键字</title>
-      <link>http://xueshaoyi.github.io/post/2017/java%E7%9A%84final%E5%85%B3%E9%94%AE%E5%AD%97/</link>
+      <link>https://xueshaoyi.github.io/post/2017/java%E7%9A%84final%E5%85%B3%E9%94%AE%E5%AD%97/</link>
       <pubDate>Mon, 17 Jul 2017 13:13:55 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/java%E7%9A%84final%E5%85%B3%E9%94%AE%E5%AD%97/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/java%E7%9A%84final%E5%85%B3%E9%94%AE%E5%AD%97/</guid>
       <description>Java中的final关键字非常重要，它可以应用于类、方法以及变量。将变量，方法和类声明为final代表了什么？使用final的好处是什么？</description>
     </item>
     
     <item>
       <title>java transient关键字</title>
-      <link>http://xueshaoyi.github.io/post/2017/java-transient%E5%85%B3%E9%94%AE%E5%AD%97/</link>
+      <link>https://xueshaoyi.github.io/post/2017/java-transient%E5%85%B3%E9%94%AE%E5%AD%97/</link>
       <pubDate>Mon, 17 Jul 2017 13:10:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/java-transient%E5%85%B3%E9%94%AE%E5%AD%97/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/java-transient%E5%85%B3%E9%94%AE%E5%AD%97/</guid>
       <description>transient的作用和使用方法 我们都知道一个对象只要实现了Serilizable接口，这个对象就可以被序列化，java的这种序列化模式为</description>
     </item>
     
     <item>
       <title>ArrayList源码(3)</title>
-      <link>http://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%813/</link>
+      <link>https://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%813/</link>
       <pubDate>Mon, 17 Jul 2017 11:54:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%813/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%813/</guid>
       <description>前两篇写了add和remove相关的源码，现在剩下的是零散的一些和Itr、SubList、ListItr几个相关的代码，这些应用次数也多但是</description>
     </item>
     
     <item>
       <title>static特殊用法--Java包静态导入</title>
-      <link>http://xueshaoyi.github.io/post/2017/static%E7%89%B9%E6%AE%8A%E7%94%A8%E6%B3%95--java%E5%8C%85%E9%9D%99%E6%80%81%E5%AF%BC%E5%85%A5/</link>
+      <link>https://xueshaoyi.github.io/post/2017/static%E7%89%B9%E6%AE%8A%E7%94%A8%E6%B3%95--java%E5%8C%85%E9%9D%99%E6%80%81%E5%AF%BC%E5%85%A5/</link>
       <pubDate>Wed, 12 Jul 2017 14:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/static%E7%89%B9%E6%AE%8A%E7%94%A8%E6%B3%95--java%E5%8C%85%E9%9D%99%E6%80%81%E5%AF%BC%E5%85%A5/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/static%E7%89%B9%E6%AE%8A%E7%94%A8%E6%B3%95--java%E5%8C%85%E9%9D%99%E6%80%81%E5%AF%BC%E5%85%A5/</guid>
       <description>静态导包就是Java包的静态导入，用import static代替import静态导入包是JDK1.5中的新特性。 一般我们导入一个类都用 import co</description>
     </item>
     
     <item>
       <title>static{}静态块</title>
-      <link>http://xueshaoyi.github.io/post/2017/static%E9%9D%99%E6%80%81%E5%9D%97/</link>
+      <link>https://xueshaoyi.github.io/post/2017/static%E9%9D%99%E6%80%81%E5%9D%97/</link>
       <pubDate>Mon, 10 Jul 2017 13:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/static%E9%9D%99%E6%80%81%E5%9D%97/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/static%E9%9D%99%E6%80%81%E5%9D%97/</guid>
       <description>static{}静态块会在类被加载的时候执行一次，一般用来初始化静态变量和调用静态方法。 1、static{}语句块执行的时机，类被加载的准确</description>
     </item>
     
     <item>
       <title>static用法详解</title>
-      <link>http://xueshaoyi.github.io/post/2017/static%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/</link>
+      <link>https://xueshaoyi.github.io/post/2017/static%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/</link>
       <pubDate>Mon, 10 Jul 2017 13:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/static%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/static%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/</guid>
       <description>如果一个类成员被声明为static，它就能够在类的任何对象创建之前被访问，而不必引用任何对象。static 成员的最常见的例子是main( ) 。</description>
     </item>
     
     <item>
       <title>GitHub git clone错误</title>
-      <link>http://xueshaoyi.github.io/post/2017/github-git-clone%E9%94%99%E8%AF%AF/</link>
+      <link>https://xueshaoyi.github.io/post/2017/github-git-clone%E9%94%99%E8%AF%AF/</link>
       <pubDate>Sat, 01 Jul 2017 13:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/github-git-clone%E9%94%99%E8%AF%AF/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/github-git-clone%E9%94%99%E8%AF%AF/</guid>
       <description>问题描述： 是Git管理代码，从git服务器上获取Contacts模块的代码： git clone your-git-server 提示：warning: remote HEAD refers to nonexistent ref, unable to checkout. 并且Contact</description>
     </item>
     
     <item>
       <title>zookeeper通信模式</title>
-      <link>http://xueshaoyi.github.io/post/2017/zookeeper%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%BC%8F/</link>
+      <link>https://xueshaoyi.github.io/post/2017/zookeeper%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%BC%8F/</link>
       <pubDate>Tue, 27 Jun 2017 13:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/zookeeper%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/zookeeper%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%BC%8F/</guid>
       <description>Zookeeper的通信架构 在Zookeeper整个系统中，有3中角色的服务，client、Follower、leader。其中client</description>
     </item>
     
     <item>
       <title>HashMap、HashTable和ConcurrentHashMap的区别</title>
-      <link>http://xueshaoyi.github.io/post/2017/hashmaphashtable%E5%92%8Cconcurrenthashmap%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
+      <link>https://xueshaoyi.github.io/post/2017/hashmaphashtable%E5%92%8Cconcurrenthashmap%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
       <pubDate>Tue, 20 Jun 2017 13:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/hashmaphashtable%E5%92%8Cconcurrenthashmap%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/hashmaphashtable%E5%92%8Cconcurrenthashmap%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
       <description>HashMap和HashTable的区别 HashMap和Hashtable都实现了Map接口，但决定用哪一个之前先要弄清楚它们之间的分别。主</description>
     </item>
     
     <item>
       <title>MySQL主从复制读写分离</title>
-      <link>http://xueshaoyi.github.io/post/2017/mysql%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/</link>
+      <link>https://xueshaoyi.github.io/post/2017/mysql%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/</link>
       <pubDate>Sat, 20 May 2017 13:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/mysql%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/mysql%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/</guid>
       <description>原理 mysql主(称master)从(称slave)复制的原理： 1、 master将数据改变记录到二进制日志(binary log)中,也即是配</description>
     </item>
     
     <item>
       <title>Redis的哨兵模式（Sentinel）</title>
-      <link>http://xueshaoyi.github.io/post/2017/redis%E7%9A%84%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F/</link>
+      <link>https://xueshaoyi.github.io/post/2017/redis%E7%9A%84%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F/</link>
       <pubDate>Wed, 17 May 2017 13:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/redis%E7%9A%84%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/redis%E7%9A%84%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F/</guid>
       <description>Redis Sentinel是一个分布式系统，你可以在一个架构中运行多个 Sentinel 进程（progress）， 这些进程使用流言协议（gossip protocol</description>
     </item>
     
     <item>
       <title>HashMap的实现原理</title>
-      <link>http://xueshaoyi.github.io/post/2017/hashmap%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</link>
+      <link>https://xueshaoyi.github.io/post/2017/hashmap%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</link>
       <pubDate>Mon, 15 May 2017 13:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/hashmap%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/hashmap%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</guid>
       <description>HashMap概述： HashMap是基于哈希表的Map接口的非同步实现。此实现提供所有可选的映射操作，并允许使用null值和null键。此类</description>
     </item>
     
     <item>
       <title>Zookeeper</title>
-      <link>http://xueshaoyi.github.io/post/2017/zookeeper/</link>
+      <link>https://xueshaoyi.github.io/post/2017/zookeeper/</link>
       <pubDate>Thu, 11 May 2017 13:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/zookeeper/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/zookeeper/</guid>
       <description>Zookeeper概述 Zookeeper是一个工具，可以实现集群中的分布式协调服务。 所谓的分布式协调服务，就是在集群的节点中进行可靠的消息传</description>
     </item>
     
     <item>
       <title>HBase简单配置学习</title>
-      <link>http://xueshaoyi.github.io/post/2017/hbase%E9%85%8D%E7%BD%AE/</link>
+      <link>https://xueshaoyi.github.io/post/2017/hbase%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Fri, 14 Apr 2017 12:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/hbase%E9%85%8D%E7%BD%AE/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/hbase%E9%85%8D%E7%BD%AE/</guid>
       <description>一、HBASE概述 HBase是一个分布式的、面向列的开源数据库。HBase不同于一般关系数据库，它是一个适合于非结构化数据存储的数据库。另一</description>
     </item>
     
     <item>
       <title>Hadoop 特点 和缺点</title>
-      <link>http://xueshaoyi.github.io/post/2017/hadooptq/</link>
+      <link>https://xueshaoyi.github.io/post/2017/hadooptq/</link>
       <pubDate>Thu, 23 Mar 2017 12:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/hadooptq/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/hadooptq/</guid>
       <description>一、 Hadoop 特点 1、支持超大文件 一般来说，HDFS存储的文件可以支持TB和PB级别的数据。 2、检测和快速应对硬件故障 在集群环境中，硬件故障是常见性</description>
     </item>
     
     <item>
       <title>关于我</title>
-      <link>http://xueshaoyi.github.io/about/</link>
+      <link>https://xueshaoyi.github.io/about/</link>
       <pubDate>Mon, 20 Mar 2017 23:28:02 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/about/</guid>
+      <guid>https://xueshaoyi.github.io/about/</guid>
       <description>大家好，我叫薛少毅，是一名小小的程序猿。 我的经历 2013-2017 河北大学计算机科学与技术学院 2014-2016 河北大学中晋联合实验室 2016-至今 北京神州泰岳软件股份有限</description>
     </item>
     
     <item>
       <title>hadoop基本介绍及简单安装配置</title>
-      <link>http://xueshaoyi.github.io/post/2017/hadoopbase/</link>
+      <link>https://xueshaoyi.github.io/post/2017/hadoopbase/</link>
       <pubDate>Mon, 20 Mar 2017 12:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/hadoopbase/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/hadoopbase/</guid>
       <description>1、hadoop简单介绍 Hadoop实现了一个分布式文件系统（Hadoop Distributed File System），简称HDFS。HDFS有高容错性的特点，并且设</description>
     </item>
     

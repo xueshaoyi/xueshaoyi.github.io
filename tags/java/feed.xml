@@ -2,111 +2,111 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Java on Shao Yi`s Blog</title>
-    <link>http://xueshaoyi.github.io/tags/java/</link>
+    <link>https://xueshaoyi.github.io/tags/java/</link>
     <description>Recent content in Java on Shao Yi`s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Sat, 22 Jul 2017 13:13:19 +0800</lastBuildDate>
     
-	<atom:link href="http://xueshaoyi.github.io/tags/java/feed.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://xueshaoyi.github.io/tags/java/feed.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>LinkedList源码(1)</title>
-      <link>http://xueshaoyi.github.io/post/2017/linkedlist%E6%BA%90%E7%A0%811/</link>
+      <link>https://xueshaoyi.github.io/post/2017/linkedlist%E6%BA%90%E7%A0%811/</link>
       <pubDate>Sat, 22 Jul 2017 13:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/linkedlist%E6%BA%90%E7%A0%811/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/linkedlist%E6%BA%90%E7%A0%811/</guid>
       <description>在使用List的 时候经常是ArrayList和LinkedList他们两个各有千秋，根据自己的业务使用情况来使用，现在咱们看看LinkedL</description>
     </item>
     
     <item>
       <title>ArrayList源码(2)</title>
-      <link>http://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%812/</link>
+      <link>https://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%812/</link>
       <pubDate>Tue, 18 Jul 2017 18:49:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%812/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%812/</guid>
       <description>现在接着说ArrayList的另外一个常用方法remove(). remove同样也是存在两个方法 １. public E remove(int index) { rangeCheck(index); modCount++; E oldValue = elementData(index); int numMoved = size - index - 1; if</description>
     </item>
     
     <item>
       <title>java volatile</title>
-      <link>http://xueshaoyi.github.io/post/2017/java-volatile/</link>
+      <link>https://xueshaoyi.github.io/post/2017/java-volatile/</link>
       <pubDate>Tue, 18 Jul 2017 14:39:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/java-volatile/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/java-volatile/</guid>
       <description>volatile是共享变量“可见性”关键字，当该变量在一处更改后，在其他线程里读到的是这个修改后的值。它是轻量级的synchronized，</description>
     </item>
     
     <item>
       <title>ArrayList源码(1)</title>
-      <link>http://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%811/</link>
+      <link>https://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%811/</link>
       <pubDate>Tue, 18 Jul 2017 13:19:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%811/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%811/</guid>
       <description>ArrayList继承了AbstractList并实现了List接口。 三种初始化的方法： 第一种：规定List长度的参数 public ArrayList(int initialCapacity) { super(); if (initialCapacity &amp;lt; 0) throw new</description>
     </item>
     
     <item>
       <title>java的final关键字</title>
-      <link>http://xueshaoyi.github.io/post/2017/java%E7%9A%84final%E5%85%B3%E9%94%AE%E5%AD%97/</link>
+      <link>https://xueshaoyi.github.io/post/2017/java%E7%9A%84final%E5%85%B3%E9%94%AE%E5%AD%97/</link>
       <pubDate>Mon, 17 Jul 2017 13:13:55 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/java%E7%9A%84final%E5%85%B3%E9%94%AE%E5%AD%97/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/java%E7%9A%84final%E5%85%B3%E9%94%AE%E5%AD%97/</guid>
       <description>Java中的final关键字非常重要，它可以应用于类、方法以及变量。将变量，方法和类声明为final代表了什么？使用final的好处是什么？</description>
     </item>
     
     <item>
       <title>java transient关键字</title>
-      <link>http://xueshaoyi.github.io/post/2017/java-transient%E5%85%B3%E9%94%AE%E5%AD%97/</link>
+      <link>https://xueshaoyi.github.io/post/2017/java-transient%E5%85%B3%E9%94%AE%E5%AD%97/</link>
       <pubDate>Mon, 17 Jul 2017 13:10:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/java-transient%E5%85%B3%E9%94%AE%E5%AD%97/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/java-transient%E5%85%B3%E9%94%AE%E5%AD%97/</guid>
       <description>transient的作用和使用方法 我们都知道一个对象只要实现了Serilizable接口，这个对象就可以被序列化，java的这种序列化模式为</description>
     </item>
     
     <item>
       <title>ArrayList源码(3)</title>
-      <link>http://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%813/</link>
+      <link>https://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%813/</link>
       <pubDate>Mon, 17 Jul 2017 11:54:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%813/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%813/</guid>
       <description>前两篇写了add和remove相关的源码，现在剩下的是零散的一些和Itr、SubList、ListItr几个相关的代码，这些应用次数也多但是</description>
     </item>
     
     <item>
       <title>static特殊用法--Java包静态导入</title>
-      <link>http://xueshaoyi.github.io/post/2017/static%E7%89%B9%E6%AE%8A%E7%94%A8%E6%B3%95--java%E5%8C%85%E9%9D%99%E6%80%81%E5%AF%BC%E5%85%A5/</link>
+      <link>https://xueshaoyi.github.io/post/2017/static%E7%89%B9%E6%AE%8A%E7%94%A8%E6%B3%95--java%E5%8C%85%E9%9D%99%E6%80%81%E5%AF%BC%E5%85%A5/</link>
       <pubDate>Wed, 12 Jul 2017 14:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/static%E7%89%B9%E6%AE%8A%E7%94%A8%E6%B3%95--java%E5%8C%85%E9%9D%99%E6%80%81%E5%AF%BC%E5%85%A5/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/static%E7%89%B9%E6%AE%8A%E7%94%A8%E6%B3%95--java%E5%8C%85%E9%9D%99%E6%80%81%E5%AF%BC%E5%85%A5/</guid>
       <description>静态导包就是Java包的静态导入，用import static代替import静态导入包是JDK1.5中的新特性。 一般我们导入一个类都用 import co</description>
     </item>
     
     <item>
       <title>static{}静态块</title>
-      <link>http://xueshaoyi.github.io/post/2017/static%E9%9D%99%E6%80%81%E5%9D%97/</link>
+      <link>https://xueshaoyi.github.io/post/2017/static%E9%9D%99%E6%80%81%E5%9D%97/</link>
       <pubDate>Mon, 10 Jul 2017 13:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/static%E9%9D%99%E6%80%81%E5%9D%97/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/static%E9%9D%99%E6%80%81%E5%9D%97/</guid>
       <description>static{}静态块会在类被加载的时候执行一次，一般用来初始化静态变量和调用静态方法。 1、static{}语句块执行的时机，类被加载的准确</description>
     </item>
     
     <item>
       <title>static用法详解</title>
-      <link>http://xueshaoyi.github.io/post/2017/static%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/</link>
+      <link>https://xueshaoyi.github.io/post/2017/static%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/</link>
       <pubDate>Mon, 10 Jul 2017 13:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/static%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/static%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/</guid>
       <description>如果一个类成员被声明为static，它就能够在类的任何对象创建之前被访问，而不必引用任何对象。static 成员的最常见的例子是main( ) 。</description>
     </item>
     
     <item>
       <title>HashMap的实现原理</title>
-      <link>http://xueshaoyi.github.io/post/2017/hashmap%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</link>
+      <link>https://xueshaoyi.github.io/post/2017/hashmap%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</link>
       <pubDate>Mon, 15 May 2017 13:13:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/hashmap%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/hashmap%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</guid>
       <description>HashMap概述： HashMap是基于哈希表的Map接口的非同步实现。此实现提供所有可选的映射操作，并允许使用null值和null键。此类</description>
     </item>
     
