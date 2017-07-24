@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>Hibernate配置详细解释 - Shao Yi`s Blog</title>
+  <title>二叉树优化原理 - Shao Yi`s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="``` &lt;?xml version=&lsquo;1.0&rsquo; encoding=&lsquo;gb2312&rsquo;?&gt; &lt;!DOCTYPE hibernate-configuration PUBLIC &ldquo;-//Hibernate/Hibernate Configuration DTD 3.0//EN&rdquo; &ldquo;http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd&quot;&gt; &lt;!--声明Hibernate配置文件的开始--&gt; &lt;hibernate-configuration&gt; com.mysql.jdbc.Driver &lt;!--设置数据库的连接url:jdbc:m">
+  <meta name="description" content="二叉树 二叉树:每个节点的子树小于等于两个。 左子树都是比节点小的数，右子树是比节点大的数，根据操作次数判断经过的节点数。 因为内存空间有限，若数">
   
-  <meta itemprop="name" content="Hibernate配置详细解释 - Shao Yi`s Blog">
-  <meta itemprop="description" content="``` &lt;?xml version=&lsquo;1.0&rsquo; encoding=&lsquo;gb2312&rsquo;?&gt; &lt;!DOCTYPE hibernate-configuration PUBLIC &ldquo;-//Hibernate/Hibernate Configuration DTD 3.0//EN&rdquo; &ldquo;http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd&quot;&gt; &lt;!--声明Hibernate配置文件的开始--&gt; &lt;hibernate-configuration&gt; com.mysql.jdbc.Driver &lt;!--设置数据库的连接url:jdbc:m">
+  <meta itemprop="name" content="二叉树优化原理 - Shao Yi`s Blog">
+  <meta itemprop="description" content="二叉树 二叉树:每个节点的子树小于等于两个。 左子树都是比节点小的数，右子树是比节点大的数，根据操作次数判断经过的节点数。 因为内存空间有限，若数">
   <meta itemprop="image" content="http://xueshaoyi.github.io/img/author.jpg">
   
   
@@ -61,7 +61,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="http://xueshaoyi.github.io/post/datum/hibernate%E9%85%8D%E7%BD%AE%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A/" title="Hibernate配置详细解释" itemprop="url">Hibernate配置详细解释</a>
+      <a href="http://xueshaoyi.github.io/post/2017/datum/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%BC%98%E5%8C%96%E5%8E%9F%E7%90%86/" title="二叉树优化原理" itemprop="url">二叉树优化原理</a>
   </h1>
   <p class="article-author">By
     
@@ -69,7 +69,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2017-07-24 12:58:19 &#43;0800 CST" itemprop="datePublished">2017年07月24日</time>
+    <time datetime="2017-07-24 11:54:19 &#43;0800 CST" itemprop="datePublished">2017年07月24日</time>
   </p>
 </header>
 
@@ -80,109 +80,13 @@
       
 		</div>
     
-    <p>```<!--标准的XML文件的起始行，version='1.0'表明XML的版本，encoding='gb2312'表明XML文件的编码方式--> &lt;?xml version=&lsquo;1.0&rsquo; encoding=&lsquo;gb2312&rsquo;?&gt;
-<!--表明解析本XML文件的DTD文档位置，DTD是Document Type Definition 的缩写,即文档类型的定义,XML解析器使用DTD文档来检查XML文件的合法性。
-　　hibernate.sourceforge.net/hibernate-configuration-3.0dtd可以在Hibernate3.1.3软件包中的src\org\hibernate目录中找到此文件--> &lt;!DOCTYPE hibernate-configuration PUBLIC
-          &ldquo;-//Hibernate/Hibernate Configuration DTD 3.0//EN&rdquo;
-          &ldquo;<a href="http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd&quot;&gt;">http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd&quot;&gt;</a></p>
+    <p>二叉树</p>
 
-<pre><code>&lt;!--声明Hibernate配置文件的开始--&gt;      
-&lt;hibernate-configuration&gt; 
+<pre><code>    二叉树:每个节点的子树小于等于两个。
+    左子树都是比节点小的数，右子树是比节点大的数，根据操作次数判断经过的节点数。
+    因为内存空间有限，若数据量庞大则只能放在磁盘中。所以大数据的树存于磁盘中。但从内存中调取数据效率远远高于从磁盘中调取数据的效率，所以要提高磁盘IO的效率，就要减少访问磁盘的次数。所以降低树的高度，即可降低磁盘IO的次数。
+    最后，数据量庞大的时候用树是因为树的检索速度远远大于别的数据结构，尤其是大量数据的时候这个优势更明显。
 </code></pre>
-
-<p>　　<!--表明以下的配置是针对session-factory配置的，SessionFactory是Hibernate中的一个类，
-　　　　　  这个类主要负责保存HIbernate的配置信息，以及对Session的操作-->
-      <session-factory><br />
-      　　 <!--配置数据库的驱动程序，Hibernate在连接数据库时，需要用到数据库的驱动程序-->
-          <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver </property></p>
-
-<pre><code>  　　 &lt;!--设置数据库的连接url:jdbc:mysql://localhost/hibernate,其中localhost表示mysql服务器名称，此处为本机，    hibernate是数据库名--&gt;  
-      &lt;property name=&quot;hibernate.connection.url&quot;&gt;jdbc:mysql://localhost/hibernate&lt;/hibernate&gt; 
-
-　　　　&lt;!--连接数据库是用户名--&gt; 
-      &lt;property name=&quot;hibernate.connection.username&quot;&gt;root&lt;/property&gt; 
-
-      &lt;!--连接数据库是密码--&gt; 
-      &lt;property name=&quot;hibernate.connection.password&quot;&gt;123456 &lt;/property&gt;   
-
-      &lt;!--数据库连接池的大小--&gt; 
-      &lt;property name=&quot;hibernate.connection.pool.size&quot;&gt;20 &lt;/property&gt;    
-
-      &lt;!--是否在后台显示Hibernate用到的SQL语句，开发时设置为true，便于查错，程序运行时可以在Eclipse的控制台显示Hibernate的执行Sql语句。项目部署后可以设置为false，提高运行效率--&gt; 
-   　　&lt;property name=&quot;hibernate.show_sql&quot;&gt;true &lt;/property&gt; 
-
-      &lt;!--jdbc.fetch_size是指Hibernate每次从数据库中取出并放到JDBC的Statement中的记录条数。Fetch Size设的越大，读数据库的次数越少，速度越快，Fetch Size越小，读数据库的次数越多，速度越慢--&gt; 
-      &lt;property name=&quot;jdbc.fetch_size&quot;&gt;50 &lt;/property&gt; 
-
-      &lt;!--jdbc.batch_size是指Hibernate批量插入,删除和更新时每次操作的记录数。Batch Size越大， 批量操作的向数据库发送Sql的次数越少，速度就越快，同样耗用内存就越大--&gt; 
-      &lt;property name=&quot;jdbc.batch_size&quot;&gt;23 &lt;/property&gt; 
-
-      &lt;!--jdbc.use_scrollable_resultset是否允许Hibernate用JDBC的可滚动的结果集。对分页的结果集。对分页时的设置非常有帮助--&gt; 
-      &lt;property name=&quot;jdbc.use_scrollable_resultset&quot;&gt;false &lt;/property&gt; 
-
-      &lt;!--connection.useUnicode 连接数据库时是否使用Unicode编码--&gt; 
-      &lt;property name=&quot;Connection.useUnicode&quot;&gt;true &lt;/property&gt; 
-
-      &lt;!--connection.characterEncoding连接数据库时数据的传输字符集编码方式，最好设置为gbk，用gb2312有的字符不全--&gt; 
-      &lt;property name=&quot;connection.characterEncoding&quot;&gt;gbk &lt;/property&gt;      
-
-      &lt;!--hibernate.dialect 只是Hibernate使用的数据库方言,就是要用Hibernate连接那种类型的数据库服务器。--&gt; 
-      &lt;property name=&quot;hibernate.dialect&quot;&gt;org.hibernate.dialect.MySQLDialect &lt;/property&gt; 
-
-      &lt;!--指定映射文件为“hibernate/ch1/UserInfo.hbm.xml”--&gt;        
-      &lt;mapping resource=&quot;org/mxg/UserInfo.hbm.xml&quot;&gt;&lt;/session-factory&gt;&lt;/hibernate-configuration&gt;    &lt;bean id=&quot;dataSource&quot; class=&quot;org.apache.commons.dbcp.BasicDataSource&quot; destroy-method=&quot;close&quot;&gt;  
-</code></pre>
-
-<p>　　<!-- 连接驱动 -->
- 　　 <property name="driverClassName" value="${jdbc.driverClassName}" /><br />
-　　  <!-- 连接url -->     <property name="url" value="${jdbc.url}" /><br />
-     <!-- 连接用户名 --><br />
-     <property name="username" value="${jdbc.username}" /><br />
-     <!-- 连接密码   -->
-     <property name="password" value="${jdbc.password}" />    </bean><br />
-    <bean id="hbSessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"><br />
-  　　<property name="dataSource" ref="dataSource" /><br />
-  　　<property name="configLocation"><br />
-　　  　　<!-- hibernate配置文件位置    -->
-     　　<value>WEB-INF/hibernate.cfg.xml </value><br />
-  　　</property><br />
-  　　<property name="configurationClass"  value="org.hibernate.cfg.AnnotationConfiguration" /><br />
-  　　<property name="hibernateProperties"><br />
-  　　　　<props><br />
-  　　　　　　<!--针对oracle数据库的方言,特定的关系数据库生成优化的SQL    -->
-    　　　　 <prop key="hibernate.dialect">  org.hibernate.dialect.OracleDialect  </prop><br />
-  　　　　　　<!--选择HQL解析器的实现    -->
-    　　　　 <prop key="hibernate.query.factory_class">  org.hibernate.hql.ast.ASTQueryTranslatorFactory </prop><br />
-    　　　　 <!-- 是否在控制台打印sql语句    -->
-    　　　　 <prop key="hibernate.show_sql">true </prop><br />
-    　　　　 <!-- 在Hibernate系统参数中hibernate.use_outer_join被打开的情况下,该参数用来允许使用outer join来载入此集合的数据。    -->
-    　　　　 <prop key="hibernate.use_outer_join">true </prop><br />
-  　　　　　 <!-- 默认打开，启用cglib反射优化。cglib是用来在Hibernate中动态生成PO字节码的，打开优化可以加快字节码构造的速度    -->
-  　　　　　 <prop key="hibernate.cglib.use_reflection_optimizer">true </prop><br />
-  　　　　　 <!-- 输出格式化后的sql,更方便查看    -->
-  　　　　　 <prop key="hibernate.format_sql">true </prop><br />
-  　　　　　 <!-- “useUnicode”和“characterEncoding”决定了它是否在客户端和服务器端传输过程中进行Encode，以及如何进行Encode    -->
-  　　　　　 <prop key="hibernate.connection.useUnicode">true </prop><br />
-  　　　　　 <!-- 允许查询缓存, 个别查询仍然需要被设置为可缓存的.     -->
-  　　　　　 <prop key="hibernate.cache.use_query_cache">false </prop><br />
-  　　　　　 <prop key="hibernate.default_batch_fetch_size">16 </prop><br />
-   　　　　　<!--连接池的最大活动个数    -->
-    　　　  <prop key="hibernate.dbcp.maxActive">100 </prop><br />
-  　　　　　 <!-- 当连接池中的连接已经被耗尽的时候，DBCP将怎样处理(0 = 失败,1 = 等待,2  =  增长)    -->
-    　　　　<prop key="hibernate.dbcp.whenExhaustedAction">1 </prop><br />
-    　　　　<!-- 最大等待时间    -->
-    　　　　<prop key="hibernate.dbcp.maxWait">1200 </prop><br />
-    　　　　<!-- 没有人用连接的时候，最大闲置的连接个数     -- >
-   　　　　 <prop key="hibernate.dbcp.maxIdle">10 </prop>  
-    　　　　<!-- 以下是对prepared statement的处理，同上。  -->
-    　　　　<prop key="hibernate.dbcp.ps.maxActive">100 </prop><br />
-    　　　　<prop key="hibernate.dbcp.ps.whenExhaustedAction">1 </prop><br />
-    　　　　<prop key="hibernate.dbcp.ps.maxWait">1200 </prop><br />
-    　　　　<prop key="hibernate.dbcp.ps.maxIdle">10 </prop><br />
-  　　　　</props><br />
- 　　 </property><br />
-　　</bean><br />
-```</p>
 
 	</div>
   <footer class="article-footer clearfix">
@@ -191,7 +95,7 @@
 <div class="article-tags">
   <span></span>
   
-  <a href="http://xueshaoyi.github.io/tags/hibernate">Hibernate</a>
+  <a href="http://xueshaoyi.github.io/tags/tree">Tree</a>
   
 </div>
 
@@ -209,7 +113,7 @@
 
 
   <div class="article-share" id="share">
-    <div data-url="http://xueshaoyi.github.io/post/datum/hibernate%E9%85%8D%E7%BD%AE%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A/" data-title="Hibernate配置详细解释" data-tsina="1816308191" class="share clearfix">
+    <div data-url="http://xueshaoyi.github.io/post/2017/datum/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%BC%98%E5%8C%96%E5%8E%9F%E7%90%86/" data-title="二叉树优化原理" data-tsina="1816308191" class="share clearfix">
     </div>
   </div>
 </footer>
@@ -225,8 +129,8 @@
 
 
 var disqus_config = function () {
-this.page.url = "http://xueshaoyi.github.io/post/datum/hibernate%E9%85%8D%E7%BD%AE%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A/";
-this.page.identifier = "http://xueshaoyi.github.io/post/datum/hibernate%E9%85%8D%E7%BD%AE%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A/";
+this.page.url = "http://xueshaoyi.github.io/post/2017/datum/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%BC%98%E5%8C%96%E5%8E%9F%E7%90%86/";
+this.page.identifier = "http://xueshaoyi.github.io/post/2017/datum/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%BC%98%E5%8C%96%E5%8E%9F%E7%90%86/";
 };
 (function() { 
 var d = document, s = d.createElement('script');
