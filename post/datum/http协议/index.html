@@ -1,0 +1,1022 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>HTTP协议 - Shao Yi`s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+  
+  <meta name="description" content="什么是HTTP协议 HTTP是Hyper Text Transfer Protocol（超文本传输协议）的缩写。它的发展是万维网协会（World Wide Web Consortium">
+  
+  <meta itemprop="name" content="HTTP协议 - Shao Yi`s Blog">
+  <meta itemprop="description" content="什么是HTTP协议 HTTP是Hyper Text Transfer Protocol（超文本传输协议）的缩写。它的发展是万维网协会（World Wide Web Consortium">
+  <meta itemprop="image" content="http://xueshaoyi.github.io/img/author.jpg">
+  
+  
+  <meta name="twitter:description" content="">
+  
+  <link rel="shortcut icon" href="http://xueshaoyi.github.io/img/favicon.ico"/>
+  <link rel="apple-touch-icon" href="http://xueshaoyi.github.io/apple-touch-icon.png" />
+  <link rel="apple-touch-icon-precomposed" href="http://xueshaoyi.github.io/apple-touch-icon.png" />
+  <link rel="stylesheet" href="http://xueshaoyi.github.io/highlight/styles/github.css">
+  <script src="http://xueshaoyi.github.io/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="http://xueshaoyi.github.io/font/hack/css/hack.min.css">
+  <link rel="stylesheet" href="http://xueshaoyi.github.io/css/style.css">
+</head>
+
+<body>
+  <header>
+    <div>
+  
+  <div id="imglogo">
+    <a href="http://xueshaoyi.github.io/"><img src="http://xueshaoyi.github.io/img/shaoyi.jpg" style="border-radius: 50%;" alt="Shao Yi`s Blog" title="Shao Yi`s Blog"/></a>
+  </div>
+  
+  <div id="textlogo">
+    <h1 class="site-name"><a href="http://xueshaoyi.github.io/"  title="Shao Yi`s Blog">Shao Yi`s Blog</a></h1>
+    <h2 class="blog-motto">学海无涯，回头是岸啊！！！</h2>
+  </div>
+  <div class="navbar"><a class="navbutton navmobile" href="#" title="menu"></a></div>
+  <nav class="animated">
+    <ul>
+      
+      <li><a href="/">首页</a></li>
+      
+      <li><a href="/about">关于</a></li>
+      
+      <li>
+        <form class="search" method="get" action="https://www.google.com/search">
+          <div>
+            <input type="text" id="search" name="q" placeholder="">
+          </div>
+        </form>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+  </header>
+  <div id="container">
+    <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody">
+    <header class="article-info clearfix">
+  <h1 itemprop="name">
+      <a href="http://xueshaoyi.github.io/post/datum/http%E5%8D%8F%E8%AE%AE/" title="HTTP协议" itemprop="url">HTTP协议</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://github.com/xueshaoyi" title=""></a>
+    
+  </p>
+  <p class="article-time">
+    <time datetime="2017-07-24 11:54:19 &#43;0800 CST" itemprop="datePublished">2017年07月24日</time>
+  </p>
+</header>
+
+	<div class="article-content">
+    
+		<div class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#什么是http协议">什么是HTTP协议</a></li>
+<li><a href="#http的工作原理">HTTP的工作原理</a></li>
+<li><a href="#计算机相互之间的通信">计算机相互之间的通信</a></li>
+<li><a href="#ip-计算机之间的通信">IP：计算机之间的通信</a></li>
+<li><a href="#tcp-应用程序之间的通信">TCP : 应用程序之间的通信</a></li>
+<li><a href="#http工作过程">HTTP工作过程   ##    </a></li>
+<li><a href="#connection-keep-alive">Connection:keep-alive</a></li>
+<li><a href="#http协议的几个概念">HTTP协议的几个概念</a></li>
+<li><a href="#http协议详解之请求">HTTP协议详解之请求</a></li>
+<li><a href="#http协议详解之响应">HTTP协议详解之响应</a></li>
+<li><a href="#头域">头域</a></li>
+<li><a href="#http消息的头域">HTTP消息的头域</a></li>
+<li><a href="#cokie和session">Cokie和Session</a></li>
+<li><a href="#两者比较">两者比较</a></li>
+<li><a href="#session机制">Session机制</a></li>
+<li><a href="#web缓存机制">Web缓存机制</a></li>
+<li><a href="#https通信过程">https通信过程</a></li>
+<li><a href="#http代理">http代理</a></li>
+</ul></li>
+</ul>
+</nav>
+		</div>
+    
+    
+
+<h2 id="什么是http协议">什么是HTTP协议</h2>
+
+<p>HTTP是Hyper Text Transfer Protocol（超文本传输协议）的缩写。它的发展是万维网协会（World Wide Web Consortium）和Internet工作小组IETF（Internet Engineering Task Force）合作的结果，（他们）最终发布了一系列的RFC，RFC 1945定义了HTTP/1.0版本。其中最著名的就是RFC 2616。RFC 2616定义了今天普遍使用的一个版本——HTTP/</p>
+
+<p>1.1。HTTP协议是用于从WWW服务器传输超文本到本地浏览器的传送协议。它可以使浏览器更加高效，使网络传输减少。它不仅保证计算机正确快速地传输超文本文档，还确定传输文档中的哪一部分，以及哪部分内容首先显示(如文本先于图形)等。简单的来说：HTTP协议就是客户端与服务器之间通信时所共同遵循一个合约。</p>
+
+<h2 id="http的工作原理">HTTP的工作原理</h2>
+
+<p> 在了解HTTP如何工作之前，我们先了解计算机之间的通信。</p>
+
+<h2 id="计算机相互之间的通信">计算机相互之间的通信</h2>
+
+<p> 互联网的关键技术就是TCP/IP协议。两台计算机之间的通信是通过TCP/IP协议在因特网上进行的。实际上这个是两个协议：</p>
+
+<p>TCP : Transmission Control Protocol 传输控制协议和IP： Internet Protocol  网际协议。</p>
+
+<h2 id="ip-计算机之间的通信">IP：计算机之间的通信</h2>
+
+<p>IP协议是计算机用来相互识别的通信的一种机制，每台计算机都有一个IP.用来在internet上标识这台计算机。  IP 负责在因特网上发送和接收数据包。通过 IP，消息（或者其他数据）被分割为小的独立的包，并通过因特网在计算机之间传送。IP 负责将每个包路由至它的目的地。</p>
+
+<p>IP协议仅仅是允许计算机相互发消息，但它并不检查消息是否以发送的次序到达而且没有损坏（只检查关键的头数据）。为了提供消息检验功能，直接在IP协议上设计了传输控制协议TCP.</p>
+
+<h2 id="tcp-应用程序之间的通信">TCP : 应用程序之间的通信</h2>
+
+<p>TCP确保数据包以正确的次序到达，并且尝试确认数据包的内容没有改变。TCP在IP地址之上引端口（port），它允许计算机通过网络提供各种服务。一些端口号为不同的服务保留，而且这些端口号是众所周知。</p>
+
+<p>服务或者守护进程：在提供服务的机器上，有程序监听特定端口上的通信流。例如大多数电子邮件通信流出现在端口25上，用于wwww的HTTP通信流出现在80端口上。</p>
+
+<p>当应用程序希望通过 TCP 与另一个应用程序通信时，它会发送一个通信请求。这个请求必须被送到一个确切的地址。在双方“握手”之后，TCP 将在两个应用程序之间建立一个全双工 (full-duplex) 的通信，占用两个计算机之间整个的通信线路。TCP 用于从应用程序到网络的数据传输控制。TCP 负责在数据传送之前将它们分割为 IP 包，然后在它们到达的时候将它们重组。</p>
+
+<p>TCP/IP 就是TCP 和 IP 两个协议在一起协同工作，有上下层次的关系。</p>
+
+<p>TCP 负责应用软件（比如你的浏览器）和网络软件之间的通信。IP 负责计算机之间的通信。TCP 负责将数据分割并装入 IP 包，IP 负责将包发送至接受者，传输过程要经IP路由器负责根据通信量、网络中的错误或者其他参数来进行正确地寻址，然后在它们到达的时候重新组合它们。</p>
+
+<p>Ps:</p>
+
+<p>TCP&mdash;传输控制协议,提供的是面向连接、可靠的字节流服务。当客户和服务器彼此交换数据前，必须先在双方之间建立一个TCP连接，之后才能传输数据。TCP提供超时重发，丢弃重复数据，检验数据，流量控制等功能，保证数据能从一端传到另一端。TCP协议需要实现三次握手。</p>
+
+<p>UDP&mdash;用户数据报协议，是一个简单的面向数据报的运输层协议。UDP不提供可靠性，它只是把应用程序传给IP层的数据报发送出去，但是并不能保证它 们能到达目的地。由于UDP在传输数据报前不用在客户和服务器之间建立一个连接，且没有超时重发等机制，故而传输速度很快。
+HTTP是基于TCP协议之上的。在TCP/IP协议参考模型的各层对应的协议如下图,其中HTTP是应用层的协议。</p>
+
+<p>TTP由请求和响应构成，是一个标准的客户端服务器模型（B/S）。HTTP协议永远都是客户端发起请求，服务器回送响应。见下图:</p>
+
+<p>HTTP是一个无状态的协议。无状态是指客户机（Web浏览器）和服务器之间不需要建立持久的连接，这意味着当一个客户端向服务器端发出请求，然后服务器返回响应(response)，连接就被关闭了，在服务器端不保留连接的有关信息.HTTP遵循请求(Request)/应答(Response)模型。客户机（浏览器）向服务器发送请求，服务器处理请求并返回适当的应答。所有HTTP连接都被构造成一套请求和应答。
+HTTP 1.1支持持久连接，在一个TCP连接上可以传送多个HTTP请求和响应，减少了建立和关闭连接的消耗和延迟。</p>
+
+<h2 id="http工作过程">HTTP工作过程   ##    </h2>
+
+<p>一次HTTP操作称为一个事务，其工作整个过程如下：</p>
+
+<p>1 ) 、地址解析，</p>
+
+<p>如用客户端浏览器请求这个页面：<a href="http://localhost.com:8080/index.htm">http://localhost.com:8080/index.htm</a></p>
+
+<p>从中分解出协议名、主机名、端口、对象路径等部分，对于我们的这个地址，解析得到的结果如下：</p>
+
+<p>协议名：http</p>
+
+<p>主机名：localhost.com</p>
+
+<p>端口：8080</p>
+
+<p>对象路径：/index.htm</p>
+
+<p>在这一步，需要域名系统DNS解析域名localhost.com,得主机的IP地址。</p>
+
+<p>2）、封装HTTP请求数据包</p>
+
+<p>把以上部分结合本机自己的信息，封装成一个HTTP请求数据包</p>
+
+<p>3）封装成TCP包，建立TCP连接（TCP的三次握手）</p>
+
+<p>在HTTP工作开始之前，客户机（Web浏览器）首先要通过网络与服务器建立连接，该连接是通过TCP来完成的，该协议与IP协议共同构建Internet，即著名的TCP/IP协议族，因此Internet又被称作是TCP/IP网络。HTTP是比TCP更高层次的应用层协议，根据规则，只有低层协议建立之后才能，才能进行更层协议的连接，因此，首先要建立TCP连接，一般TCP连接的端口号是80。这里是8080端口</p>
+
+<p>4）客户机发送请求命令</p>
+
+<p>建立连接后，客户机发送一个请求给服务器，请求方式的格式为：统一资源标识符（URL）、协议版本号，后边是MIME信息包括请求修饰符、客户机信息和可内容。</p>
+
+<p>5）服务器响应</p>
+
+<p>服务器接到请求后，给予相应的响应信息，其格式为一个状态行，包括信息的协议版本号、一个成功或错误的代码，后边是MIME信息包括服务器信息、实体信息和可能的内容。</p>
+
+<p>实体消息是服务器向浏览器发送头信息后，它会发送一个空白行来表示头信息的发送到此为结束，接着，它就以Content-Type应答头信息所描述的格式发送用户所请求的实际数据</p>
+
+<p>6）服务器关闭TCP连接</p>
+
+<p>一般情况下，一旦Web服务器向浏览器发送了请求数据，它就要关闭TCP连接，然后如果浏览器或者服务器在其头信息加入了这行代码</p>
+
+<h2 id="connection-keep-alive">Connection:keep-alive</h2>
+
+<p>TCP连接在发送后将仍然保持打开状态，于是，浏览器可以继续通过相同的连接发送请求。保持连接节省了为每个请求建立新连接所需的时间，还节约了网络带宽。</p>
+
+<h2 id="http协议的几个概念">HTTP协议的几个概念</h2>
+
+<p>(1)连接：Connection</p>
+
+<p>一个传输层的实际环流，它是建立在两个相互通讯的应用程序之间。</p>
+
+<p>(2)消息：Message</p>
+
+<p>HTTP通讯的基本单位，包括一个结构化的八元组序列并通过连接传输。</p>
+
+<p>(3)请求：Request</p>
+
+<p>一个从客户端到服务器的请求信息包括应用于资源的方法、资源的标识符和协议的版本号。</p>
+
+<p>(4)响应：Response</p>
+
+<p>一个从服务器返回的信息包括HTTP协议的版本号、请求的状态(例如“成功”或“没找到”)和文档的MIME类型。</p>
+
+<p>(5)资源：Resource</p>
+
+<p>由URI标识的网络数据对象或服务。</p>
+
+<p>(6)实体：Entity</p>
+
+<p>数据资源或来自服务资源的回映的一种特殊表示方法，它可能被包围在一个请求或响应信息中。一个实体包括实体头信息和实体的本身内容。</p>
+
+<p>(7)客户机：Client</p>
+
+<p>一个为发送请求目的而建立连接的应用程序。</p>
+
+<p>(8)用户代理：UserAgent</p>
+
+<p>初始化一个请求的客户机。它们是浏览器、编辑器或其它用户工具。</p>
+
+<p>(9)服务器：Server</p>
+
+<p>一个接受连接并对请求返回信息的应用程序。</p>
+
+<p>(10)源服务器：Originserver</p>
+
+<p>是一个给定资源可以在其上驻留或被创建的服务器。</p>
+
+<p>(11)代理：Proxy</p>
+
+<p>一个中间程序，它可以充当一个服务器，也可以充当一个客户机，为其它客户机建立请求。请求是通过可能的翻译在内部或经过传递到其它的服务器中。一个代理在发送请求信息之前，必须解释并且如果可能重写它。代理经常作为通过防火墙的客户机端的门户，代理还可以作为一个帮助应用来通过协议处理没有被用户代理完成的请求。</p>
+
+<p>(12)网关：Gateway</p>
+
+<p>一个作为其它服务器中间媒介的服务器。与代理不同的是，网关接受请求就好象对被请求的资源来说它就是源服务器；发出请求的客户机并没有意识到它在同网关打交道。</p>
+
+<p>网关经常作为通过防火墙的服务器端的门户，网关还可以作为一个协议翻译器以便存取那些存储在非HTTP系统中的资源。</p>
+
+<p>(13)通道：Tunnel</p>
+
+<p>是作为两个连接中继的中介程序。一旦激活，通道便被认为不属于HTTP通讯，尽管通道可能是被一个HTTP请求初始化的。当被中继的连接两端关闭时，通道便消失。当一个门户(Portal)必须存在或中介(Intermediary)不能解释中继的通讯时通道被经常使用。</p>
+
+<p>(14)缓存：Cache</p>
+
+<p>反应信息的局域存储。</p>
+
+<h2 id="http协议详解之请求">HTTP协议详解之请求</h2>
+
+<p>Request 消息分为3部分，第一部分叫请求行， 第二部分叫http header, 第三部分是body. header和body之间有个空行， 结构如下图</p>
+
+<p>第一行中的Method表示请求方法，比如&rdquo;POST&rdquo;，&rdquo;GET&rdquo;，  Path-to-resoure表示请求的资源， Http/version-number 表示HTTP协议的版本号
+其中，HTTP的请求方法包括如下几种：
+GET     请求获取Request-URI所标识的资源
+POST    在Request-URI所标识的资源后附加新的数据
+HEAD    请求获取由Request-URI所标识的资源的响应消息报头
+PUT     请求服务器存储一个资源，并用Request-URI作为其标识
+DELETE  请求服务器删除Request-URI所标识的资源
+TRACE   请求服务器回送收到的请求信息，主要用于测试或诊断
+CONNECT 保留将来使用
+OPTIONS 请求查询服务器的性能，或者查询与资源相关的选项和需求
+除了post和put之外body都可以为空</p>
+
+<p>比如我们打开博客园首页的request 如下</p>
+
+<h2 id="http协议详解之响应">HTTP协议详解之响应</h2>
+
+<p>和Request消息的结构基本一样。 同样也分为三部分，第一部分叫request line, 第二部分叫request header，第三部分是body. header和body之间也有个空行，  结构如下图</p>
+
+<p>HTTP/version-number表示HTTP协议的版本号，  status-code 指的是状态码，message指的是状态消息。
+详细情况如下表</p>
+
+<h2 id="头域">头域</h2>
+
+<p>头域就是上文中请求和响应中的header</p>
+
+<p>当客户端向服务器发送一个HTTP请求时，请求一般包含了请求行（Request Line）、头（Header）和体（Body）。请求行包含了请求方法、资源路径和协议版本。请求体不是必须存在的，它包含了客户端发送给服务器的数据。请求头为服务器处理请求提供了额外的信息，例如客户端使用的语言和字符集等。当然如果没有请求头，服务器在大多数情况下也能够很好地处理请求，返回你所期望的结果。所以，请求头是客户端给服务器的附言，帮助服务器更好地处理请求。 简单地来说就是控制信息。</p>
+
+<h2 id="http消息的头域">HTTP消息的头域</h2>
+
+<p>General Headers</p>
+
+<p>通用头与消息类型无关，既可以出现在请求消息中，也可以出现在响应消息中。</p>
+
+<p>Connection：  指定连接参数，如Keep-Alive或close；</p>
+
+<p>Date： 消息创建的日期、时间戳；</p>
+
+<p>MIMIE-Version： 指出消息发送方正在使用的MIME版本；</p>
+
+<p>Trailer：</p>
+
+<p>Transfer-Encoding： 告诉消息接收方此消息的传输码；</p>
+
+<p>Upgrade： 消息发送方希望使用的新版本或协议；</p>
+
+<p>Via： 记录消息经过的中间节点，如proxy、gateway等；</p>
+
+<p>Cache-Control： Cache控制，下面包含多个头域，例如</p>
+
+<p>max-age：cache对象保持fresh的时间，超出这个时间时对象需要重新激活；</p>
+
+<p>s-maxage：与max-age类似；</p>
+
+<p>must-revalidate：对每次请求都必须重新激活，不使用fresh机制；</p>
+
+<p>no-store：不允许该对象被缓存；</p>
+
+<p>no-cache：与no-store类似；</p>
+
+<p>Pragma： Cache-Control的另一个方式，它也有no-cache头域；</p>
+
+<p>Request Headers</p>
+
+<p>Client-IP： Client端IP地址；</p>
+
+<p>From： Client端用户的Email地址；</p>
+
+<p>Host： Server端hostname和端口号；</p>
+
+<p>Referer：用户请求的来源URL，例如通过百度链接到一个政府网站，在访问这个政府网站时，百度就是这个Referer。</p>
+
+<p>User-Agent： 提供Client端User-Agent（Browser）信息。</p>
+
+<p>UA-OS： 提供Client端操作系统信息；</p>
+
+<p>UA-CPU： 提供Client端CPU信息；</p>
+
+<p>UA-Disp： 提供Client端显示器信息；</p>
+
+<p>UA-Pixels： 提供Client端显示器的像素信息；</p>
+
+<p>UA-Color： 提供Client端显示器的颜色信息；</p>
+
+<p>Accept： 告诉Server能够发送哪些类型的资源；</p>
+
+<p>Accept-Charset： 告诉Server能够发送哪些类型的字符集；</p>
+
+<p>Accept-Encoding： 告诉Server能够发送哪些类型的编码；</p>
+
+<p>Accept-Language： 告诉Server能够发送哪些类型的语言；
+TE： 告诉Server能够采取哪些扩展传输码（extension transfer
+codings）；</p>
+
+<p>Authorization： 客户端的验证数据（登录用户名和密码）；</p>
+
+<p>Cookie：Cookies是服务器为了辨别用户身份、进行session跟踪，由Server生成，发送给User-Agent（一般是浏览器），浏览器会将Cookie的key/value保存到某个目录下的文本文件内，下次请求同一网站时就发送该Cookie给服务器（前提是浏览器设置为启用cookie）。</p>
+
+<p>Cookie2：</p>
+
+<p>Max-Forwards： 请求能够转发（经过proxy或者gateway）的最大次数；</p>
+
+<p>Proxy-Authorization： 与Authorization类似；</p>
+
+<p>Proxy-Connetion： 与Connetion类似；</p>
+
+<p>Conditional Request Headers</p>
+
+<p>Expect： 列出所请求服务器的行为；</p>
+
+<p>If-Match： 实体标签（entity tag）匹配时，请求才有效；</p>
+
+<p>If-None-Match： 与If-Match相反；</p>
+
+<p>If-Modified-Since： 如果资源从某个时间点之后被修改过，就获取该资
+源；</p>
+
+<p>If-Unmodified-Since： 与If-Modified-Since相反；</p>
+
+<p>Range： 请求指定范围内的资源；</p>
+
+<p>If-Range： 允许对指定范围内的资源进行条件请求。</p>
+
+<p>Response Headers</p>
+
+<p>Age： 响应时间；</p>
+
+<p>Public： Server对其上面的资源能够支持的Method；</p>
+
+<p>Retry-After： 找不到资源时的重试时间；</p>
+
+<p>Server： Server应用程序的名称和版本；</p>
+
+<p>Title： 资源标题；</p>
+
+<p>Warning： 警告消息，比start-line中的reason phrase更丰富；</p>
+
+<p>Accept-Ranges：服务器能够接受资源类型的范围</p>
+
+<p>Vary：</p>
+
+<p>Set-Cookie：发往Client的Cookie，用于用户身份识别；</p>
+
+<p>Set-Cookie2：</p>
+
+<p>WWW-Authenticate：要求用户输入用户名和密码进行身份验证；</p>
+
+<p>Proxy-Authenticate：</p>
+
+<p>Entity Headers</p>
+
+<p>Allow：这个资源支持哪些Method（如GET、POST等）；</p>
+
+<p>Location：服务器返回302 Redirect时，指定客户端需要重定向的地址；</p>
+
+<p>Content-Base：</p>
+
+<p>Content-Encoding：消息中实体内容的编码（如是否压缩）；</p>
+
+<p>Content-Language：实体内容匹配的语言；</p>
+
+<p>Content-Type：实体内容的MIME类型，还可以指定支持的字符集
+charset，如Content-Type: text/html; charset=iso-8859-4。如果实体中包含了多个不同MIME类型的部分，可以使用下面的格式：
+Content-Type: multipart/form-data; boundary=[abcdefghijklmnopqrstuvwxyz]，其中，boundary 是指分隔不同部分的字符串。</p>
+
+<p>Content-Length：实体内容的长度；它可以用来判断一个消息是否有残缺；此外，在长连接中，无法使用关闭连接的信息来判定消息是否传送完毕，这个时候就需要Content-Length提供的信息；</p>
+
+<p>Content-Location：资源的位置；</p>
+
+<p>Content-MD5：实体内容的校验和；</p>
+
+<p>Content-Range：当传送的资源被分割成多个部分响应时，该头域指明了当
+前响应消息中的实体内容属于整体资源的哪个部分；
+ETag： 资源的版本号，可以用来判断过期的cache对象是否需要重新激
+活；</p>
+
+<p>Expires： cache对象的失效时间；</p>
+
+<p>Last-Modified： 资源的最后修改时间；</p>
+
+<p>Cache-Control：限定这个资源的缓存方法；</p>
+
+<h2 id="cokie和session">Cokie和Session</h2>
+
+<p>Cookie和Session都为了用来保存状态信息，都是保存客户端状态的机制，它们都是为了解决HTTP无状态的问题而所做的努力。
+Session可以用Cookie来实现，也可以用URL回写的机制来实现。用Cookie来实现的Session可以认为是对Cookie更高级的应用。</p>
+
+<h2 id="两者比较">两者比较</h2>
+
+<p>Cookie和Session有以下明显的不同点：</p>
+
+<p>1）Cookie将状态保存在客户端，Session将状态保存在服务器端；</p>
+
+<p>2）Cookies是服务器在本地机器上存储的小段文本并随每一个请求发送至
+同一个服务器。Cookie最早在RFC2109中实现，后续 RFC2965做了增强。网
+络服务器用HTTP头向客户端发送cookies，在客户终端，浏览器解析这些cookies并将它们保存为一个本地文件，它 会自动将同一服务器的任何请求缚上这些cookies。Session并没有在HTTP的协议中定义；</p>
+
+<p>3）Session是针对每一个用户的，变量的值保存在服务器上，用一个sessionID来区分是哪个用户session变量,这个值是通过用户的浏览器在访问的时候返回给服务器，当客户禁用cookie时，这个值也可能设置为由get来返回给服务器；</p>
+
+<p>4）就安全性来说：当你访问一个使用session 的站点，同时在自己机子上建立一个cookie，建议在服务器端的SESSION机制更安全些.因为它不会任意读取客户存储的信息。</p>
+
+<h2 id="session机制">Session机制</h2>
+
+<p>Session机制是一种服务器端的机制，服务器使用一种类似于散列表的结构（也可能就是使用散列表）来保存信息。</p>
+
+<p>当程序需要为某个客户端的请求创建一个session的时候，服务器首先检查这个客户端的请求里是否已包含了一个session标识 - 称 为 session id，如果已包含一个session id则说明以前已经为此客户端创建过session，服务器就按照session id把这 个 session检索出来使用（如果检索不到，可能会新建一个），如果客户端请求不包含session id，则为此客户端创建一个session并且 生成一个与此session相关联的session id，session id的值应该是一个既不会重复，又不容易被找到规律以仿造的字符串，这 个 session id将被在本次响应中返回给客户端保存。</p>
+
+<p> Session的实现方式</p>
+
+<p>服务器给每个Session分配一个唯一的JSESSIONID，并通过Cookie发送给客户端。</p>
+
+<p>当客户端发起新的请求的时候，将在Cookie头中携带这个JSESSIONID。这样服务器能够找到这个客户端对应的Session。
+流程如下图所示：</p>
+
+<p>与Cookie相关的HTTP扩展头</p>
+
+<p>1）Cookie：客户端将服务器设置的Cookie返回到服务器；</p>
+
+<p>2）Set-Cookie：服务器向客户端设置Cookie；</p>
+
+<p>3）Cookie2 (RFC2965)）：客户端指示服务器支持Cookie的版本；</p>
+
+<p>4）Set-Cookie2 (RFC2965)：服务器向客户端设置Cookie。</p>
+
+<p>Cookie的流程</p>
+
+<p>服务器在响应消息中用Set-Cookie头将Cookie的内容回送给客户端，客户端在新的请求中将相同的内容携带在Cookie头中发送给服务器。从而实现会话的保持。</p>
+
+<p>流程如下图所示：</p>
+
+<p>缓存的实现原理</p>
+
+<p>什么是Web缓存</p>
+
+<p>WEB缓存(cache)位于Web服务器和客户端之间。</p>
+
+<p>缓存会根据请求保存输出内容的副本，例如html页面，图片，文件，当下一个请求来到的时候：如果是相同的URL，缓存直接使用副本响应访问请求，而不是向源服务器再次发送请求。</p>
+
+<p>HTTP协议定义了相关的消息头来使WEB缓存尽可能好的工作。</p>
+
+<p>缓存的优点</p>
+
+<p>减少相应延迟：因为请求从缓存服务器（离客户端更近）而不是源服务器被
+相应，这个过程耗时更少，让web服务器看上去相应更快。
+减少网络带宽消耗：当副本被重用时会减低客户端的带宽消耗；客户可以节省带宽费用，控制带宽的需求的增长并更易于管理。</p>
+
+<p>与缓存相关的HTTP扩展消息头</p>
+
+<p>Expires：指示响应内容过期的时间，格林威治时间GMT</p>
+
+<p>Cache-Control：更细致的控制缓存的内容</p>
+
+<p>Last-Modified：响应中资源最后一次修改的时间</p>
+
+<p>ETag：响应中资源的校验值，在服务器上某个时段是唯一标识的。</p>
+
+<p>Date：服务器的时间</p>
+
+<p>If-Modified-Since：客户端存取的该资源最后一次修改的时间，同
+Last-Modified。</p>
+
+<p>If-None-Match：客户端存取的该资源的检验值，同ETag。</p>
+
+<p>客户端缓存生效的常见流程</p>
+
+<p>服务器收到请求时，会在200OK中回送该资源的Last-Modified和ETag头，客户端将该资源保存在cache中，并记录这两个属性。 当客户端需要发送相同的请求时，会在请求中携带If-Modified-Since和If-None-Match两个头。两个头的值分别是响应中 Last-Modified和ETag头的值。服务器通过这两个头判断本地资源未发生变化，客户端不需要重新下载，返回304响应。常见流程如下图所示：</p>
+
+<h2 id="web缓存机制">Web缓存机制</h2>
+
+<p>HTTP/1.1中缓存的目的是为了在很多情况下减少发送请求，同时在许多情况下可以不需要发送完整响应。前者减少了网络回路的数量；HTTP利用 一个“过期（expiration）”机制来为此目的。后者减少了网络应用的带宽；HTTP用“验证（validation）”机制来为此目的。</p>
+
+<p>HTTP定义了3种缓存机制：</p>
+
+<p>1）Freshness：允许一个回应消息可以在源服务器不被重新检查，并且可以由服务器和客户端来控制。例如，Expires回应头给了一个文档不可用的时间。Cache-Control中的max-age标识指明了缓存的最长时间；</p>
+
+<p>2）Validation：用来检查以一个缓存的回应是否仍然可用。例如，如果一个回应有一个Last-Modified回应头，缓存能够使用If-Modified-Since来判断是否已改变，以便判断根据情况发送请求；</p>
+
+<p>3）Invalidation： 在另一个请求通过缓存的时候，常常有一个副作用。例如，如果一个URL关联到一个缓存回应，但是其后跟着POST、PUT和DELETE的请求的话，缓存就会过期。</p>
+
+<h2 id="https通信过程">https通信过程</h2>
+
+<p>什么是https</p>
+
+<p>HTTPS（全称：Hypertext Transfer Protocol over Secure Socket Layer），是以安全为目标的HTTP通道，简单讲是HTTP的安全版。即HTTP下加入SSL层，HTTPS的安全基础是SSL。</p>
+
+<p>https所用的端口号是443。
+ https的实现原理</p>
+
+<p>有两种基本的加解密算法类型：</p>
+
+<p>1）对称加密：密钥只有一个，加密解密为同一个密码，且加解密速度快，
+典型的对称加密算法有DES、AES等；</p>
+
+<p>2）非对称加密：密钥成对出现（且根据公钥无法推知私钥，根据私钥也无
+法推知公钥），加密解密使用不同密钥（公钥加密需要私钥解密，私钥加密需要公钥解密），相对对称加密速度较慢，典型的非对称加密算法有RSA、DSA等。
+下面看一下https的通信过程：</p>
+
+<p>https通信的优点：</p>
+
+<p>1）客户端产生的密钥只有客户端和服务器端能得到；</p>
+
+<p>2）加密的数据只有客户端和服务器端才能得到明文；</p>
+
+<p>3）客户端到服务端的通信是安全的。</p>
+
+<h2 id="http代理">http代理</h2>
+
+<p>http代理服务器</p>
+
+<p>代理服务器英文全称是Proxy Server，其功能就是代理网络用户去取得网络信息。形象的说：它是网络信息的中转站。</p>
+
+<p>代理服务器是介于浏览器和Web服务器之间的一台服务器，有了它之后，浏览器不是直接到Web服务器去取回网页而是向代理服务器发出请求，Request信号会先送到代理服务器，由代理服务器来取回浏览器所需要的信息并传送给你的浏览器。</p>
+
+<p>而且，大部分代理服务器都具有缓冲的功能，就好象一个大的Cache，它有很大的存储空间，它不断将新取得数据储存到它本机的存储器上，如果浏览器 所请求的数据在它本机的存储器上已经存在而且是最新的，那么它就不重新从Web服务器取数据，而直接将存储器上的数据传送给用户的浏览器，这样就能显著提 高浏览速度和效率。</p>
+
+<p>更重要的是：Proxy Server(代理服务器)是Internet链路级网关所提供的一种重要的安全功能，它的工作主要在开放系统互联(OSI)模型的对话层。</p>
+
+<p>http代理服务器的主要功能</p>
+
+<p>主要功能如下：</p>
+
+<p>1）突破自身IP访问限制，访问国外站点。如：教育网、169网等网络用户可
+以通过代理访问国外网站；</p>
+
+<p>2）访问一些单位或团体内部资源，如某大学FTP(前提是该代理地址在该资源的允许访问范围之内)，使用教育网内地址段免费代理服务器，就可以用于对教育 网开放的各类FTP下载上传，以及各类资料查询共享等服务；</p>
+
+<p>3）突破中国电信的IP封锁：中国电信用户有很多网站是被限制访问的，这种限制是人为的，不同Serve对地址的封锁是不同的。所以不能访问时可以换一个国 外的代理服务器试试；</p>
+
+<p>4）提高访问速度：通常代理服务器都设置一个较大的硬盘缓冲区，当有外界的信息通过时，同时也将其保存到缓冲区中，当其他用户再访问相同的信息时， 则直接由缓冲区中取出信息，传给用户，以提高访问速度；</p>
+
+<p>5）隐藏真实IP：上网者也可以通过这种方法隐藏自己的IP，免受攻击。</p>
+
+<p>http代理图示</p>
+
+<p>http代理的图示见下图：</p>
+
+<p>对于客户端浏览器而言，http代理服务器相当于服务器。</p>
+
+<p>而对于Web服务器而言，http代理服务器又担当了客户端的角色。</p>
+
+<p>参考资料：<a href="http://www.cnblogs.com/hyddd/archive/2009/04/19/1438971.html">http://www.cnblogs.com/hyddd/archive/2009/04/19/1438971.html</a>
+<a href="https://www.zhihu.com/question/22477602/answer/28494252">https://www.zhihu.com/question/22477602/answer/28494252</a>
+<a href="http://zhidao.baidu.com/link?url=31aQud8mft_HFNl9lr-YfE4Y9zYJC4Q-EqsEFoP3Rk8SxP3_o_TFvU5FXzWQVMxHlCbJNWKY0aZ1gQDQI5hIA_">http://zhidao.baidu.com/link?url=31aQud8mft_HFNl9lr-YfE4Y9zYJC4Q-EqsEFoP3Rk8SxP3_o_TFvU5FXzWQVMxHlCbJNWKY0aZ1gQDQI5hIA_</a>
+<a href="http://zhidao.baidu.com/link?url=31aQud8mft_HFNl9lr-YfE4Y9zYJC4Q-EqsEFoP3Rk8SxP3_o_TFvU5FXzWQVMxHlCbJNWKY0aZ1gQDQI5hIA_">http://zhidao.baidu.com/link?url=31aQud8mft_HFNl9lr-YfE4Y9zYJC4Q-EqsEFoP3Rk8SxP3_o_TFvU5FXzWQVMxHlCbJNWKY0aZ1gQDQI5hIA_</a>
+<a href="http://kb.cnblogs.com/page/130970/#statecode">http://kb.cnblogs.com/page/130970/#statecode</a>
+<a href="http://blog.csdn.net/forgotaboutgirl/article/details/6893086">http://blog.csdn.net/forgotaboutgirl/article/details/6893086</a>
+<a href="http://blog.csdn.net/hguisu/article/details/8680808">http://blog.csdn.net/hguisu/article/details/8680808</a>
+<a href="http://my.oschina.net/u/159469/blog/313888">http://my.oschina.net/u/159469/blog/313888</a></p>
+
+	</div>
+  <footer class="article-footer clearfix">
+  
+
+<div class="article-tags">
+  <span></span>
+  
+  <a href="http://xueshaoyi.github.io/tags/http">Http</a>
+  
+</div>
+
+
+
+
+
+<div class="article-categories">
+  <span></span>
+  
+  <a class="article-category-link" href="http://xueshaoyi.github.io/categories/%E6%95%B4%E7%90%86%E8%B5%84%E6%96%99">整理资料</a>
+  
+</div>
+
+
+
+  <div class="article-share" id="share">
+    <div data-url="http://xueshaoyi.github.io/post/datum/http%E5%8D%8F%E8%AE%AE/" data-title="HTTP协议" data-tsina="1816308191" class="share clearfix">
+    </div>
+  </div>
+</footer>
+
+	</article>
+  
+
+
+<section class="comment">
+<div id="disqus_thread"></div>
+</section>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "http://xueshaoyi.github.io/post/datum/http%E5%8D%8F%E8%AE%AE/";
+this.page.identifier = "http://xueshaoyi.github.io/post/datum/http%E5%8D%8F%E8%AE%AE/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+
+s.src = '//xueshaoyi.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+</div>
+
+    <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+  
+
+<div class="categorieslist">
+  <p class="asidetitle">分类</p>
+  <ul>
+    
+    <li><a href="http://xueshaoyi.github.io/categories/github" title="github">github<sup>1</sup></a></li>
+    
+    <li><a href="http://xueshaoyi.github.io/categories/java%e5%9f%ba%e7%a1%80" title="java基础">java基础<sup>12</sup></a></li>
+    
+    <li><a href="http://xueshaoyi.github.io/categories/%e5%a4%a7%e6%95%b0%e6%8d%ae" title="大数据">大数据<sup>5</sup></a></li>
+    
+    <li><a href="http://xueshaoyi.github.io/categories/%e6%95%b0%e6%8d%ae%e5%ba%93" title="数据库">数据库<sup>2</sup></a></li>
+    
+    <li><a href="http://xueshaoyi.github.io/categories/%e6%95%b4%e7%90%86%e8%b5%84%e6%96%99" title="整理资料">整理资料<sup>5</sup></a></li>
+    
+  </ul>
+</div>
+
+
+
+  
+
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+      
+			<li><a href="http://xueshaoyi.github.io/tags/appache" title="appache">appache<sup>1</sup></a></li>
+      
+			<li><a href="http://xueshaoyi.github.io/tags/arraylist" title="arraylist">arraylist<sup>4</sup></a></li>
+      
+			<li><a href="http://xueshaoyi.github.io/tags/bigdata" title="bigdata">bigdata<sup>3</sup></a></li>
+      
+			<li><a href="http://xueshaoyi.github.io/tags/concurrenthashmap" title="concurrenthashmap">concurrenthashmap<sup>1</sup></a></li>
+      
+			<li><a href="http://xueshaoyi.github.io/tags/final" title="final">final<sup>1</sup></a></li>
+      
+			<li><a href="http://xueshaoyi.github.io/tags/git" title="git">git<sup>1</sup></a></li>
+      
+			<li><a href="http://xueshaoyi.github.io/tags/hadoop" title="hadoop">hadoop<sup>3</sup></a></li>
+      
+			<li><a href="http://xueshaoyi.github.io/tags/hashmap" title="hashmap">hashmap<sup>2</sup></a></li>
+      
+			<li><a href="http://xueshaoyi.github.io/tags/hashtable" title="hashtable">hashtable<sup>1</sup></a></li>
+      
+			<li><a href="http://xueshaoyi.github.io/tags/hbase" title="hbase">hbase<sup>1</sup></a></li>
+      
+			<li><a href="http://xueshaoyi.github.io/tags/hibernate" title="hibernate">hibernate<sup>1</sup></a></li>
+      
+			<li><a href="http://xueshaoyi.github.io/tags/http" title="http">http<sup>1</sup></a></li>
+      
+			<li><a href="http://xueshaoyi.github.io/tags/java" title="java">java<sup>12</sup></a></li>
+      
+			<li><a href="http://xueshaoyi.github.io/tags/mysql" title="mysql">mysql<sup>1</sup></a></li>
+      
+			<li><a href="http://xueshaoyi.github.io/tags/redis" title="redis">redis<sup>1</sup></a></li>
+      
+			<li><a href="http://xueshaoyi.github.io/tags/static" title="static">static<sup>3</sup></a></li>
+      
+			<li><a href="http://xueshaoyi.github.io/tags/transient" title="transient">transient<sup>1</sup></a></li>
+      
+			<li><a href="http://xueshaoyi.github.io/tags/tree" title="tree">tree<sup>1</sup></a></li>
+      
+			<li><a href="http://xueshaoyi.github.io/tags/volatile" title="volatile">volatile<sup>1</sup></a></li>
+      
+			<li><a href="http://xueshaoyi.github.io/tags/zookeeper" title="zookeeper">zookeeper<sup>2</sup></a></li>
+      
+			<li><a href="http://xueshaoyi.github.io/tags/%e7%b1%bb%e5%8a%a0%e8%bd%bd" title="类加载">类加载<sup>1</sup></a></li>
+      
+		</ul>
+</div>
+
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle">归档</p>
+    <ul class="archive-list">
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="http://xueshaoyi.github.io/post/#2017-07">2017年07月</a><span class="archive-list-count">16</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="http://xueshaoyi.github.io/post/#2017-06">2017年06月</a><span class="archive-list-count">2</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="http://xueshaoyi.github.io/post/#2017-05">2017年05月</a><span class="archive-list-count">4</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="http://xueshaoyi.github.io/post/#2017-04">2017年04月</a><span class="archive-list-count">1</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="http://xueshaoyi.github.io/post/#2017-03">2017年03月</a><span class="archive-list-count">2</span>
+      </li>
+      
+    </ul>
+
+  </div>
+
+
+  
+
+<div class="tagcloudlist">
+  <p class="asidetitle">标签云</p>
+  <div class="tagcloudlist clearfix">
+    
+    <a href="http://xueshaoyi.github.io/tags/appache" style="font-size: 12px;">appache</a>
+    
+    <a href="http://xueshaoyi.github.io/tags/arraylist" style="font-size: 12px;">arraylist</a>
+    
+    <a href="http://xueshaoyi.github.io/tags/bigdata" style="font-size: 12px;">bigdata</a>
+    
+    <a href="http://xueshaoyi.github.io/tags/concurrenthashmap" style="font-size: 12px;">concurrenthashmap</a>
+    
+    <a href="http://xueshaoyi.github.io/tags/final" style="font-size: 12px;">final</a>
+    
+    <a href="http://xueshaoyi.github.io/tags/git" style="font-size: 12px;">git</a>
+    
+    <a href="http://xueshaoyi.github.io/tags/hadoop" style="font-size: 12px;">hadoop</a>
+    
+    <a href="http://xueshaoyi.github.io/tags/hashmap" style="font-size: 12px;">hashmap</a>
+    
+    <a href="http://xueshaoyi.github.io/tags/hashtable" style="font-size: 12px;">hashtable</a>
+    
+    <a href="http://xueshaoyi.github.io/tags/hbase" style="font-size: 12px;">hbase</a>
+    
+    <a href="http://xueshaoyi.github.io/tags/hibernate" style="font-size: 12px;">hibernate</a>
+    
+    <a href="http://xueshaoyi.github.io/tags/http" style="font-size: 12px;">http</a>
+    
+    <a href="http://xueshaoyi.github.io/tags/java" style="font-size: 12px;">java</a>
+    
+    <a href="http://xueshaoyi.github.io/tags/mysql" style="font-size: 12px;">mysql</a>
+    
+    <a href="http://xueshaoyi.github.io/tags/redis" style="font-size: 12px;">redis</a>
+    
+    <a href="http://xueshaoyi.github.io/tags/static" style="font-size: 12px;">static</a>
+    
+    <a href="http://xueshaoyi.github.io/tags/transient" style="font-size: 12px;">transient</a>
+    
+    <a href="http://xueshaoyi.github.io/tags/tree" style="font-size: 12px;">tree</a>
+    
+    <a href="http://xueshaoyi.github.io/tags/volatile" style="font-size: 12px;">volatile</a>
+    
+    <a href="http://xueshaoyi.github.io/tags/zookeeper" style="font-size: 12px;">zookeeper</a>
+    
+    <a href="http://xueshaoyi.github.io/tags/%e7%b1%bb%e5%8a%a0%e8%bd%bd" style="font-size: 12px;">类加载</a>
+    
+  </div>
+</div>
+
+
+
+</aside>
+</div>
+
+  </div>
+  <footer><div id="footer" >
+  
+  <div class="line">
+    <span></span>
+    <div style='background:no-repeat url("http://xueshaoyi.github.io/img/Java.jpg") left top;-webkit-background-size:6.875em 6.875em;-moz-background-size:6.875em 6.875em;background-size:6.875em 6.875em;' class="author" ></div>
+  </div>
+  
+  
+  <section class="info">
+    <p>百年不变勤苍史 <br/> 如今只争学技书</p>
+  </section>
+  
+  <div class="social-font clearfix">
+    
+    <a href="http://weibo.com/Leo" target="_blank" title="weibo"></a>
+    
+    
+    
+    <a href="https://github.com/xueshaoyi" target="_blank" title="github"></a>
+    
+    
+    
+  </div>
+  <p class="copyright">Powered by <a href="http://gohugo.io" target="_blank" title="hugo">hugo</a> and Theme by <a href="https://github.com/coderzh/hugo-pacman-theme" target="_blank" title="hugo-pacman-theme">hugo-pacman-theme</a> © 2017
+    
+    <a href="http://xueshaoyi.github.io/" title="Shao Yi`s Blog">Shao Yi`s Blog</a>
+    
+  </p>
+</div>
+</footer>
+  <script src="http://xueshaoyi.github.io/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+done = false;
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  $('form.search').on('submit', function (event) {
+    if (false === done) {
+      event.preventDefault();
+      var orgVal = $(this).find('#search').val();
+      $(this).find('#search').val('site:http:\/\/xueshaoyi.github.io\/ ' + orgVal);
+      done = true;
+      $(this).submit();
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+<link rel="stylesheet" href="http://xueshaoyi.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="http://xueshaoyi.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-10147768-2', 'auto');
+  ga('send', 'pageview');
+  $('#messagesbsb').remove();
+</script>
+
+
+
+</body>
+</html>

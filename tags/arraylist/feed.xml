@@ -2,48 +2,48 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Arraylist on Shao Yi`s Blog</title>
-    <link>https://xueshaoyi.github.io/tags/arraylist/</link>
+    <link>http://xueshaoyi.github.io/tags/arraylist/</link>
     <description>Recent content in Arraylist on Shao Yi`s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Sat, 22 Jul 2017 13:13:19 +0800</lastBuildDate>
     
-	<atom:link href="https://xueshaoyi.github.io/tags/arraylist/feed.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://xueshaoyi.github.io/tags/arraylist/feed.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>LinkedList源码(1)</title>
-      <link>https://xueshaoyi.github.io/post/2017/linkedlist%E6%BA%90%E7%A0%811/</link>
+      <link>http://xueshaoyi.github.io/post/2017/linkedlist%E6%BA%90%E7%A0%811/</link>
       <pubDate>Sat, 22 Jul 2017 13:13:19 +0800</pubDate>
       
-      <guid>https://xueshaoyi.github.io/post/2017/linkedlist%E6%BA%90%E7%A0%811/</guid>
+      <guid>http://xueshaoyi.github.io/post/2017/linkedlist%E6%BA%90%E7%A0%811/</guid>
       <description>在使用List的 时候经常是ArrayList和LinkedList他们两个各有千秋，根据自己的业务使用情况来使用，现在咱们看看LinkedL</description>
     </item>
     
     <item>
       <title>ArrayList源码(2)</title>
-      <link>https://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%812/</link>
+      <link>http://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%812/</link>
       <pubDate>Tue, 18 Jul 2017 18:49:19 +0800</pubDate>
       
-      <guid>https://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%812/</guid>
+      <guid>http://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%812/</guid>
       <description>现在接着说ArrayList的另外一个常用方法remove(). remove同样也是存在两个方法 １. public E remove(int index) { rangeCheck(index); modCount++; E oldValue = elementData(index); int numMoved = size - index - 1; if</description>
     </item>
     
     <item>
       <title>ArrayList源码(1)</title>
-      <link>https://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%811/</link>
+      <link>http://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%811/</link>
       <pubDate>Tue, 18 Jul 2017 13:19:19 +0800</pubDate>
       
-      <guid>https://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%811/</guid>
+      <guid>http://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%811/</guid>
       <description>ArrayList继承了AbstractList并实现了List接口。 三种初始化的方法： 第一种：规定List长度的参数 public ArrayList(int initialCapacity) { super(); if (initialCapacity &amp;lt; 0) throw new</description>
     </item>
     
     <item>
       <title>ArrayList源码(3)</title>
-      <link>https://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%813/</link>
+      <link>http://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%813/</link>
       <pubDate>Mon, 17 Jul 2017 11:54:19 +0800</pubDate>
       
-      <guid>https://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%813/</guid>
+      <guid>http://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%813/</guid>
       <description>前两篇写了add和remove相关的源码，现在剩下的是零散的一些和Itr、SubList、ListItr几个相关的代码，这些应用次数也多但是</description>
     </item>
     
