@@ -6,19 +6,10 @@
     <description>Recent content in Tags on Shao Yi`s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 24 Jul 2017 11:54:19 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 22 Jul 2017 13:13:19 +0800</lastBuildDate>
     
 	<atom:link href="http://xueshaoyi.github.io/tags/feed.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Appache</title>
-      <link>http://xueshaoyi.github.io/tags/appache/</link>
-      <pubDate>Mon, 24 Jul 2017 11:54:19 +0800</pubDate>
-      
-      <guid>http://xueshaoyi.github.io/tags/appache/</guid>
-      <description></description>
-    </item>
     
     <item>
       <title>Arraylist</title>
@@ -102,27 +93,9 @@
     </item>
     
     <item>
-      <title>Hibernate</title>
-      <link>http://xueshaoyi.github.io/tags/hibernate/</link>
-      <pubDate>Mon, 24 Jul 2017 12:58:19 +0800</pubDate>
-      
-      <guid>http://xueshaoyi.github.io/tags/hibernate/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Http</title>
-      <link>http://xueshaoyi.github.io/tags/http/</link>
-      <pubDate>Mon, 24 Jul 2017 11:54:19 +0800</pubDate>
-      
-      <guid>http://xueshaoyi.github.io/tags/http/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Java</title>
       <link>http://xueshaoyi.github.io/tags/java/</link>
-      <pubDate>Mon, 24 Jul 2017 11:54:19 +0800</pubDate>
+      <pubDate>Sat, 22 Jul 2017 13:13:19 +0800</pubDate>
       
       <guid>http://xueshaoyi.github.io/tags/java/</guid>
       <description></description>
@@ -165,15 +138,6 @@
     </item>
     
     <item>
-      <title>Tree</title>
-      <link>http://xueshaoyi.github.io/tags/tree/</link>
-      <pubDate>Mon, 24 Jul 2017 11:54:19 +0800</pubDate>
-      
-      <guid>http://xueshaoyi.github.io/tags/tree/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Volatile</title>
       <link>http://xueshaoyi.github.io/tags/volatile/</link>
       <pubDate>Tue, 18 Jul 2017 14:39:19 +0800</pubDate>
@@ -188,15 +152,6 @@
       <pubDate>Tue, 27 Jun 2017 13:13:19 +0800</pubDate>
       
       <guid>http://xueshaoyi.github.io/tags/zookeeper/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>类加载</title>
-      <link>http://xueshaoyi.github.io/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD/</link>
-      <pubDate>Mon, 24 Jul 2017 11:54:19 +0800</pubDate>
-      
-      <guid>http://xueshaoyi.github.io/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD/</guid>
       <description></description>
     </item>
     
