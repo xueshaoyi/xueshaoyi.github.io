@@ -2,57 +2,57 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>整理资料 on Shao Yi`s Blog</title>
-    <link>http://xueshaoyi.github.io/categories/%E6%95%B4%E7%90%86%E8%B5%84%E6%96%99/</link>
+    <link>https://xueshaoyi.github.io/categories/%E6%95%B4%E7%90%86%E8%B5%84%E6%96%99/</link>
     <description>Recent content in 整理资料 on Shao Yi`s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Mon, 24 Jul 2017 12:58:19 +0800</lastBuildDate>
     
-	<atom:link href="http://xueshaoyi.github.io/categories/%E6%95%B4%E7%90%86%E8%B5%84%E6%96%99/feed.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://xueshaoyi.github.io/categories/%E6%95%B4%E7%90%86%E8%B5%84%E6%96%99/feed.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Hibernate配置详细解释</title>
-      <link>http://xueshaoyi.github.io/post/2017/datum/hibernate%E9%85%8D%E7%BD%AE%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A/</link>
+      <link>https://xueshaoyi.github.io/post/2017/datum/hibernate%E9%85%8D%E7%BD%AE%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A/</link>
       <pubDate>Mon, 24 Jul 2017 12:58:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/datum/hibernate%E9%85%8D%E7%BD%AE%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/datum/hibernate%E9%85%8D%E7%BD%AE%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A/</guid>
       <description>``` &amp;lt;?xml version=&amp;lsquo;1.0&amp;rsquo; encoding=&amp;lsquo;gb2312&amp;rsquo;?&amp;gt; &amp;lt;!DOCTYPE hibernate-configuration PUBLIC &amp;ldquo;-//Hibernate/Hibernate Configuration DTD 3.0//EN&amp;rdquo; &amp;ldquo;http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd&amp;quot;&amp;gt; &amp;lt;!--声明Hibernate配置文件的开始--&amp;gt; &amp;lt;hibernate-configuration&amp;gt; com.mysql.jdbc.Driver &amp;lt;!--设置数据库的连接url:jdbc:m</description>
     </item>
     
     <item>
       <title>HTTP协议</title>
-      <link>http://xueshaoyi.github.io/post/2017/datum/http%E5%8D%8F%E8%AE%AE/</link>
+      <link>https://xueshaoyi.github.io/post/2017/datum/http%E5%8D%8F%E8%AE%AE/</link>
       <pubDate>Mon, 24 Jul 2017 11:54:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/datum/http%E5%8D%8F%E8%AE%AE/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/datum/http%E5%8D%8F%E8%AE%AE/</guid>
       <description>什么是HTTP协议 HTTP是Hyper Text Transfer Protocol（超文本传输协议）的缩写。它的发展是万维网协会（World Wide Web Consortium</description>
     </item>
     
     <item>
       <title>Java动态加载类</title>
-      <link>http://xueshaoyi.github.io/post/2017/datum/java%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E7%B1%BB/</link>
+      <link>https://xueshaoyi.github.io/post/2017/datum/java%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E7%B1%BB/</link>
       <pubDate>Mon, 24 Jul 2017 11:54:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/datum/java%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E7%B1%BB/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/datum/java%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E7%B1%BB/</guid>
       <description>Class.forName(类的全称);不仅表示类的类类型也表示动态加载类 要区分编译和运行 编译时刻加载类是静态加载类，运行时刻加载类是动态加</description>
     </item>
     
     <item>
       <title>apache 目录权限设置方法</title>
-      <link>http://xueshaoyi.github.io/post/2017/datum/apache-%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%B3%95/</link>
+      <link>https://xueshaoyi.github.io/post/2017/datum/apache-%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%B3%95/</link>
       <pubDate>Mon, 24 Jul 2017 11:54:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/datum/apache-%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%B3%95/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/datum/apache-%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%B3%95/</guid>
       <description>apache 目录权限设置方法 可以使用和这对语句为主目录或虚拟目录设置权限，它们是一对容器语句，必须成对出现，它们之间封装的是具体的设置目录权限语句，这</description>
     </item>
     
     <item>
       <title>二叉树优化原理</title>
-      <link>http://xueshaoyi.github.io/post/2017/datum/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%BC%98%E5%8C%96%E5%8E%9F%E7%90%86/</link>
+      <link>https://xueshaoyi.github.io/post/2017/datum/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%BC%98%E5%8C%96%E5%8E%9F%E7%90%86/</link>
       <pubDate>Mon, 24 Jul 2017 11:54:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/datum/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%BC%98%E5%8C%96%E5%8E%9F%E7%90%86/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/datum/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%BC%98%E5%8C%96%E5%8E%9F%E7%90%86/</guid>
       <description>二叉树 二叉树:每个节点的子树小于等于两个。 左子树都是比节点小的数，右子树是比节点大的数，根据操作次数判断经过的节点数。 因为内存空间有限，若数</description>
     </item>
     

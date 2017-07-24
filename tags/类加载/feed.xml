@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>类加载 on Shao Yi`s Blog</title>
-    <link>http://xueshaoyi.github.io/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD/</link>
+    <link>https://xueshaoyi.github.io/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD/</link>
     <description>Recent content in 类加载 on Shao Yi`s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Mon, 24 Jul 2017 11:54:19 +0800</lastBuildDate>
     
-	<atom:link href="http://xueshaoyi.github.io/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD/feed.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://xueshaoyi.github.io/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD/feed.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Java动态加载类</title>
-      <link>http://xueshaoyi.github.io/post/2017/datum/java%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E7%B1%BB/</link>
+      <link>https://xueshaoyi.github.io/post/2017/datum/java%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E7%B1%BB/</link>
       <pubDate>Mon, 24 Jul 2017 11:54:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/datum/java%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E7%B1%BB/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/datum/java%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E7%B1%BB/</guid>
       <description>Class.forName(类的全称);不仅表示类的类类型也表示动态加载类 要区分编译和运行 编译时刻加载类是静态加载类，运行时刻加载类是动态加</description>
     </item>
     

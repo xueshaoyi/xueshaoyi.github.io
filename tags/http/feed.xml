@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Http on Shao Yi`s Blog</title>
-    <link>http://xueshaoyi.github.io/tags/http/</link>
+    <link>https://xueshaoyi.github.io/tags/http/</link>
     <description>Recent content in Http on Shao Yi`s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Mon, 24 Jul 2017 11:54:19 +0800</lastBuildDate>
     
-	<atom:link href="http://xueshaoyi.github.io/tags/http/feed.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://xueshaoyi.github.io/tags/http/feed.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>HTTP协议</title>
-      <link>http://xueshaoyi.github.io/post/2017/datum/http%E5%8D%8F%E8%AE%AE/</link>
+      <link>https://xueshaoyi.github.io/post/2017/datum/http%E5%8D%8F%E8%AE%AE/</link>
       <pubDate>Mon, 24 Jul 2017 11:54:19 +0800</pubDate>
       
-      <guid>http://xueshaoyi.github.io/post/2017/datum/http%E5%8D%8F%E8%AE%AE/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/datum/http%E5%8D%8F%E8%AE%AE/</guid>
       <description>什么是HTTP协议 HTTP是Hyper Text Transfer Protocol（超文本传输协议）的缩写。它的发展是万维网协会（World Wide Web Consortium</description>
     </item>
     
