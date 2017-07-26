@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Shao Yi`s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 22 Jul 2017 13:13:19 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 26 Jul 2017 12:50:19 +0800</lastBuildDate>
     
 	<atom:link href="https://xueshaoyi.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>LinkedList源码(2)</title>
+      <link>https://xueshaoyi.github.io/post/2017/linkedlist%E6%BA%90%E7%A0%812/</link>
+      <pubDate>Wed, 26 Jul 2017 12:50:19 +0800</pubDate>
+      
+      <guid>https://xueshaoyi.github.io/post/2017/linkedlist%E6%BA%90%E7%A0%812/</guid>
+      <description>现在聊LinkedList的peek操作，这个操作都是进行输出参数，不会删除相关Node的。 /** * Retrieves, but does not remove, the first element of this list, * or returns {@code null} if this list is empty. *</description>
+    </item>
     
     <item>
       <title>LinkedList源码(1)</title>
