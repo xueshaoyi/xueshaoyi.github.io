@@ -13,10 +13,10 @@
     
     <item>
       <title>Java动态加载类</title>
-      <link>https://xueshaoyi.github.io/post/2017/datum/java%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E7%B1%BB/</link>
+      <link>https://xueshaoyi.github.io/datum/java%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E7%B1%BB/</link>
       <pubDate>Mon, 24 Jul 2017 11:54:19 +0800</pubDate>
       
-      <guid>https://xueshaoyi.github.io/post/2017/datum/java%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E7%B1%BB/</guid>
+      <guid>https://xueshaoyi.github.io/datum/java%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E7%B1%BB/</guid>
       <description>Class.forName(类的全称);不仅表示类的类类型也表示动态加载类 要区分编译和运行 编译时刻加载类是静态加载类，运行时刻加载类是动态加</description>
     </item>
     

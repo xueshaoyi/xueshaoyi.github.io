@@ -2,18 +2,18 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>Hbase - Shao Yi`s Blog</title>
+  <title>二叉树优化原理 - Shao Yi`s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="Hbase">
+  <meta name="description" content="二叉树 二叉树:每个节点的子树小于等于两个。 左子树都是比节点小的数，右子树是比节点大的数，根据操作次数判断经过的节点数。 因为内存空间有限，若数">
   
-  <meta itemprop="name" content="Hbase - Shao Yi`s Blog">
-  <meta itemprop="description" content="Hbase">
+  <meta itemprop="name" content="二叉树优化原理 - Shao Yi`s Blog">
+  <meta itemprop="description" content="二叉树 二叉树:每个节点的子树小于等于两个。 左子树都是比节点小的数，右子树是比节点大的数，根据操作次数判断经过的节点数。 因为内存空间有限，若数">
   <meta itemprop="image" content="https://xueshaoyi.github.ioimg/author.jpg">
   
   
   <meta name="twitter:description" content="">
-  <link rel="alternate" href="https://xueshaoyi.github.iofeed.xml" title="Shao Yi`s Blog" type="application/rss+xml"/>
+  
   <link rel="shortcut icon" href="https://xueshaoyi.github.ioimg/favicon.ico"/>
   <link rel="apple-touch-icon" href="https://xueshaoyi.github.ioapple-touch-icon.png" />
   <link rel="apple-touch-icon-precomposed" href="https://xueshaoyi.github.ioapple-touch-icon.png" />
@@ -59,21 +59,94 @@
 
   </header>
   <div id="container">
-    <div id="main">
-      
-      <h2 id="2017-04">2017-04</h2>
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://xueshaoyi.github.io/post/2017/hbase%E9%85%8D%E7%BD%AE/" title="HBase简单配置学习" itemprop="url">
-    <h1 itemprop="name">HBase简单配置学习</h1>
-    <p itemprop="description">一、HBASE概述 HBase是一个分布式的、面向列的开源数据库。HBase不同于一般关系数据库，它是一个适合于非结构化数据存储的数据库。另一</p>
-    <time datetime="2017-04-14 12:13:19 &#43;0800 CST" itemprop="datePublished">2017年04月14日</time>
-  </a>
-</section>
+    <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody">
+    <header class="article-info clearfix">
+  <h1 itemprop="name">
+      <a href="https://xueshaoyi.github.io/datum/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%BC%98%E5%8C%96%E5%8E%9F%E7%90%86/" title="二叉树优化原理" itemprop="url">二叉树优化原理</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://github.com/xueshaoyi" title=""></a>
+    
+  </p>
+  <p class="article-time">
+    <time datetime="2017-07-24 11:54:19 &#43;0800 CST" itemprop="datePublished">2017年07月24日</time>
+  </p>
+</header>
 
+	<div class="article-content">
+    
+		<div class="toc-article">
+			<strong class="toc-title">文章目录</strong>
       
-      
+		</div>
+    
+    <p>二叉树
+<img src="http://xueshaoyi.github.io/img/erchashu.jpg" alt="" />
+        二叉树:每个节点的子树小于等于两个。
+        左子树都是比节点小的数，右子树是比节点大的数，根据操作次数判断经过的节点数。
+        因为内存空间有限，若数据量庞大则只能放在磁盘中。所以大数据的树存于磁盘中。但从内存中调取数据效率远远高于从磁盘中调取数据的效率，所以要提高磁盘IO的效率，就要减少访问磁盘的次数。所以降低树的高度，即可降低磁盘IO的次数。
+        最后，数据量庞大的时候用树是因为树的检索速度远远大于别的数据结构，尤其是大量数据的时候这个优势更明显。</p>
+
+	</div>
+  <footer class="article-footer clearfix">
+  
+
+<div class="article-tags">
+  <span></span>
+  
+  <a href="https://xueshaoyi.github.iotags/tree">Tree</a>
+  
+</div>
+
+
+
+
+
+<div class="article-categories">
+  <span></span>
+  
+  <a class="article-category-link" href="https://xueshaoyi.github.iocategories/%E6%95%B4%E7%90%86%E8%B5%84%E6%96%99">整理资料</a>
+  
+</div>
+
+
+
+  <div class="article-share" id="share">
+    <div data-url="https://xueshaoyi.github.io/datum/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%BC%98%E5%8C%96%E5%8E%9F%E7%90%86/" data-title="二叉树优化原理" data-tsina="1816308191" class="share clearfix">
     </div>
+  </div>
+</footer>
+
+	</article>
+  
+
+
+<section class="comment">
+<div id="disqus_thread"></div>
+</section>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://xueshaoyi.github.io/datum/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%BC%98%E5%8C%96%E5%8E%9F%E7%90%86/";
+this.page.identifier = "https://xueshaoyi.github.io/datum/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%BC%98%E5%8C%96%E5%8E%9F%E7%90%86/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+
+s.src = '//xueshaoyi.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+</div>
+
     <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>

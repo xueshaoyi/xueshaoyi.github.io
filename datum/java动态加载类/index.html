@@ -2,18 +2,18 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>Hbase - Shao Yi`s Blog</title>
+  <title>Java动态加载类 - Shao Yi`s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="Hbase">
+  <meta name="description" content="Class.forName(类的全称);不仅表示类的类类型也表示动态加载类 要区分编译和运行 编译时刻加载类是静态加载类，运行时刻加载类是动态加">
   
-  <meta itemprop="name" content="Hbase - Shao Yi`s Blog">
-  <meta itemprop="description" content="Hbase">
+  <meta itemprop="name" content="Java动态加载类 - Shao Yi`s Blog">
+  <meta itemprop="description" content="Class.forName(类的全称);不仅表示类的类类型也表示动态加载类 要区分编译和运行 编译时刻加载类是静态加载类，运行时刻加载类是动态加">
   <meta itemprop="image" content="https://xueshaoyi.github.ioimg/author.jpg">
   
   
   <meta name="twitter:description" content="">
-  <link rel="alternate" href="https://xueshaoyi.github.iofeed.xml" title="Shao Yi`s Blog" type="application/rss+xml"/>
+  
   <link rel="shortcut icon" href="https://xueshaoyi.github.ioimg/favicon.ico"/>
   <link rel="apple-touch-icon" href="https://xueshaoyi.github.ioapple-touch-icon.png" />
   <link rel="apple-touch-icon-precomposed" href="https://xueshaoyi.github.ioapple-touch-icon.png" />
@@ -59,21 +59,151 @@
 
   </header>
   <div id="container">
-    <div id="main">
-      
-      <h2 id="2017-04">2017-04</h2>
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://xueshaoyi.github.io/post/2017/hbase%E9%85%8D%E7%BD%AE/" title="HBase简单配置学习" itemprop="url">
-    <h1 itemprop="name">HBase简单配置学习</h1>
-    <p itemprop="description">一、HBASE概述 HBase是一个分布式的、面向列的开源数据库。HBase不同于一般关系数据库，它是一个适合于非结构化数据存储的数据库。另一</p>
-    <time datetime="2017-04-14 12:13:19 &#43;0800 CST" itemprop="datePublished">2017年04月14日</time>
-  </a>
-</section>
+    <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody">
+    <header class="article-info clearfix">
+  <h1 itemprop="name">
+      <a href="https://xueshaoyi.github.io/datum/java%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E7%B1%BB/" title="Java动态加载类" itemprop="url">Java动态加载类</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://github.com/xueshaoyi" title=""></a>
+    
+  </p>
+  <p class="article-time">
+    <time datetime="2017-07-24 11:54:19 &#43;0800 CST" itemprop="datePublished">2017年07月24日</time>
+  </p>
+</header>
 
+	<div class="article-content">
+    
+		<div class="toc-article">
+			<strong class="toc-title">文章目录</strong>
       
-      
+		</div>
+    
+    <p>Class.forName(类的全称);不仅表示类的类类型也表示动态加载类</p>
+
+<p>要区分编译和运行 编译时刻加载类是静态加载类，运行时刻加载类是动态加载类</p>
+
+<p>new创建对象 是静态加载类 在编译刻就需要加载可能用到的类</p>
+
+<p>所以我们希望用动态加载类 那么如何加载呢？</p>
+
+<p>首先创建OfficeBetter.java
+class OfficeBetter{
+   public static void main(String[] args){
+try{
+//动态加载类,在运行时刻加载
+Class c=Class.forName(args[0]);
+}catch(Exception e)
+{e.printStackTrace();}
+   }
+}</p>
+
+<p>此时编译不会报错因为他不管你将要用到哪些类 但是当你运行时要用到具体的类了，如果没有则会报错 如下编译没问题 运行时需要用到Excel类 但是找不到</p>
+
+<p>接下来创建对象</p>
+
+<p>class OfficeBetter{
+   public static void main(String[] args){
+try{
+//动态加载类,在运行时刻加载
+Class c=Class.forName(args[0]);</p>
+
+<p>/*通过类类型创建对象 (注意要往将要加载的类做强制转换)，但是用到的类不同就有不同的转换，例如往Word做转换：Word w=(Word)c.newInstance();但是加载的类是Excel怎么办； 往Excel做转换：Excel e=(Excel)c.newInstance();但是加载的类是Word怎么办
+所以要想让他们都能在这里用 就要给他们统一标准
+*/
+OfficeAble oa=(OfficeAble)c.newInstance();
+Oa.start();</p>
+
+<p>}catch(Exception e)
+{e.printStackTrace();}
+   }
+}</p>
+
+<p>接下来给Word和Excel制定一个共同的标准
+创建接口 OfficeAble.java
+Interface OfficeAble
+{
+Public void start();
+}
+这样的话就可以oa.start()了</p>
+
+<p>创建Word.java 并让其遵循标准
+class Word implementsOfficeAble
+{
+Public static void start()
+{System.out.println(“Word….starts….”);}
+}</p>
+
+<p>创建Excel.java 并让其遵循标准
+class Excel implements OfficeAble
+{
+Public static void start()
+{System.out.println(“Excel….starts….”);}
+}</p>
+
+	</div>
+  <footer class="article-footer clearfix">
+  
+
+<div class="article-tags">
+  <span></span>
+  
+  <a href="https://xueshaoyi.github.iotags/java">Java</a>
+  
+  <a href="https://xueshaoyi.github.iotags/%E7%B1%BB%E5%8A%A0%E8%BD%BD">类加载</a>
+  
+</div>
+
+
+
+
+
+<div class="article-categories">
+  <span></span>
+  
+  <a class="article-category-link" href="https://xueshaoyi.github.iocategories/%E6%95%B4%E7%90%86%E8%B5%84%E6%96%99">整理资料</a>
+  
+</div>
+
+
+
+  <div class="article-share" id="share">
+    <div data-url="https://xueshaoyi.github.io/datum/java%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E7%B1%BB/" data-title="Java动态加载类" data-tsina="1816308191" class="share clearfix">
     </div>
+  </div>
+</footer>
+
+	</article>
+  
+
+
+<section class="comment">
+<div id="disqus_thread"></div>
+</section>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://xueshaoyi.github.io/datum/java%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E7%B1%BB/";
+this.page.identifier = "https://xueshaoyi.github.io/datum/java%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E7%B1%BB/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+
+s.src = '//xueshaoyi.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+</div>
+
     <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>

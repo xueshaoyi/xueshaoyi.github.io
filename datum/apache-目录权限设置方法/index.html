@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>GitHub git clone错误 - Shao Yi`s Blog</title>
+  <title>apache 目录权限设置方法 - Shao Yi`s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="问题描述： 是Git管理代码，从git服务器上获取Contacts模块的代码： git clone your-git-server 提示：warning: remote HEAD refers to nonexistent ref, unable to checkout. 并且Contact">
+  <meta name="description" content="apache 目录权限设置方法 可以使用和这对语句为主目录或虚拟目录设置权限，它们是一对容器语句，必须成对出现，它们之间封装的是具体的设置目录权限语句，这">
   
-  <meta itemprop="name" content="GitHub git clone错误 - Shao Yi`s Blog">
-  <meta itemprop="description" content="问题描述： 是Git管理代码，从git服务器上获取Contacts模块的代码： git clone your-git-server 提示：warning: remote HEAD refers to nonexistent ref, unable to checkout. 并且Contact">
+  <meta itemprop="name" content="apache 目录权限设置方法 - Shao Yi`s Blog">
+  <meta itemprop="description" content="apache 目录权限设置方法 可以使用和这对语句为主目录或虚拟目录设置权限，它们是一对容器语句，必须成对出现，它们之间封装的是具体的设置目录权限语句，这">
   <meta itemprop="image" content="https://xueshaoyi.github.ioimg/author.jpg">
   
   
@@ -63,7 +63,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://xueshaoyi.github.io/post/2017/github-git-clone%E9%94%99%E8%AF%AF/" title="GitHub git clone错误" itemprop="url">GitHub git clone错误</a>
+      <a href="https://xueshaoyi.github.io/datum/apache-%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%B3%95/" title="apache 目录权限设置方法" itemprop="url">apache 目录权限设置方法</a>
   </h1>
   <p class="article-author">By
     
@@ -71,7 +71,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2017-07-01 13:13:19 &#43;0800 CST" itemprop="datePublished">2017年07月01日</time>
+    <time datetime="2017-07-24 11:54:19 &#43;0800 CST" itemprop="datePublished">2017年07月24日</time>
   </p>
 </header>
 
@@ -83,63 +83,199 @@
 <ul>
 <li>
 <ul>
-<li><a href="#问题描述"><strong>问题描述：</strong></a></li>
-<li><a href="#解决方法"><strong>解决方法：</strong></a></li>
+<li><a href="#apache-目录权限设置方法">apache 目录权限设置方法</a></li>
 </ul></li>
+<li><a href="#allowoverride-fileinfo-authconfig-limit">AllowOverride FileInfo AuthConfig Limit</a></li>
+<li><a href="#options-multiviews-indexes-symlinksifownermatch-includesnoexec">Options MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec</a></li>
+<li><a href="#order-allow-deny">Order allow,deny</a></li>
+<li><a href="#allow-from-all">Allow from all</a></li>
+<li><a href="#order-deny-allow">Order deny,allow</a></li>
+<li><a href="#deny-from-all">Deny from all</a></li>
 </ul>
 </nav>
 		</div>
     
     
 
-<h2 id="问题描述"><strong>问题描述：</strong></h2>
+<h2 id="apache-目录权限设置方法">apache 目录权限设置方法</h2>
 
-<p>是Git管理代码，从git服务器上获取Contacts模块的代码：</p>
+<p>       可以使用<Directory 目录路径>和</Directory>这对语句为主目录或虚拟目录设置权限，它们是一对容器语句，必须成对出现，它们之间封装的是具体的设置目录权限语句，这些语句仅对被设置目录及其子目录起作用。下面是主配置文件中设置目录权限的例子。</p>
 
-<p>git clone your-git-server</p>
+<p><Directory "/var/www/icons">
+Options Indexes MultiViews
+AllowOverride None
+Order allow，deny
+Allow from all
+</Directory></p>
 
-<p>提示：warning: remote HEAD refers to nonexistent ref, unable to checkout.</p>
+<p>（1）定义目录使用哪些特性</p>
 
-<p>并且Contacts模块的代码并没有下载到工作区。</p>
+<p>Options Indexes MultiViews</p>
 
-<h2 id="解决方法"><strong>解决方法：</strong></h2>
+<p>Options选项用于定义目录使用哪些特性，包括Indexes、MultiViews和ExecCGI等，如表7-1所示。</p>
 
-<p>原因是.git目录下.git/refs/heads不存在HEAD指向的文件，这个时候可以用git show-ref命令查看</p>
+<p>表7-1           目录特性选项</p>
 
-<p>获得如下打印：</p>
+<p>命    令</p>
 
-<p>5fa0b60252ca2c10fa3c2e12780d351c047c802d refs/remotes/origin/branch_qc_origin
-5fa0b60252ca2c10fa3c2e12780d351c047c802d refs/tags/XXXXXXXXXXXX
-48dee3a5f7b9cac98349e949275c652e02b0b67e refs/tags/PXXXXV0.0.0B01-bringup
-505a9bb0c6d815e6db561f7cb7ed0e20cd73ddde refs/tags/PXXXX_02550_201309260427
-e2b211a3c9d8dabec9fe1018b4f7db5c953832ea refs/tags/PXXXX_bsp_02550_201309260422
-0848e8b7922c78dbb364aa0e7c1b8375d16a70a3 refs/tags/branch_PXXXX_02550_201309190102
-7384803be7c8866393b96ebaaa7e1b2b119654e7 refs/tags/branch_PXXXX_02550_201309200102
-480f444dd26bb238aeaacf15da748ad861ea9378 refs/tags/branch_PXXXX_02550_201309210102</p>
+<p>说    明</p>
 
-<p>&hellip;&hellip;</p>
+<p>Indexes</p>
 
-<p>可以看出，全部是标签tag，并没有类似refs/head/branch_name</p>
+<p>允许目录浏览
+当客户仅指定要访问的目录，但没有指定要访问目录下的哪个文件，而且目录下不存在默认文档时，Apache以超文本形式返回目录中的文件和子目录列表（虚拟目录不会出现在目录列表中），如图7-8所示</p>
 
-<p>继续执行命令：</p>
+<p>MultiViews</p>
 
-<p>git branch  //输入出空</p>
+<p>允许内容协商的多重视图
+MultiViews其实是Apache的一个智能特性。当客户访问目录中一个不存在的对象时，如访问“<a href="http://192.168.16.177/icons/a”，则Apache会查找这个目录下所有a.*文件。由于icons目录下存在a.gif文件，因此Apache会将a.gif文件返回给客户，而不是返回出错信息">http://192.168.16.177/icons/a”，则Apache会查找这个目录下所有a.*文件。由于icons目录下存在a.gif文件，因此Apache会将a.gif文件返回给客户，而不是返回出错信息</a></p>
 
-<p>git branch -a //输出 remotes/origin/branch_qc_origin</p>
+<p>All</p>
 
-<p>git checkout remotes/origin/branch_qc_origin // checkout的是git branch -a输出的内容</p>
+<p>All包含了除MultiViews之外的所有特性，如果没有Options语句，默认为
+All</p>
 
-<p>这样通过ll命令查看，Contacts代码下载到工作目录了</p>
+<p>ExecCGI</p>
 
-<p>接着创建分支：git checkout -b remotes/origin/branch_qc_origin</p>
+<p>允许在该目录下执行CGI脚本</p>
 
-<p>git branch //可以看到输出*remotes/origin/branch_qc_origin了，不再为空</p>
+<p>FollowSymLinks</p>
 
-<p>git branch -m remotes/origin/branch_qc_origin master  //重命名分支叫master</p>
+<p>可以在该目录中使用符号连接</p>
 
-<p>git show-ref命令查看也能看到head了</p>
+<p>Includes</p>
 
-<p>至此，问题得到解决。</p>
+<p>允许服务器端包含功能</p>
+
+<p>IncludesNoExec</p>
+
+<p>允许服务器端包含功能，但禁用执行CGI脚本</p>
+
+<p>让主目录允许目录浏览</p>
+
+<p>细心的用户可能会发现虽然在主目录设置了Indexes权限，且主目录中并不存在默认文档，但访问时并不会出现目录列表，而只出现Apache的测试页面。解决这个问题的方法很简单，只要将位于/etc/httpd/conf.d/目录下的welcome.conf文件删除后重启Apache即可。</p>
+
+<p>图7-8 Apache返回的目录列表</p>
+
+<p>允许目录浏览要小心</p>
+
+<p>一旦定义允许目录浏览，就会将Web站点的文件夹和文件名结构暴露给黑客。目录浏览还会允许黑客浏览文件并掌握服务器配置信息，所以指定该权限往往带来安全性上的隐患。除非有充足的理由要使用目录浏览，否则应该禁用它。</p>
+
+<p>（2）设置.htaccess文件中的指令类型</p>
+
+<p>AllowOverride None</p>
+
+<p>AllowOverride选项用于定义位于每个目录下.htaccess（访问控制）文件中的指令类型。基于安全和效率的原因，虽然可以通过.htaccess来设置目录的访问权限，但应尽可能地避免使用.htaccess文件，所以一般将AllowOverride设置为&rdquo;None&rdquo;，即禁止使用.htaccess文件，而将目录权限的设置放在主配置文件httpd.conf的<Directory>和</Directory>语句之间。</p>
+
+<p>（3）设置缺省的访问权限与Allow和Deny语句的处理顺序</p>
+
+<p>Order allow, deny</p>
+
+<p>Order选项用于定义缺省的访问权限与Allow和Deny语句的处理顺序。Allow和Deny语句可以针对客户机的域名或IP地址进行设置，以决定哪些客户机能够访问服务器。Order语句通常设置为以下两种值之一。</p>
+
+<p>allow, deny：缺省禁止所有客户机的访问，且Allow语句在Deny语句之前被匹配。如果某条件既匹配Deny语句又匹配Allow语句，则Deny语句会起作用（因为Deny语句覆盖了Allow语句）。</p>
+
+<p>deny, allow：缺省允许所有客户机的访问，且Deny语句在Allow语句之前被匹配。如果某条件既匹配Deny语句又匹配Allow语句，则Allow语句会起作用（因为Allow语句覆盖了Deny语句）。</p>
+
+<p>下面举一些例子来说明Order、Allow和Deny语句的使用方法。</p>
+
+<p>【例1】允许所有客户机的访问。</p>
+
+<p>Order allow，deny
+Allow from all</p>
+
+<p>【例2】除了来自hacker.com域和IP地址为192.168.16.111的客户机外，允许所有客户机的访问。</p>
+
+<p>Order deny ，allow
+Deny from hacker.com
+Deny from 192.168.16.111</p>
+
+<p>【例3】仅允许来自网络192.168.16.0/24客户机的访问。</p>
+
+<p>Order allow，deny
+Allow from 192.168.16.0/24
+对比：
+Order deny ，allow
+Allow from 192.168.16.0/24
+这两条语句是允许所有客户机的访问。</p>
+
+<p>【例4】仅允许来自网络192.168.16.0/24客户机的访问，但IP地址为
+192.168.16.111的客户机除外。</p>
+
+<p>Order allow，deny
+Allow from 192.168.16.0/24
+Deny from 192.168.16.111 对比： Order deny ，allow
+Allow from 192.168.16.0/24
+Deny from 192.168.16.111</p>
+
+<p>由于Allow语句覆盖了Deny语句，因此这3条语句是允许所有客户的访问。
+参考：</p>
+
+<p>Options FollowSymLinks</p>
+
+<p>AllowOverride None</p>
+
+<p>　　Apache服务器可以针对目录进行文档的访问控制，然而访问控制可以通过两种方式来实现，一个是在设置文件 httpd.conf（或access.conf）中针对每个目录进行设置，另一个方法是在每个目录下设置访问控制文件，通常访问控制文件名字为.htaccess。虽然使用这两个方式都能用于控制浏览器的访问，然而使用配置文件的方法要求每次改动后重新启动httpd守护进程，比较不灵活，因此主要用于配置服务器系统的整体安全控制策略，而使用每个目录下的.htaccess文件设置具体目录的访问控制更为灵活方便。</p>
+
+<p>　　Directory语句就是用来定义目录的访问限制的，这里可以看出它的标准语法，为一个目录定义访问限制。上例的这个设置是针对系统的根目录进行的，设置了允许符号连接的选项FollowSymLinks ，以及使用AllowOverride None表示不允许这个目录下的访问控制文件来改变这里进行的配置，这也意味着不用查看这个目录下的相应访问控制文件。</p>
+
+<p>　　由于Apache对一个目录的访问控制设置是能够被下一级目录继承的，因此对根目录的设置将影响到它的下级目录。注意由于AllowOverride None的设置，使得Apache服务器不需要查看根目录下的访问控制文件，也不需要查看以下各级目录下的访问控制文件，直至httpd.conf（或access.conf ）中为某个目录指定了</p>
+
+<p>允许Alloworride，即允许查看访问控制文件。由于Apache对目录访问控制是采用的继承方式，如果从根目录就允许查看访问控制文件，那么Apache就必须一级一级的查看访问控制文件，对系统性能会造成影响。而缺省关闭了根目录的这个特性，就使得Apache从httpd.conf中具体指定的目录向下搜寻，减少了搜寻的级数，增加了系统性能。因此对于系统根目录设置AllowOverride None不但对于系统安全有帮助，也有益于系统性能。</p>
+
+<p>Options Indexes FollowSymLinks</p>
+
+<p>AllowOverride None</p>
+
+<p>Order allow,deny</p>
+
+<p>Allow from all</p>
+
+<p>　　这里定义的是系统对外发布文档的目录的访问设置，设置不同的 AllowOverride选项，以定义配置文件中的目录设置和用户目录下的安全控制文件的关系，而Options选项用于定义该目录的特性。</p>
+
+<p>　　配置文件和每个目录下的访问控制文件都可以设置访问限制，设置文件是由管理员设置的，而每个目录下的访问控制文件是由目录的属主设置的，因此管理员可以规定目录的属主是否能覆盖系统在设置文件中的设置，这就需要使用 啊AllowOverride参数进行设置，通常可以设置的值为：</p>
+
+<p>AllowOverride的设置 对每个目录访问控制文件作用的影响</p>
+
+<p>All 缺省值，使访问控制文件可以覆盖系统配置</p>
+
+<p>None 服务器忽略访问控制文件的设置</p>
+
+<p>Options 允许访问控制文件中可以使用Options参数定义目录的选项</p>
+
+<p>FileInfo 允许访问控制文件中可以使用AddType等参数设置</p>
+
+<p>AuthConfig 允许访问控制文件使用AuthName，AuthType等针对每个用户的认证机制，这使目录属主能用口令和用户名来保护目录 Limit 允许对访问目录的客户机的IP地址和名字进行限制每个目录具备一定属性，可以使用Options来控制这个目录下的一些访问特性设置，以下为常用的特性选项：</p>
+
+<p>Options设置 服务器特性设置</p>
+
+<p>All 所有的目录特性都有效，这是缺省状态</p>
+
+<p>None 所有的目录特性都无效</p>
+
+<p>FollowSymLinks 允许使用符号连接，这将使浏览器有可能访问文档根目录 （DocumentRoot）之外的文档 SymLinksIfOwnerMatch 只有符号连接的目的与符号连接本身为同一用户所拥有时，才允许访问，这个设置将增加一些安全性</p>
+
+<p>ExecCGI 允许这个目录下可以执行CGI程序 Indexes 允许浏览器可以生成这个目录下所有文件的索引，使得在这个目录下没有index.html（或其他索引文件）时，能向浏览器发送这个目录下的文件列表</p>
+
+<p>　此外，上例中还使用了Order、Allow、Deny等参数，这是Limit语句中用来根据浏览器的域名和 IP地址来控制访问的一种方式。其中Order定义处理Allow和Deny的顺序，而Allow、Deny则针对名字或IP进行访问控制设置，上例使用allowfrom all，表示允许所有的客户机访问这个目录，而不进行任何限制。</p>
+
+<p>　　UserDir public_html</p>
+
+<p>　　当在一台Linux上运行Apache服务器时，这台计算机上的所有用户都可以有自己的网页路径，形如</p>
+
+<h1 id="allowoverride-fileinfo-authconfig-limit">AllowOverride FileInfo AuthConfig Limit</h1>
+
+<h1 id="options-multiviews-indexes-symlinksifownermatch-includesnoexec">Options MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec</h1>
+
+<h1 id="order-allow-deny">Order allow,deny</h1>
+
+<h1 id="allow-from-all">Allow from all</h1>
+
+<h1 id="order-deny-allow">Order deny,allow</h1>
+
+<h1 id="deny-from-all">Deny from all</h1>
+
+<p>　　这里可以看到Directory的另一个用法，即可以通过简单的模式匹配方法，针对分布在不同目录下的子目录定义访问控制权限。这样设置就需要Apache服务器对每个路径进行额外的处理，因此就会降低服务器的性能，所以缺省情况并没有打开这种访问限制。</p>
 
 	</div>
   <footer class="article-footer clearfix">
@@ -148,7 +284,7 @@ e2b211a3c9d8dabec9fe1018b4f7db5c953832ea refs/tags/PXXXX_bsp_02550_201309260422
 <div class="article-tags">
   <span></span>
   
-  <a href="https://xueshaoyi.github.iotags/git">Git</a>
+  <a href="https://xueshaoyi.github.iotags/appache">appache</a>
   
 </div>
 
@@ -159,14 +295,14 @@ e2b211a3c9d8dabec9fe1018b4f7db5c953832ea refs/tags/PXXXX_bsp_02550_201309260422
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://xueshaoyi.github.iocategories/github">GitHub</a>
+  <a class="article-category-link" href="https://xueshaoyi.github.iocategories/%E6%95%B4%E7%90%86%E8%B5%84%E6%96%99">整理资料</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://xueshaoyi.github.io/post/2017/github-git-clone%E9%94%99%E8%AF%AF/" data-title="GitHub git clone错误" data-tsina="1816308191" class="share clearfix">
+    <div data-url="https://xueshaoyi.github.io/datum/apache-%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%B3%95/" data-title="apache 目录权限设置方法" data-tsina="1816308191" class="share clearfix">
     </div>
   </div>
 </footer>
@@ -182,8 +318,8 @@ e2b211a3c9d8dabec9fe1018b4f7db5c953832ea refs/tags/PXXXX_bsp_02550_201309260422
 
 
 var disqus_config = function () {
-this.page.url = "https://xueshaoyi.github.io/post/2017/github-git-clone%E9%94%99%E8%AF%AF/";
-this.page.identifier = "https://xueshaoyi.github.io/post/2017/github-git-clone%E9%94%99%E8%AF%AF/";
+this.page.url = "https://xueshaoyi.github.io/datum/apache-%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%B3%95/";
+this.page.identifier = "https://xueshaoyi.github.io/datum/apache-%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%B3%95/";
 };
 (function() { 
 var d = document, s = d.createElement('script');
@@ -456,38 +592,6 @@ $(document).ready(function(){
 
 <script type="text/javascript">
 $(document).ready(function(){
-  var ai = $('.article-content>iframe'),
-      ae = $('.article-content>embed'),
-      t  = $('#toc'),
-      h  = $('article h2')
-      ah = $('article h2'),
-      ta = $('#toc.toc-aside'),
-      o  = $('.openaside'),
-      c  = $('.closeaside');
-  if(ai.length>0){
-    ai.wrap('<div class="video-container" />');
-  };
-  if(ae.length>0){
-   ae.wrap('<div class="video-container" />');
-  };
-  if(ah.length==0){
-    t.css('display','none');
-  }else{
-    c.click(function(){
-      ta.css('display', 'block').addClass('fadeIn');
-    });
-    o.click(function(){
-      ta.css('display', 'none');
-    });
-    $(window).scroll(function(){
-      ta.css("top",Math.max(140,320-$(this).scrollTop()));
-    });
-  };
-});
-</script>
-
-<script type="text/javascript">
-$(document).ready(function(){
   var $this = $('.share'),
       url = $this.attr('data-url'),
       encodedUrl = encodeURIComponent(url),
@@ -514,27 +618,6 @@ $(document).ready(function(){
 });
 </script>
 
-
-<link rel="stylesheet" href="https://xueshaoyi.github.iofancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="https://xueshaoyi.github.iofancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-  $('.article-content').each(function(i){
-    $(this).find('img').each(function(){
-      if ($(this).parent().hasClass('fancybox')) return;
-      var alt = this.alt;
-      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
-      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
-    });
-    $(this).find('.fancybox').each(function(){
-      $(this).attr('rel', 'article' + i);
-    });
-  });
-  if($.fancybox){
-    $('.fancybox').fancybox();
-  }
-});
-</script>
 
 
 <script>

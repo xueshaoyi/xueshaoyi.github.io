@@ -13,10 +13,10 @@
     
     <item>
       <title>apache 目录权限设置方法</title>
-      <link>https://xueshaoyi.github.io/post/2017/datum/apache-%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%B3%95/</link>
+      <link>https://xueshaoyi.github.io/datum/apache-%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%B3%95/</link>
       <pubDate>Mon, 24 Jul 2017 11:54:19 +0800</pubDate>
       
-      <guid>https://xueshaoyi.github.io/post/2017/datum/apache-%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%B3%95/</guid>
+      <guid>https://xueshaoyi.github.io/datum/apache-%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%B3%95/</guid>
       <description>apache 目录权限设置方法 可以使用和这对语句为主目录或虚拟目录设置权限，它们是一对容器语句，必须成对出现，它们之间封装的是具体的设置目录权限语句，这</description>
     </item>
     

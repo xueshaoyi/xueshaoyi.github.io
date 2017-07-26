@@ -13,10 +13,10 @@
     
     <item>
       <title>Hibernate配置详细解释</title>
-      <link>https://xueshaoyi.github.io/post/2017/datum/hibernate%E9%85%8D%E7%BD%AE%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A/</link>
+      <link>https://xueshaoyi.github.io/datum/hibernate%E9%85%8D%E7%BD%AE%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A/</link>
       <pubDate>Mon, 24 Jul 2017 12:58:19 +0800</pubDate>
       
-      <guid>https://xueshaoyi.github.io/post/2017/datum/hibernate%E9%85%8D%E7%BD%AE%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A/</guid>
+      <guid>https://xueshaoyi.github.io/datum/hibernate%E9%85%8D%E7%BD%AE%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A/</guid>
       <description>``` &amp;lt;?xml version=&amp;lsquo;1.0&amp;rsquo; encoding=&amp;lsquo;gb2312&amp;rsquo;?&amp;gt; &amp;lt;!DOCTYPE hibernate-configuration PUBLIC &amp;ldquo;-//Hibernate/Hibernate Configuration DTD 3.0//EN&amp;rdquo; &amp;ldquo;http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd&amp;quot;&amp;gt; &amp;lt;!--声明Hibernate配置文件的开始--&amp;gt; &amp;lt;hibernate-configuration&amp;gt; com.mysql.jdbc.Driver &amp;lt;!--设置数据库的连接url:jdbc:m</description>
     </item>
     
