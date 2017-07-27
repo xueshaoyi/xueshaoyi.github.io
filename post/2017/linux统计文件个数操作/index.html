@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>ArrayList源码(3) - Shao Yi`s Blog</title>
+  <title>Linux统计文件个数操作 - Shao Yi`s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="前两篇写了add和remove相关的源码，现在剩下的是零散的一些和Itr、SubList、ListItr几个相关的代码，这些应用次数也多但是">
+  <meta name="description" content="统计某文件夹下文件个数 ls -l |grep &ldquo;^-&rdquo;|wc -l 统计某文件夹下目录的个数 ls -l |grep &ldquo;^-d&rdquo;|wc -l 统计文件夹下文件的个数，包括子文件夹下的 ls -lR|grep &ldquo;^-&rdquo;|wc -l ls -lR 长列表输出该目录下文件">
   
-  <meta itemprop="name" content="ArrayList源码(3) - Shao Yi`s Blog">
-  <meta itemprop="description" content="前两篇写了add和remove相关的源码，现在剩下的是零散的一些和Itr、SubList、ListItr几个相关的代码，这些应用次数也多但是">
+  <meta itemprop="name" content="Linux统计文件个数操作 - Shao Yi`s Blog">
+  <meta itemprop="description" content="统计某文件夹下文件个数 ls -l |grep &ldquo;^-&rdquo;|wc -l 统计某文件夹下目录的个数 ls -l |grep &ldquo;^-d&rdquo;|wc -l 统计文件夹下文件的个数，包括子文件夹下的 ls -lR|grep &ldquo;^-&rdquo;|wc -l ls -lR 长列表输出该目录下文件">
   <meta itemprop="image" content="https://xueshaoyi.github.io/img/author.jpg">
   
   
@@ -63,7 +63,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%813/" title="ArrayList源码(3)" itemprop="url">ArrayList源码(3)</a>
+      <a href="https://xueshaoyi.github.io/post/2017/linux%E7%BB%9F%E8%AE%A1%E6%96%87%E4%BB%B6%E4%B8%AA%E6%95%B0%E6%93%8D%E4%BD%9C/" title="Linux统计文件个数操作" itemprop="url">Linux统计文件个数操作</a>
   </h1>
   <p class="article-author">By
     
@@ -71,7 +71,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2017-07-17 11:54:19 &#43;0800 CST" itemprop="datePublished">2017年07月17日</time>
+    <time datetime="2017-07-26 17:10:19 &#43;0800 CST" itemprop="datePublished">2017年07月26日</time>
   </p>
 </header>
 
@@ -82,210 +82,41 @@
       
 		</div>
     
-    <p>前两篇写了add和remove相关的源码，现在剩下的是零散的一些和Itr、SubList、ListItr几个相关的代码，这些应用次数也多但是其中相似的代码较多。
-先说零散的几个：
-trimToSize()是减少存储使用的字符序列 ，如果缓冲区大于必要保持其当前的字符序列，那么它可能会调整大小，以成为更加节省空间.</p>
+    <p>统计某文件夹下文件个数</p>
 
-<pre><code>public void trimToSize() {
-    modCount++;
-    int oldCapacity = elementData.length;
-    if (size &lt; oldCapacity) {
-        elementData = Arrays.copyOf(elementData, size);
-    }
-}
-</code></pre>
+<p>ls -l |grep &ldquo;^-&rdquo;|wc -l</p>
 
-<p>之后contains()方法和indexOf()、lastIndexOf()相关：</p>
+<p>统计某文件夹下目录的个数</p>
 
-<pre><code>public boolean contains(Object o) {
-    return indexOf(o) &gt;= 0;
-}
+<p>ls -l |grep &ldquo;^-d&rdquo;|wc -l</p>
 
-public int indexOf(Object o) {
-    if (o == null) {
-        for (int i = 0; i &lt; size; i++)
-            if (elementData[i]==null)
-                return i;
-    } else {
-        for (int i = 0; i &lt; size; i++)
-            if (o.equals(elementData[i]))
-                return i;
-    }
-    return -1;
-}
+<p>统计文件夹下文件的个数，包括子文件夹下的</p>
 
-public int lastIndexOf(Object o) {
-    if (o == null) {
-        for (int i = size-1; i &gt;= 0; i--)
-            if (elementData[i]==null)
-                return i;
-    } else {
-        for (int i = size-1; i &gt;= 0; i--)
-            if (o.equals(elementData[i]))
-                return i;
-    }
-    return -1;
-}
-</code></pre>
+<p>ls -lR|grep &ldquo;^-&rdquo;|wc -l</p>
 
-<p>从源码中看出contains()方法是使用indexOf来进行判断是否存在，indexOf()方法是从数组头部开发对比是否有相同的，lastIndexOf()方法是从尾部开发进行对比。</p>
+<hr />
 
-<pre><code>public Object clone() {
-    try {
-        @SuppressWarnings(&quot;unchecked&quot;)
-            ArrayList&lt;E&gt; v = (ArrayList&lt;E&gt;) super.clone();
-        v.elementData = Arrays.copyOf(elementData, size);
-        v.modCount = 0;
-        return v;
-    } catch (CloneNotSupportedException e) {
-        // this shouldn't happen, since we are Cloneable
-        throw new InternalError();
-    }
-}
-</code></pre>
+<p>ls -lR</p>
 
-<p>clone()克隆数组，<a href="http://download.csdn.net/detail/qq_17043155/9903819">《Effective Java》</a>的第11条中说“谨慎地覆盖clone”里面讲了很多clone的东西和注意事项，大家可以去看一眼。
-我看别的博主写的：<a href="http://www.cnblogs.com/lyajs/p/5779021.html">如何巧妙的使用ArrayList的Clone方法</a></p>
+<p>长列表输出该目录下文件信息(R代表子目录注意这里的文件，不同于一般的文件，可能是目录、链接、设备文件等)</p>
 
-<pre><code>private void writeObject(java.io.ObjectOutputStream s)
-    throws java.io.IOException{
-    // Write out element count, and any hidden stuff
-    int expectedModCount = modCount;
-    s.defaultWriteObject();
+<p>grep &ldquo;^-&rdquo;</p>
 
-    // Write out array length
-    s.writeInt(elementData.length);
+<p>这里将长列表输出信息过滤一部分，只保留一般文件，如果只保留目录就是 ^d</p>
 
-    // Write out all elements in the proper order.
-    for (int i=0; i&lt;size; i++)
-        s.writeObject(elementData[i]);
+<p>wc -l</p>
 
-    if (modCount != expectedModCount) {
-        throw new ConcurrentModificationException();
-    }
+<p>统计输出信息的行数，因为已经过滤得只剩一般文件了，所以统计结果就是一般文件信息的行数，又由于一行信息对应一个文件，所以也就是文件的个数。</p>
 
-}
+<hr />
 
-private void readObject(java.io.ObjectInputStream s)
-    throws java.io.IOException, ClassNotFoundException {
-    // Read in size, and any hidden stuff
-    s.defaultReadObject();
+<p>如果只查看文件夹</p>
 
-    // Read in array length and allocate array
-    int arrayLength = s.readInt();
-    Object[] a = elementData = new Object[arrayLength];
+<p>ls -d  只能显示一个.</p>
 
-    // Read in all elements in the proper order.
-    for (int i=0; i&lt;size; i++)
-        a[i] = s.readObject();
-}
-</code></pre>
+<p>find -type d    可以看到子文件夹</p>
 
-<p>ArrayList上重写writeObject和readObject，当其序列化的时候将会映射调用该方法。之后如果有机会学习ObjectOutputStream的源码是再仔细研究里面的具体方法使用。</p>
-
-<p>零散的几个我们看了，现在我们接着看关于ArrayList的Iterator相关的源码：</p>
-
-<pre><code>public ListIterator&lt;E&gt; listIterator(int index) {
-    if (index &lt; 0 || index &gt; size)
-        throw new IndexOutOfBoundsException(&quot;Index: &quot;+index);
-    return new ListItr(index);
-}
-public ListIterator&lt;E&gt; listIterator() {
-    return new ListItr(0);
-}
-public Iterator&lt;E&gt; iterator() {
-    return new Itr();
-}
-</code></pre>
-
-<p>这是其相关的三个创建方法，其中iterator()直接创建Itr类，另外两个是创建ListItr类，这两个类是ArrayList的两个内部类其定义名为：</p>
-
-<pre><code>private class Itr implements Iterator&lt;E&gt; {
-    int cursor;       // index of next element to return
-    int lastRet = -1; // index of last element returned; -1 if no such
-    int expectedModCount = modCount;
-    .....
-}
-private class ListItr extends Itr implements ListIterator&lt;E&gt; {
-    ListItr(int index) {
-        super();
-        cursor = index;
-    }   
-    .....
-}
-</code></pre>
-
-<p>他们的关系是有关联的，在源码中Itr类内部的方法只有四个而且都相关：</p>
-
-<pre><code>public boolean hasNext() {
-        return cursor != size;
-    }
-
-    @SuppressWarnings(&quot;unchecked&quot;)
-    public E next() {
-        checkForComodification();
-        int i = cursor;
-        if (i &gt;= size)
-            throw new NoSuchElementException();
-        Object[] elementData = ArrayList.this.elementData;
-        if (i &gt;= elementData.length)
-            throw new ConcurrentModificationException();
-        cursor = i + 1;
-        return (E) elementData[lastRet = i];
-    }
-
-    public void remove() {
-        if (lastRet &lt; 0)
-            throw new IllegalStateException();
-        checkForComodification();
-
-        try {
-            ArrayList.this.remove(lastRet);
-            cursor = lastRet;
-            lastRet = -1;
-            expectedModCount = modCount;
-        } catch (IndexOutOfBoundsException ex) {
-            throw new ConcurrentModificationException();
-        }
-    }
-
-    final void checkForComodification() {
-        if (modCount != expectedModCount)
-            throw new ConcurrentModificationException();
-    }
-</code></pre>
-
-<p>因为我看这些方法都简单明了，其中注意一下在remove()方法中的<code>expectedModCount = modCount;</code>在这里又进行了一次赋值，是因为在remove移除的时候modCount的数值发生了改变所以要重新进行复制，因为在<code>checkForComodification()</code>方法中如果检测到他们两个值不相同时，这个检查是可以避免一些可能引起跌代错误的add()或remove()等危险操作。在AbstractList中，使用了一个简单的机制来规避这些风险。 这就是modCount和expectedModCount的作用所在。
-在ListItr类中，其中的方法都有类似当进行改动ArrayList的时候回调用ArrayList.this.*的方法进行改变。</p>
-
-<p>在subList()方法中产生了一个SubList类该类为ArrayList的内部类，其内方法和ArrayList的各种方法都是大同小异的，相当于将ArrayList的个别数据复制到一个新的List里面进行操作，而其内的方法就是这种操作的内容，但是当修改了该List的内容或者添加了其原来的ArrayList的内容是跟随着改变的，其主要形成的方法：</p>
-
-<pre><code>public List&lt;E&gt; subList(int fromIndex, int toIndex) {
-    subListRangeCheck(fromIndex, toIndex, size);
-    return new SubList(this, 0, fromIndex, toIndex);
-}
-
-static void subListRangeCheck(int fromIndex, int toIndex, int size) {
-    if (fromIndex &lt; 0)
-        throw new IndexOutOfBoundsException(&quot;fromIndex = &quot; + fromIndex);
-    if (toIndex &gt; size)
-        throw new IndexOutOfBoundsException(&quot;toIndex = &quot; + toIndex);
-    if (fromIndex &gt; toIndex)
-        throw new IllegalArgumentException(&quot;fromIndex(&quot; + fromIndex +
-                                           &quot;) &gt; toIndex(&quot; + toIndex + &quot;)&quot;);
-}
-</code></pre>
-
-<pre><code>public void add(int index, E e) {
-    rangeCheckForAdd(index);
-    checkForComodification();
-    parent.add(parentOffset + index, e);
-    this.modCount = parent.modCount;
-    this.size++;
-}
-</code></pre>
-
-<p>从该方法中就能看出形成新的SubList还是从原有的ArrayList上进行改变的。</p>
+<p>ls -lF |grep /    或 ls -l |grep &lsquo;^d&rsquo;  只看当前目录下的文件夹，不包括往下的文件夹</p>
 
 	</div>
   <footer class="article-footer clearfix">
@@ -294,9 +125,7 @@ static void subListRangeCheck(int fromIndex, int toIndex, int size) {
 <div class="article-tags">
   <span></span>
   
-  <a href="https://xueshaoyi.github.io/tags/java">Java</a>
-  
-  <a href="https://xueshaoyi.github.io/tags/java%E6%BA%90%E7%A0%81">java源码</a>
+  <a href="https://xueshaoyi.github.io/tags/linux">Linux</a>
   
 </div>
 
@@ -307,14 +136,14 @@ static void subListRangeCheck(int fromIndex, int toIndex, int size) {
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://xueshaoyi.github.io/categories/java%E5%9F%BA%E7%A1%80">Java基础</a>
+  <a class="article-category-link" href="https://xueshaoyi.github.io/categories/linux">Linux</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%813/" data-title="ArrayList源码(3)" data-tsina="1816308191" class="share clearfix">
+    <div data-url="https://xueshaoyi.github.io/post/2017/linux%E7%BB%9F%E8%AE%A1%E6%96%87%E4%BB%B6%E4%B8%AA%E6%95%B0%E6%93%8D%E4%BD%9C/" data-title="Linux统计文件个数操作" data-tsina="1816308191" class="share clearfix">
     </div>
   </div>
 </footer>
@@ -330,8 +159,8 @@ static void subListRangeCheck(int fromIndex, int toIndex, int size) {
 
 
 var disqus_config = function () {
-this.page.url = "https://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%813/";
-this.page.identifier = "https://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%813/";
+this.page.url = "https://xueshaoyi.github.io/post/2017/linux%E7%BB%9F%E8%AE%A1%E6%96%87%E4%BB%B6%E4%B8%AA%E6%95%B0%E6%93%8D%E4%BD%9C/";
+this.page.identifier = "https://xueshaoyi.github.io/post/2017/linux%E7%BB%9F%E8%AE%A1%E6%96%87%E4%BB%B6%E4%B8%AA%E6%95%B0%E6%93%8D%E4%BD%9C/";
 };
 (function() { 
 var d = document, s = d.createElement('script');
