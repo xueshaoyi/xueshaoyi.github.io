@@ -13,10 +13,10 @@
     
     <item>
       <title>Redis的哨兵模式（Sentinel）</title>
-      <link>https://xueshaoyi.github.io/post/2017/redis%E7%9A%84%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F/</link>
+      <link>https://xueshaoyi.github.io/post/2017/bigdata/redis%E7%9A%84%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F/</link>
       <pubDate>Wed, 17 May 2017 13:13:19 +0800</pubDate>
       
-      <guid>https://xueshaoyi.github.io/post/2017/redis%E7%9A%84%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/bigdata/redis%E7%9A%84%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F/</guid>
       <description>Redis Sentinel是一个分布式系统，你可以在一个架构中运行多个 Sentinel 进程（progress）， 这些进程使用流言协议（gossip protocol</description>
     </item>
     

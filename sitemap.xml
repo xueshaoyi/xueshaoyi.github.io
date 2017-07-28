@@ -3,12 +3,32 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://xueshaoyi.github.io/post/2017/linux%E7%BB%9F%E8%AE%A1%E6%96%87%E4%BB%B6%E4%B8%AA%E6%95%B0%E6%93%8D%E4%BD%9C/</loc>
+    <loc>https://xueshaoyi.github.io/datum/java%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/</loc>
+    <lastmod>2017-07-28T10:26:19+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xueshaoyi.github.io/datum/java%E9%9B%86%E5%90%88%E7%B1%BB/</loc>
+    <lastmod>2017-07-28T10:19:19+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xueshaoyi.github.io/datum/java%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/</loc>
+    <lastmod>2017-07-28T10:15:19+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xueshaoyi.github.io/post/2017/notes/sql/</loc>
+    <lastmod>2017-07-27T16:38:19+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xueshaoyi.github.io/post/2017/notes/linux%E7%BB%9F%E8%AE%A1%E6%96%87%E4%BB%B6%E4%B8%AA%E6%95%B0%E6%93%8D%E4%BD%9C/</loc>
     <lastmod>2017-07-26T17:10:19+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://xueshaoyi.github.io/post/2017/linkedlist%E6%BA%90%E7%A0%812/</loc>
+    <loc>https://xueshaoyi.github.io/post/2017/base/linkedlist%E6%BA%90%E7%A0%812/</loc>
     <lastmod>2017-07-26T12:50:19+08:00</lastmod>
   </url>
   
@@ -38,97 +58,97 @@
   </url>
   
   <url>
-    <loc>https://xueshaoyi.github.io/post/2017/linkedlist%E6%BA%90%E7%A0%811/</loc>
+    <loc>https://xueshaoyi.github.io/post/2017/base/linkedlist%E6%BA%90%E7%A0%811/</loc>
     <lastmod>2017-07-22T13:13:19+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%812/</loc>
+    <loc>https://xueshaoyi.github.io/post/2017/base/arraylist%E6%BA%90%E7%A0%812/</loc>
     <lastmod>2017-07-18T18:49:19+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://xueshaoyi.github.io/post/2017/java-volatile/</loc>
+    <loc>https://xueshaoyi.github.io/post/2017/zhishi/java-volatile/</loc>
     <lastmod>2017-07-18T14:39:19+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%811/</loc>
+    <loc>https://xueshaoyi.github.io/post/2017/base/arraylist%E6%BA%90%E7%A0%811/</loc>
     <lastmod>2017-07-18T13:19:19+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://xueshaoyi.github.io/post/2017/java%E7%9A%84final%E5%85%B3%E9%94%AE%E5%AD%97/</loc>
+    <loc>https://xueshaoyi.github.io/post/2017/zhishi/java%E7%9A%84final%E5%85%B3%E9%94%AE%E5%AD%97/</loc>
     <lastmod>2017-07-17T13:13:55+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://xueshaoyi.github.io/post/2017/java-transient%E5%85%B3%E9%94%AE%E5%AD%97/</loc>
+    <loc>https://xueshaoyi.github.io/post/2017/zhishi/java-transient%E5%85%B3%E9%94%AE%E5%AD%97/</loc>
     <lastmod>2017-07-17T13:10:19+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://xueshaoyi.github.io/post/2017/arraylist%E6%BA%90%E7%A0%813/</loc>
+    <loc>https://xueshaoyi.github.io/post/2017/base/arraylist%E6%BA%90%E7%A0%813/</loc>
     <lastmod>2017-07-17T11:54:19+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://xueshaoyi.github.io/post/2017/static%E7%89%B9%E6%AE%8A%E7%94%A8%E6%B3%95--java%E5%8C%85%E9%9D%99%E6%80%81%E5%AF%BC%E5%85%A5/</loc>
+    <loc>https://xueshaoyi.github.io/post/2017/zhishi/static%E7%89%B9%E6%AE%8A%E7%94%A8%E6%B3%95--java%E5%8C%85%E9%9D%99%E6%80%81%E5%AF%BC%E5%85%A5/</loc>
     <lastmod>2017-07-12T14:13:19+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://xueshaoyi.github.io/post/2017/static%E9%9D%99%E6%80%81%E5%9D%97/</loc>
+    <loc>https://xueshaoyi.github.io/post/2017/zhishi/static%E9%9D%99%E6%80%81%E5%9D%97/</loc>
     <lastmod>2017-07-10T13:13:19+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://xueshaoyi.github.io/post/2017/static%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/</loc>
+    <loc>https://xueshaoyi.github.io/post/2017/zhishi/static%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/</loc>
     <lastmod>2017-07-10T13:13:19+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://xueshaoyi.github.io/post/2017/github-git-clone%E9%94%99%E8%AF%AF/</loc>
+    <loc>https://xueshaoyi.github.io/post/2017/notes/github-git-clone%E9%94%99%E8%AF%AF/</loc>
     <lastmod>2017-07-01T13:13:19+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://xueshaoyi.github.io/post/2017/zookeeper%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%BC%8F/</loc>
+    <loc>https://xueshaoyi.github.io/post/2017/bigdata/zookeeper%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2017-06-27T13:13:19+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://xueshaoyi.github.io/post/2017/hashmaphashtable%E5%92%8Cconcurrenthashmap%E7%9A%84%E5%8C%BA%E5%88%AB/</loc>
+    <loc>https://xueshaoyi.github.io/post/2017/zhishi/hashmaphashtable%E5%92%8Cconcurrenthashmap%E7%9A%84%E5%8C%BA%E5%88%AB/</loc>
     <lastmod>2017-06-20T13:13:19+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://xueshaoyi.github.io/post/2017/mysql%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/</loc>
+    <loc>https://xueshaoyi.github.io/post/2017/zhishi/mysql%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/</loc>
     <lastmod>2017-05-20T13:13:19+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://xueshaoyi.github.io/post/2017/redis%E7%9A%84%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F/</loc>
+    <loc>https://xueshaoyi.github.io/post/2017/bigdata/redis%E7%9A%84%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2017-05-17T13:13:19+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://xueshaoyi.github.io/post/2017/hashmap%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</loc>
+    <loc>https://xueshaoyi.github.io/post/2017/zhishi/hashmap%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</loc>
     <lastmod>2017-05-15T13:13:19+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://xueshaoyi.github.io/post/2017/zookeeper/</loc>
+    <loc>https://xueshaoyi.github.io/post/2017/bigdata/zookeeper/</loc>
     <lastmod>2017-05-11T13:13:19+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://xueshaoyi.github.io/post/2017/hbase%E9%85%8D%E7%BD%AE/</loc>
+    <loc>https://xueshaoyi.github.io/post/2017/bigdata/hbase%E9%85%8D%E7%BD%AE/</loc>
     <lastmod>2017-04-14T12:13:19+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://xueshaoyi.github.io/post/2017/hadooptq/</loc>
+    <loc>https://xueshaoyi.github.io/post/2017/bigdata/hadooptq/</loc>
     <lastmod>2017-03-23T12:13:19+08:00</lastmod>
   </url>
   
@@ -138,7 +158,7 @@
   </url>
   
   <url>
-    <loc>https://xueshaoyi.github.io/post/2017/hadoopbase/</loc>
+    <loc>https://xueshaoyi.github.io/post/2017/bigdata/hadoopbase/</loc>
     <lastmod>2017-03-20T12:13:19+08:00</lastmod>
   </url>
   
@@ -167,7 +187,7 @@
   
   <url>
     <loc>https://xueshaoyi.github.io/datum/</loc>
-    <lastmod>2017-07-24T12:58:19+08:00</lastmod>
+    <lastmod>2017-07-28T10:26:19+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -227,7 +247,7 @@
   
   <url>
     <loc>https://xueshaoyi.github.io/tags/java/</loc>
-    <lastmod>2017-07-26T12:50:19+08:00</lastmod>
+    <lastmod>2017-07-28T10:26:19+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -240,6 +260,12 @@
   <url>
     <loc>https://xueshaoyi.github.io/tags/java%E6%BA%90%E7%A0%81/</loc>
     <lastmod>2017-07-26T12:50:19+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://xueshaoyi.github.io/tags/jvm/</loc>
+    <lastmod>2017-07-28T10:26:19+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -262,8 +288,14 @@
   </url>
   
   <url>
+    <loc>https://xueshaoyi.github.io/categories/mysql/</loc>
+    <lastmod>2017-07-27T16:38:19+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://xueshaoyi.github.io/post/</loc>
-    <lastmod>2017-07-26T17:10:19+08:00</lastmod>
+    <lastmod>2017-07-27T16:38:19+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -275,7 +307,13 @@
   
   <url>
     <loc>https://xueshaoyi.github.io/</loc>
-    <lastmod>2017-07-26T17:10:19+08:00</lastmod>
+    <lastmod>2017-07-28T10:26:19+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://xueshaoyi.github.io/tags/sql/</loc>
+    <lastmod>2017-07-27T16:38:19+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -329,13 +367,25 @@
   
   <url>
     <loc>https://xueshaoyi.github.io/categories/%E6%95%B4%E7%90%86%E8%B5%84%E6%96%99/</loc>
-    <lastmod>2017-07-24T12:58:19+08:00</lastmod>
+    <lastmod>2017-07-28T10:26:19+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://xueshaoyi.github.io/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD/</loc>
     <lastmod>2017-07-24T11:54:19+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://xueshaoyi.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2017-07-28T10:15:19+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://xueshaoyi.github.io/tags/%E9%9B%86%E5%90%88%E7%B1%BB/</loc>
+    <lastmod>2017-07-28T10:19:19+08:00</lastmod>
     <priority>0</priority>
   </url>
   

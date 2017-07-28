@@ -1,0 +1,607 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>JAVA集合类 - Shao Yi`s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+  
+  <meta name="description" content="而对于集合类，主要需要掌握的就是它的内部结构，以及遍历集合的迭代模式。 接口：Collection Collection是最基本的集合接口，一个">
+  
+  <meta itemprop="name" content="JAVA集合类 - Shao Yi`s Blog">
+  <meta itemprop="description" content="而对于集合类，主要需要掌握的就是它的内部结构，以及遍历集合的迭代模式。 接口：Collection Collection是最基本的集合接口，一个">
+  <meta itemprop="image" content="https://xueshaoyi.github.io/img/author.jpg">
+  
+  
+  <meta name="twitter:description" content="">
+  
+  <link rel="shortcut icon" href="https://xueshaoyi.github.io/img/favicon.ico"/>
+  <link rel="apple-touch-icon" href="https://xueshaoyi.github.io/apple-touch-icon.png" />
+  <link rel="apple-touch-icon-precomposed" href="https://xueshaoyi.github.io/apple-touch-icon.png" />
+  <link rel="stylesheet" href="https://xueshaoyi.github.io/highlight/styles/github.css">
+  <script src="https://xueshaoyi.github.io/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="https://xueshaoyi.github.io/font/hack/css/hack.min.css">
+  <link rel="stylesheet" href="https://xueshaoyi.github.io/css/style.css">
+</head>
+
+<body>
+  <header>
+    <div>
+  
+  <div id="imglogo">
+    <a href="https://xueshaoyi.github.io/"><img src="https://xueshaoyi.github.io/img/shaoyi.jpg" style="border-radius: 50%;" alt="Shao Yi`s Blog" title="Shao Yi`s Blog"/></a>
+  </div>
+  
+  <div id="textlogo">
+    <h1 class="site-name"><a href="https://xueshaoyi.github.io/"  title="Shao Yi`s Blog">Shao Yi`s Blog</a></h1>
+    <h2 class="blog-motto">学海无涯，回头是岸啊！！！</h2>
+  </div>
+  <div class="navbar"><a class="navbutton navmobile" href="#" title="menu"></a></div>
+  <nav class="animated">
+    <ul>
+      
+      <li><a href="/">首页</a></li>
+      
+      <li><a href="/about">关于</a></li>
+      
+      <li><a href="/datum">资料</a></li>
+      
+      <li>
+        <form class="search" method="get" action="https://www.google.com/search">
+          <div>
+            <input type="text" id="search" name="q" placeholder="">
+          </div>
+        </form>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+  </header>
+  <div id="container">
+    <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody">
+    <header class="article-info clearfix">
+  <h1 itemprop="name">
+      <a href="https://xueshaoyi.github.io/datum/java%E9%9B%86%E5%90%88%E7%B1%BB/" title="JAVA集合类" itemprop="url">JAVA集合类</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://github.com/xueshaoyi" title=""></a>
+    
+  </p>
+  <p class="article-time">
+    <time datetime="2017-07-28 10:19:19 &#43;0800 CST" itemprop="datePublished">2017年07月28日</time>
+  </p>
+</header>
+
+	<div class="article-content">
+    
+		<div class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#接口-collection">接口：Collection</a></li>
+<li><a href="#list接口">List接口</a></li>
+<li><a href="#linkedlist类">LinkedList类</a></li>
+<li><a href="#arraylist类">ArrayList类</a></li>
+<li><a href="#vector类">Vector类</a></li>
+<li><a href="#stack-类">Stack 类</a></li>
+<li><a href="#set接口">Set接口</a></li>
+<li><a href="#map接口">Map接口</a></li>
+<li><a href="#hashtable类">Hashtable类</a></li>
+<li><a href="#hashmap类">HashMap类</a></li>
+<li><a href="#weakhashmap类">WeakHashMap类</a></li>
+<li><a href="#总结">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+		</div>
+    
+    
+
+<p>而对于集合类，主要需要掌握的就是它的内部结构，以及遍历集合的迭代模式。</p>
+
+<h2 id="接口-collection">接口：Collection</h2>
+
+<p>Collection是最基本的集合接口，一个Collection代表一组Object，即Collection的元素（Elements）。一些Collection允许相同的元素而另一些不行。一些能排序而另一些不行。Java SDK不提供直接继承自Collection的类，Java SDK提供的类都是继承自Collection的“子接口”如List和Set。</p>
+
+<p>所有实现Collection接口的类都必须提供两个标准的构造函数：无参数的构造函数用于创建一个空的Collection，有一个Collection参数的构造函数用于创建一个新的Collection，这个新的Collection与传入的Collection有相同的元素。后一个构造函数允许用户复制一个Collection。</p>
+
+<p>主要的一个接口方法：boolean add(Ojbect c)</p>
+
+<p>虽然返回的是boolean，但不是表示添加成功与否，这个返回值表示的意义是add()执行后，集合的内容是否改变了（就是元素的数量、位置等有无变化）。类似的addAll，remove，removeAll，remainAll也是一样的。
+用Iterator模式实现遍历集合</p>
+
+<p>Collection有一个重要的方法：iterator()，返回一个Iterator（迭代器），用于遍历集合的所有元素。Iterator模式可以把访问逻辑从不同的集合类中抽象出来，从而避免向客户端暴露集合的内部结构。典型的用法如下：</p>
+
+<pre><code>Iterator it = collection.iterator(); // 获得一个迭代器
+while(it.hasNext()) {
+    Object obj = it.next(); // 得到下一个元素
+}
+</code></pre>
+
+<p>不需要维护遍历集合的“指针”，所有的内部状态都由Iterator来维护，而这个Iterator由集合类通过工厂方法生成。</p>
+
+<p>每一种集合类返回的Iterator具体类型可能不同，但它们都实现了Iterator接口，因此，我们不需要关心到底是哪种Iterator，它只需要获得这个Iterator接口即可，这就是接口的好处，面向对象的威力。</p>
+
+<p>要确保遍历过程顺利完成，必须保证遍历过程中不更改集合的内容（Iterator的remove()方法除外），所以，确保遍历可靠的原则是：只在一个线程中使用这个集合，或者在多线程中对遍历代码进行同步。
+由Collection接口派生的两个接口是List和Set。 　</p>
+
+<h2 id="list接口">List接口</h2>
+
+<p>List是有序的Collection，使用此接口能够精确的控制每个元素插入的位置。用户能够使用索引（元素在List中的位置，类似于数组下标）来访问List中的元素，这类似于Java的数组。和下面要提到的Set不同，List允许有相同的元素。</p>
+
+<p>除了具有Collection接口必备的iterator()方法外，List还提供一个listIterator()方法，返回一个ListIterator接口，和标准的Iterator接口相比，ListIterator多了一些add()之类的方法，允许添加，删除，设定元素，还能向前或向后遍历。</p>
+
+<p>实现List接口的常用类有LinkedList，ArrayList，Vector和Stack。</p>
+
+<h2 id="linkedlist类">LinkedList类</h2>
+
+<p>LinkedList实现了List接口，允许null元素。此外LinkedList提供额外的get，remove，insert方法在LinkedList的首部或尾部。这些操作使LinkedList可被用作堆栈（stack），队列（queue）或双向队列（deque）。</p>
+
+<p>注意LinkedList没有同步方法。如果多个线程同时访问一个List，则必须自己实现访问同步。一种解决方法是在创建List时构造一个同步的List：
+List list = Collections.synchronizedList(new LinkedList(&hellip;));</p>
+
+<h2 id="arraylist类">ArrayList类</h2>
+
+<p>ArrayList实现了可变大小的数组。它允许所有元素，包括null。ArrayList没有同步。</p>
+
+<p>size，isEmpty，get，set方法运行时间为常数。但是add方法开销为分摊的常数，添加n个元素需要O(n)的时间。其他的方法运行时间为线性。</p>
+
+<p>每个ArrayList实例都有一个容量（Capacity），即用于存储元素的数组的大小。这个容量可随着不断添加新元素而自动增加，但是增长算法并没有定义。当需要插入大量元素时，在插入前可以调用ensureCapacity方法来增加ArrayList的容量以提高插入效率。</p>
+
+<p>和LinkedList一样，ArrayList也是非同步的（unsynchronized）。</p>
+
+<h2 id="vector类">Vector类</h2>
+
+<p>Vector非常类似ArrayList，但是Vector是同步的。由Vector创建的Iterator，虽然和ArrayList创建的Iterator是同一接口，但是，因为Vector是同步的，当一个Iterator被创建而且正在被使用，另一个线程改变了Vector的状态（例如，添加或删除了一些元素），这时调用Iterator的方法时将抛出ConcurrentModificationException，因此必须捕获该异常。</p>
+
+<h2 id="stack-类">Stack 类</h2>
+
+<p>Stack继承自Vector，实现一个后进先出的堆栈。Stack提供5个额外的方法使得Vector得以被当作堆栈使用。基本的push和pop方法，还有peek方法得到栈顶的元素，empty方法测试堆栈是否为空，search方法检测一个元素在堆栈中的位置。Stack刚创建后是空栈。</p>
+
+<h2 id="set接口">Set接口</h2>
+
+<p>Set是一种不包含重复的元素的Collection，即任意的两个元素e1和e2都有e1.equals(e2)=false，Set最多有一个null元素。</p>
+
+<p>很明显，Set的构造函数有一个约束条件，传入的Collection参数不能包含重复的元素。
+　　
+请注意：必须小心操作可变对象（Mutable Object）。如果一个Set中的可变元素改变了自身状态导致Object.equals(Object)=true将导致一些问题。</p>
+
+<h2 id="map接口">Map接口</h2>
+
+<p>请注意，Map没有继承Collection接口，Map提供key到value的映射。一个Map中不能包含相同的key，每个key只能映射一个value。Map接口提供3种集合的视图，Map的内容可以被当作一组key集合，一组value集合，或者一组key-value映射。</p>
+
+<h2 id="hashtable类">Hashtable类</h2>
+
+<p>Hashtable继承Map接口，实现一个key-value映射的哈希表。任何非空（non-null）的对象都可作为key或者value。</p>
+
+<p>添加数据使用put(key, value)，取出数据使用get(key)，这两个基本操作的时间开销为常数。</p>
+
+<p>Hashtable通过initial capacity和load factor两个参数调整性能。通常缺省的load factor 0.75较好地实现了时间和空间的均衡。增大load factor可以节省空间但相应的查找时间将增大，这会影响像get和put这样的操作。</p>
+
+<p>使用Hashtable的简单示例如下，将1，2，3放到Hashtable中，他们的key分别是”one”，”two”，”three”：</p>
+
+<pre><code>Hashtable numbers = new Hashtable();
+numbers.put(“one”, new Integer(1));
+numbers.put(“two”, new Integer(2));
+numbers.put(“three”, new Integer(3));
+</code></pre>
+
+<p>要取出一个数，比如2，用相应的key：</p>
+
+<pre><code>Integer n = (Integer)numbers.get(“two”);
+System.out.println(“two = ” + n);
+</code></pre>
+
+<p>由于作为key的对象将通过计算其散列函数来确定与之对应的value的位置，因此任何作为key的对象都必须实现hashCode和equals方法。</p>
+
+<p>hashCode和equals方法继承自根类Object，如果你用自定义的类当作key的话，要相当小心，按照散列函数的定义，如果两个对象相同，即obj1.equals(obj2)=true，则它们的hashCode必须相同，但如果两个对象不同，则它们的hashCode不一定不同，如果两个不同对象的hashCode相同，这种现象称为冲突，冲突会导致操作哈希表的时间开销增大，所以尽量定义好的hashCode()方法，能加快哈希表的操作。</p>
+
+<p>如果相同的对象有不同的hashCode，对哈希表的操作会出现意想不到的结果（期待的get方法返回null），要避免这种问题，只需要牢记一条：要同时复写equals方法和hashCode方法，而不要只写其中一个。</p>
+
+<p>Hashtable是同步的。</p>
+
+<h2 id="hashmap类">HashMap类</h2>
+
+<p>HashMap和Hashtable类似，不同之处在于HashMap是非同步的，并且允许null，即null value和null key。，但是将HashMap视为Collection时（values()方法可返回Collection），其迭代器操作时间开销和HashMap的容量成比例。因此，如果迭代操作的性能相当重要的话，不要将HashMap的初始化容量设得过高，或者load factor过低。</p>
+
+<h2 id="weakhashmap类">WeakHashMap类</h2>
+
+<p>WeakHashMap是一种改进的HashMap，它对key实行“弱引用”，如果一个key不再被外部所引用，那么该key可以被GC回收。</p>
+
+<h2 id="总结">总结</h2>
+
+<ol>
+<li>如果涉及到堆栈，队列等操作，应该考虑用List，对于需要快速插入，删除元素，应该使用LinkedList，如果需要快速随机访问元素，应该使用ArrayList。</li>
+<li>如果程序在单线程环境中，或者访问仅仅在一个线程中进行，考虑非同步的类，其效率较高，如果多个线程可能同时操作一个类，应该使用同步的类。</li>
+<li>要特别注意对哈希表的操作，作为key的对象要正确复写equals和hashCode方法。</li>
+<li>尽量返回接口而非实际的类型，如返回List而非ArrayList，这样如果以后需要将ArrayList换成LinkedList时，客户端代码不用改变。这就是针对抽象编程。</li>
+</ol>
+
+	</div>
+  <footer class="article-footer clearfix">
+  
+
+<div class="article-tags">
+  <span></span>
+  
+  <a href="https://xueshaoyi.github.io/tags/java">java</a>
+  
+  <a href="https://xueshaoyi.github.io/tags/%E9%9B%86%E5%90%88%E7%B1%BB">集合类</a>
+  
+</div>
+
+
+
+
+
+<div class="article-categories">
+  <span></span>
+  
+  <a class="article-category-link" href="https://xueshaoyi.github.io/categories/%E6%95%B4%E7%90%86%E8%B5%84%E6%96%99">整理资料</a>
+  
+</div>
+
+
+
+  <div class="article-share" id="share">
+    <div data-url="https://xueshaoyi.github.io/datum/java%E9%9B%86%E5%90%88%E7%B1%BB/" data-title="JAVA集合类" data-tsina="1816308191" class="share clearfix">
+    </div>
+  </div>
+</footer>
+
+	</article>
+  
+
+
+<section class="comment">
+<div id="disqus_thread"></div>
+</section>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://xueshaoyi.github.io/datum/java%E9%9B%86%E5%90%88%E7%B1%BB/";
+this.page.identifier = "https://xueshaoyi.github.io/datum/java%E9%9B%86%E5%90%88%E7%B1%BB/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+
+s.src = '//xueshaoyi.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+</div>
+
+    <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+  
+
+<div class="categorieslist">
+  <p class="asidetitle">分类</p>
+  <ul>
+    
+    <li><a href="https://xueshaoyi.github.io/categories/github" title="github">github<sup>1</sup></a></li>
+    
+    <li><a href="https://xueshaoyi.github.io/categories/java%e5%9f%ba%e7%a1%80" title="java基础">java基础<sup>13</sup></a></li>
+    
+    <li><a href="https://xueshaoyi.github.io/categories/linux" title="linux">linux<sup>1</sup></a></li>
+    
+    <li><a href="https://xueshaoyi.github.io/categories/mysql" title="mysql">mysql<sup>1</sup></a></li>
+    
+    <li><a href="https://xueshaoyi.github.io/categories/%e5%a4%a7%e6%95%b0%e6%8d%ae" title="大数据">大数据<sup>5</sup></a></li>
+    
+    <li><a href="https://xueshaoyi.github.io/categories/%e6%95%b0%e6%8d%ae%e5%ba%93" title="数据库">数据库<sup>2</sup></a></li>
+    
+    <li><a href="https://xueshaoyi.github.io/categories/%e6%95%b4%e7%90%86%e8%b5%84%e6%96%99" title="整理资料">整理资料<sup>8</sup></a></li>
+    
+  </ul>
+</div>
+
+
+
+  
+
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+      
+			<li><a href="https://xueshaoyi.github.io/tags/appache" title="appache">appache<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/bigdata" title="bigdata">bigdata<sup>3</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/concurrenthashmap" title="concurrenthashmap">concurrenthashmap<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/final" title="final">final<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/git" title="git">git<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/hadoop" title="hadoop">hadoop<sup>3</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/hashmap" title="hashmap">hashmap<sup>2</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/hashtable" title="hashtable">hashtable<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/hbase" title="hbase">hbase<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/hibernate" title="hibernate">hibernate<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/http" title="http">http<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/java" title="java">java<sup>16</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/java%e6%ba%90%e7%a0%81" title="java源码">java源码<sup>5</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/jvm" title="jvm">jvm<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/linux" title="linux">linux<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/mysql" title="mysql">mysql<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/redis" title="redis">redis<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/sql" title="sql">sql<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/static" title="static">static<sup>3</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/transient" title="transient">transient<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/tree" title="tree">tree<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/volatile" title="volatile">volatile<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/zookeeper" title="zookeeper">zookeeper<sup>2</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/%e7%b1%bb%e5%8a%a0%e8%bd%bd" title="类加载">类加载<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f" title="设计模式">设计模式<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/%e9%9b%86%e5%90%88%e7%b1%bb" title="集合类">集合类<sup>1</sup></a></li>
+      
+		</ul>
+</div>
+
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle">归档</p>
+    <ul class="archive-list">
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://xueshaoyi.github.io/post/#2017-07">2017年07月</a><span class="archive-list-count">14</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://xueshaoyi.github.io/post/#2017-06">2017年06月</a><span class="archive-list-count">2</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://xueshaoyi.github.io/post/#2017-05">2017年05月</a><span class="archive-list-count">4</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://xueshaoyi.github.io/post/#2017-04">2017年04月</a><span class="archive-list-count">1</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://xueshaoyi.github.io/post/#2017-03">2017年03月</a><span class="archive-list-count">2</span>
+      </li>
+      
+    </ul>
+
+  </div>
+
+
+  
+
+<div class="tagcloudlist">
+  <p class="asidetitle">标签云</p>
+  <div class="tagcloudlist clearfix">
+    
+    <a href="https://xueshaoyi.github.io/tags/appache" style="font-size: 12px;">appache</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/bigdata" style="font-size: 12px;">bigdata</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/concurrenthashmap" style="font-size: 12px;">concurrenthashmap</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/final" style="font-size: 12px;">final</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/git" style="font-size: 12px;">git</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/hadoop" style="font-size: 12px;">hadoop</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/hashmap" style="font-size: 12px;">hashmap</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/hashtable" style="font-size: 12px;">hashtable</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/hbase" style="font-size: 12px;">hbase</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/hibernate" style="font-size: 12px;">hibernate</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/http" style="font-size: 12px;">http</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/java" style="font-size: 12px;">java</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/java%e6%ba%90%e7%a0%81" style="font-size: 12px;">java源码</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/jvm" style="font-size: 12px;">jvm</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/linux" style="font-size: 12px;">linux</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/mysql" style="font-size: 12px;">mysql</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/redis" style="font-size: 12px;">redis</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/sql" style="font-size: 12px;">sql</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/static" style="font-size: 12px;">static</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/transient" style="font-size: 12px;">transient</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/tree" style="font-size: 12px;">tree</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/volatile" style="font-size: 12px;">volatile</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/zookeeper" style="font-size: 12px;">zookeeper</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/%e7%b1%bb%e5%8a%a0%e8%bd%bd" style="font-size: 12px;">类加载</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f" style="font-size: 12px;">设计模式</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/%e9%9b%86%e5%90%88%e7%b1%bb" style="font-size: 12px;">集合类</a>
+    
+  </div>
+</div>
+
+
+
+</aside>
+</div>
+
+  </div>
+  <footer><div id="footer" >
+  
+  <div class="line">
+    <span></span>
+    <div style='background:no-repeat url("https://xueshaoyi.github.io/img/Java.jpg") left top;-webkit-background-size:6.875em 6.875em;-moz-background-size:6.875em 6.875em;background-size:6.875em 6.875em;' class="author" ></div>
+  </div>
+  
+  
+  <section class="info">
+    <p>百年不变勤苍史 <br/> 如今只争学技书</p>
+  </section>
+  
+  <div class="social-font clearfix">
+    
+    <a href="http://weibo.com/Leo" target="_blank" title="weibo"></a>
+    
+    
+    
+    <a href="https://github.com/xueshaoyi" target="_blank" title="github"></a>
+    
+    
+    
+  </div>
+  <p class="copyright">Powered by <a href="http://gohugo.io" target="_blank" title="hugo">hugo</a> and Theme by <a href="https://github.com/coderzh/hugo-pacman-theme" target="_blank" title="hugo-pacman-theme">hugo-pacman-theme</a> © 2017
+    
+    <a href="https://xueshaoyi.github.io/" title="Shao Yi`s Blog">Shao Yi`s Blog</a>
+    
+  </p>
+</div>
+</footer>
+  <script src="https://xueshaoyi.github.io/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+done = false;
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  $('form.search').on('submit', function (event) {
+    if (false === done) {
+      event.preventDefault();
+      var orgVal = $(this).find('#search').val();
+      $(this).find('#search').val('site:https:\/\/xueshaoyi.github.io\/ ' + orgVal);
+      done = true;
+      $(this).submit();
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-10147768-2', 'auto');
+  ga('send', 'pageview');
+  $('#messagesbsb').remove();
+</script>
+
+
+
+</body>
+</html>

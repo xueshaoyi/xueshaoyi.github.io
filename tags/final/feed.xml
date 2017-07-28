@@ -13,10 +13,10 @@
     
     <item>
       <title>java的final关键字</title>
-      <link>https://xueshaoyi.github.io/post/2017/java%E7%9A%84final%E5%85%B3%E9%94%AE%E5%AD%97/</link>
+      <link>https://xueshaoyi.github.io/post/2017/zhishi/java%E7%9A%84final%E5%85%B3%E9%94%AE%E5%AD%97/</link>
       <pubDate>Mon, 17 Jul 2017 13:13:55 +0800</pubDate>
       
-      <guid>https://xueshaoyi.github.io/post/2017/java%E7%9A%84final%E5%85%B3%E9%94%AE%E5%AD%97/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/zhishi/java%E7%9A%84final%E5%85%B3%E9%94%AE%E5%AD%97/</guid>
       <description>Java中的final关键字非常重要，它可以应用于类、方法以及变量。将变量，方法和类声明为final代表了什么？使用final的好处是什么？</description>
     </item>
     

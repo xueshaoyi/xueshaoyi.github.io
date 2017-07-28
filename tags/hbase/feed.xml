@@ -13,10 +13,10 @@
     
     <item>
       <title>HBase简单配置学习</title>
-      <link>https://xueshaoyi.github.io/post/2017/hbase%E9%85%8D%E7%BD%AE/</link>
+      <link>https://xueshaoyi.github.io/post/2017/bigdata/hbase%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Fri, 14 Apr 2017 12:13:19 +0800</pubDate>
       
-      <guid>https://xueshaoyi.github.io/post/2017/hbase%E9%85%8D%E7%BD%AE/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/bigdata/hbase%E9%85%8D%E7%BD%AE/</guid>
       <description>一、HBASE概述 HBase是一个分布式的、面向列的开源数据库。HBase不同于一般关系数据库，它是一个适合于非结构化数据存储的数据库。另一</description>
     </item>
     

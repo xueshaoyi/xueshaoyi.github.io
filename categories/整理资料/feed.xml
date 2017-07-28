@@ -6,10 +6,37 @@
     <description>Recent content in 整理资料 on Shao Yi`s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 24 Jul 2017 12:58:19 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 28 Jul 2017 10:26:19 +0800</lastBuildDate>
     
 	<atom:link href="https://xueshaoyi.github.io/categories/%E6%95%B4%E7%90%86%E8%B5%84%E6%96%99/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>JAVA垃圾回收机制</title>
+      <link>https://xueshaoyi.github.io/datum/java%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/</link>
+      <pubDate>Fri, 28 Jul 2017 10:26:19 +0800</pubDate>
+      
+      <guid>https://xueshaoyi.github.io/datum/java%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/</guid>
+      <description>一．垃圾回收机制的作用和意义 Java语言中一个显著的特点就是引入了垃圾回收机制，使c++程序员最头疼的内存管理的问题迎刃而解，它使得Java</description>
+    </item>
+    
+    <item>
+      <title>JAVA集合类</title>
+      <link>https://xueshaoyi.github.io/datum/java%E9%9B%86%E5%90%88%E7%B1%BB/</link>
+      <pubDate>Fri, 28 Jul 2017 10:19:19 +0800</pubDate>
+      
+      <guid>https://xueshaoyi.github.io/datum/java%E9%9B%86%E5%90%88%E7%B1%BB/</guid>
+      <description>而对于集合类，主要需要掌握的就是它的内部结构，以及遍历集合的迭代模式。 接口：Collection Collection是最基本的集合接口，一个</description>
+    </item>
+    
+    <item>
+      <title>JAVA单例模式详解</title>
+      <link>https://xueshaoyi.github.io/datum/java%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/</link>
+      <pubDate>Fri, 28 Jul 2017 10:15:19 +0800</pubDate>
+      
+      <guid>https://xueshaoyi.github.io/datum/java%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/</guid>
+      <description>单例模式是设计模式中最简单的，只有一个单例类，没有其他的层次结构与抽象。 该模式需要确保该类只能生成一个对象，通常是该类需要消耗太多的资源或者</description>
+    </item>
     
     <item>
       <title>Hibernate配置详细解释</title>

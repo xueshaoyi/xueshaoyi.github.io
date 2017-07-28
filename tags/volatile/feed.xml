@@ -13,10 +13,10 @@
     
     <item>
       <title>java volatile</title>
-      <link>https://xueshaoyi.github.io/post/2017/java-volatile/</link>
+      <link>https://xueshaoyi.github.io/post/2017/zhishi/java-volatile/</link>
       <pubDate>Tue, 18 Jul 2017 14:39:19 +0800</pubDate>
       
-      <guid>https://xueshaoyi.github.io/post/2017/java-volatile/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/zhishi/java-volatile/</guid>
       <description>volatile是共享变量“可见性”关键字，当该变量在一处更改后，在其他线程里读到的是这个修改后的值。它是轻量级的synchronized，</description>
     </item>
     

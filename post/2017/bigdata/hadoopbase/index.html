@@ -1,0 +1,612 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>hadoop基本介绍及简单安装配置 - Shao Yi`s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+  
+  <meta name="description" content="1、hadoop简单介绍 Hadoop实现了一个分布式文件系统（Hadoop Distributed File System），简称HDFS。HDFS有高容错性的特点，并且设">
+  
+  <meta itemprop="name" content="hadoop基本介绍及简单安装配置 - Shao Yi`s Blog">
+  <meta itemprop="description" content="1、hadoop简单介绍 Hadoop实现了一个分布式文件系统（Hadoop Distributed File System），简称HDFS。HDFS有高容错性的特点，并且设">
+  <meta itemprop="image" content="https://xueshaoyi.github.io/img/author.jpg">
+  
+  
+  <meta name="twitter:description" content="">
+  
+  <link rel="shortcut icon" href="https://xueshaoyi.github.io/img/favicon.ico"/>
+  <link rel="apple-touch-icon" href="https://xueshaoyi.github.io/apple-touch-icon.png" />
+  <link rel="apple-touch-icon-precomposed" href="https://xueshaoyi.github.io/apple-touch-icon.png" />
+  <link rel="stylesheet" href="https://xueshaoyi.github.io/highlight/styles/github.css">
+  <script src="https://xueshaoyi.github.io/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="https://xueshaoyi.github.io/font/hack/css/hack.min.css">
+  <link rel="stylesheet" href="https://xueshaoyi.github.io/css/style.css">
+</head>
+
+<body>
+  <header>
+    <div>
+  
+  <div id="imglogo">
+    <a href="https://xueshaoyi.github.io/"><img src="https://xueshaoyi.github.io/img/shaoyi.jpg" style="border-radius: 50%;" alt="Shao Yi`s Blog" title="Shao Yi`s Blog"/></a>
+  </div>
+  
+  <div id="textlogo">
+    <h1 class="site-name"><a href="https://xueshaoyi.github.io/"  title="Shao Yi`s Blog">Shao Yi`s Blog</a></h1>
+    <h2 class="blog-motto">学海无涯，回头是岸啊！！！</h2>
+  </div>
+  <div class="navbar"><a class="navbutton navmobile" href="#" title="menu"></a></div>
+  <nav class="animated">
+    <ul>
+      
+      <li><a href="/">首页</a></li>
+      
+      <li><a href="/about">关于</a></li>
+      
+      <li><a href="/datum">资料</a></li>
+      
+      <li>
+        <form class="search" method="get" action="https://www.google.com/search">
+          <div>
+            <input type="text" id="search" name="q" placeholder="">
+          </div>
+        </form>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+  </header>
+  <div id="container">
+    <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody">
+    <header class="article-info clearfix">
+  <h1 itemprop="name">
+      <a href="https://xueshaoyi.github.io/post/2017/bigdata/hadoopbase/" title="hadoop基本介绍及简单安装配置" itemprop="url">hadoop基本介绍及简单安装配置</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://github.com/xueshaoyi" title=""></a>
+    
+  </p>
+  <p class="article-time">
+    <time datetime="2017-03-20 12:13:19 &#43;0800 CST" itemprop="datePublished">2017年03月20日</time>
+  </p>
+</header>
+
+	<div class="article-content">
+    
+		<div class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+      
+		</div>
+    
+    <p>1、hadoop简单介绍
+    Hadoop实现了一个分布式文件系统（Hadoop Distributed File System），简称HDFS。HDFS有高容错性的特点，并且设计用来部署在低廉的（low-cost）硬件上；而且它提供高吞吐量（high throughput）来访问应用程序的数据，适合那些有着超大数据集（large data set）的应用程序。HDFS放宽了（relax）POSIX的要求，可以以流的形式访问（streaming access）文件系统中的数据。
+    Hadoop的框架最核心的设计就是：HDFS和MapReduce。HDFS为海量的数据提供了存储，则MapReduce为海量的数据提供了计算。
+2、hadoop版本说明
+    hadoop现在分两个版本1.0和2.0（17年1月推出了3.0版本 在这先不介绍）
+    1.0版本，hadoop有两个核心模块：HDFS+MapReduce
+    2.0版本，hadoop有三个核心模块：HDFS+Yarn+MapReduce
+    yarn 是资源协调管理框架。
+    1.0时hadoop只有一种计算框架。在2.0之后推出yarn后，既可以运行mr，也可以运行Spark,storm等其他框架。
+3、Hadoop安装
+    模式：
+    1、单机模式，不能使用HDFS,只能使用MR，一般用于测试MR代码
+    2、伪分布模式，也就是用一台机器，用多个进程模拟多台机器。HDFS和MR都能使用
+    3、完全分布模式，用多个机器或多个虚拟机来搭建（之后有一节专门来说）
+    实现步骤：
+    1、准备一台虚拟机，要求工作内存最低1G，否则有可能出现错误。
+    2、关闭防火墙（注意，这只是自己用的时候为了简单，在工作中是不能关闭的 只要打开hadoop所需要的几个端口就可，50070、90000、50020等端口。
+    3、配置主机名hostsname、配置hosts文件，为了之后使用方便
+    4、配置免密钥登陆，方便之后的登陆跨服务器传文件登陆用
+    5、安装配置jdk，因为hadoop就是java开发的需要jdk环境
+    6、最后安装配置hadoop
+    安装步骤：
+    1、关闭防火墙：service iptables off 这个指令关闭防火墙之后，重启后防火墙还会开启，执行chkconfig iptables off这个命令之后重启也不会开启了（这个只是自己的虚拟机下使用，生产线上是不能的，当然这些都不是我这个小兵所关心的）。
+    2、配置hostsname等：
+        vim /etc/sysconfig/network<img src="http://img.blog.csdn.net/20170214193342096?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMTcwNDMxNTU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述" />
+        配置hosts 内容 vim /etc/hosts <img src="http://img.blog.csdn.net/20170214193514676?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMTcwNDMxNTU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述" />
+    3、配置免密钥登陆：
+        执行  ssh-keygen 一直回车  ，生成节点的公钥和私钥，生成的文件会放在/root/.ssh的目录下。
+        然后把公钥发往远程机器，比如发往本机，本机免密钥登陆：ssh-copy-id root@hadoop,此时，hadoop节点就是把收到的hadoop密钥保存在/root/.ssh/authorized_keys这个文件里，这个文件相当于访问的白名单，凡是在此白名单存储的密钥对应的机器，登陆时是免密码登陆的。两个机器分别进行一次则两方登陆时都是免密码的，之后做真分布式hadoop时要进行多个免密钥登陆的。
+    4、安装配置jdk
+        在这里就不写了。
+    5、安装配置hadoop
+        在这我是用的hadoop安装包进行的安装的。
+        我的安装包是hadoop-2.7.1的，我会上传的。
+        执行 tar -zxvf hadoop-2.7.1_64bit.tar.gz，之后解压生成相应的文件。其中由多个目录：
+            bin目录：命令脚本<br />
+            etc/hadoop：存放hadoop的配置文件（之后修改配置文件，将在这里进行）
+            lib目录：hadoop运行的依赖jar包
+            sbin目录：启动和关闭hadoop命令都在这里
+            libexec目录：存放的也是hadoop命令，但是一般不适用。
+        修改配置文件 切换到 etc/hadoop里面修改。
+        配置hadoop-env.sh
+        这个文件里写的是hadoop的环境变量，主要修改hadoop的java_home路径。在这里面主要修改export java_home 写成自己jdk的安装目录，export hadoop_conf_dir 写成hadoop的安装目录
+        配置core-site.xml
+        配置如下：<img src="http://img.blog.csdn.net/20170214212559479?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMTcwNDMxNTU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述" /></p>
+
+<p>配置hdfs-site.xml
+        如下：<img src="http://img.blog.csdn.net/20170214212646729?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMTcwNDMxNTU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述" /></p>
+
+<p>修改配置mapred-site.xml
+        这个文件初始时是没有的，有的是模板文件mapred-site.xml.temple  复制这个文件命名为mapred-site.xml 修改就可以了。配置如下：<img src="http://img.blog.csdn.net/20170214212814731?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMTcwNDMxNTU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述" />
+            yarn是资源协调工具。
+        修改yarn-site.xml
+        配置如下：<img src="http://img.blog.csdn.net/20170214212858106?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMTcwNDMxNTU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="`这里写图片描述`" />
+        配置slaves文件<img src="http://img.blog.csdn.net/20170214201008175?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMTcwNDMxNTU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述" />
+        （这个文件也是在etc/hadoop里面。
+        配置hadoop的环境变量 vim /etc/profile  主要是环境变量如图：<img src="http://img.blog.csdn.net/20170214201156508?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMTcwNDMxNTU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述" />
+            JAVA_HOME=/home/software/jdk1.8
+            HADOOP_HOME=/home/software/hadoop-2.7.1
+            CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+            PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$PATH
+            export JAVA_HOME PATH CLASSPATH HADOOP_HOME
+    完成这些配置之后要格式化namenode
+    出现<img src="http://img.blog.csdn.net/20170214202638825?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMTcwNDMxNTU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述" />       代表格式化成功之后启动就可以了
+    启动hadoop  直接 输入start-all.sh就可以启动所有的服务，也可以单个的启动相应的服务。
+    启动完后 数据jps检查启动情况<img src="http://img.blog.csdn.net/20170214202942013?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMTcwNDMxNTU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述" />    这样是都启动起来了，也可以在浏览器上输入：<a href="http://192.168.80.21:50070">http://192.168.80.21:50070</a> 出现相应的页面。</p>
+
+<p>Hadoop常用指令：
+    1.执行：hadoop fs -mkdir /test             在hdfs的根目录下，创建park目录
+    2.执行：hadoop fs -ls /                          查看hdfs根目录下有哪些目录
+    3.hadoop  fs -put /home/1.txt  /test     将linux系统home 目录下的1.txt文档放到hdfs的test目录下
+    4.hadoop fs -get /test/1.txt /home       把hdfs文件系统下test目录的文档下载到/home目录下
+    5.hadoop fs -rm /test/文件名                 删除test目录下的指定文件
+    6.hadoop fs -rmdir /test                        删除test目录，但是前提目录是没有文件的
+    7.hadoop fs -rmr /test                           删除test目录，无论有无文件都删除
+    8.hadoop fs -cat /test/1.txt                   查看test目录下1.txt文件
+    9.hadoop fs -tail /test/1.txt                   查看test目录下1.txt文件末尾的数据
+    10.hadoop jar xxx.jar                             执行jar包
+    11.hadoop fs -mv /test /test1               将hdfs上的test目录重名为test1
+    12.hadoop fs -mv /test/1.txt /test1       将1.txt转移到test1目录下
+    13.hadoop fs -touch /test/2.txt             创建一个2.txt空文件
+    14.hadoop fs -getmerge /test   /root    将test目录下的所有文件合并成一个文件，并下载到linux 的/root目录下
+    15.hadoop dfsadmin -safemode leave    离开安全模式
+    16.hadoop dfsadmin -safemode enter    进入安全模式
+    17.hadoop dfsadmin -rollEdits              手动执行fsimage 文件和Edis文件合并元数据
+    18.hadoop dfsadmin -report                 查看存活的datanode节点
+    19.hadoop fsck /test                              汇报/test目录健康状况
+    20.hadoop fsck /test/1.txt  -files -blocks -locations -racks 查看1.txt这个文件block信息以及机架信息，元数据信息，包括：文件名，文件大小，文件块数量，文件块编号，文件存储的Datanode信息。
+    21.hadoop fs -du /test/1.txt                   查看hdfs上某个文件的大小，也可以查看制定目录
+    22.hadoop fs -copyFormLocal /test/1.txt /home 将文件拷贝到本地文件系统
+    23.hadoop fs -lsr /                                递归查看指定目录下的所有文件</p>
+
+	</div>
+  <footer class="article-footer clearfix">
+  
+
+<div class="article-tags">
+  <span></span>
+  
+  <a href="https://xueshaoyi.github.io/tags/hadoop">hadoop</a>
+  
+  <a href="https://xueshaoyi.github.io/tags/bigdata">BigData</a>
+  
+</div>
+
+
+
+
+
+<div class="article-categories">
+  <span></span>
+  
+  <a class="article-category-link" href="https://xueshaoyi.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE">大数据</a>
+  
+</div>
+
+
+
+  <div class="article-share" id="share">
+    <div data-url="https://xueshaoyi.github.io/post/2017/bigdata/hadoopbase/" data-title="hadoop基本介绍及简单安装配置" data-tsina="1816308191" class="share clearfix">
+    </div>
+  </div>
+</footer>
+
+	</article>
+  
+
+
+<section class="comment">
+<div id="disqus_thread"></div>
+</section>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://xueshaoyi.github.io/post/2017/bigdata/hadoopbase/";
+this.page.identifier = "https://xueshaoyi.github.io/post/2017/bigdata/hadoopbase/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+
+s.src = '//xueshaoyi.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+</div>
+
+    <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+  
+
+<div class="categorieslist">
+  <p class="asidetitle">分类</p>
+  <ul>
+    
+    <li><a href="https://xueshaoyi.github.io/categories/github" title="github">github<sup>1</sup></a></li>
+    
+    <li><a href="https://xueshaoyi.github.io/categories/java%e5%9f%ba%e7%a1%80" title="java基础">java基础<sup>13</sup></a></li>
+    
+    <li><a href="https://xueshaoyi.github.io/categories/linux" title="linux">linux<sup>1</sup></a></li>
+    
+    <li><a href="https://xueshaoyi.github.io/categories/mysql" title="mysql">mysql<sup>1</sup></a></li>
+    
+    <li><a href="https://xueshaoyi.github.io/categories/%e5%a4%a7%e6%95%b0%e6%8d%ae" title="大数据">大数据<sup>5</sup></a></li>
+    
+    <li><a href="https://xueshaoyi.github.io/categories/%e6%95%b0%e6%8d%ae%e5%ba%93" title="数据库">数据库<sup>2</sup></a></li>
+    
+    <li><a href="https://xueshaoyi.github.io/categories/%e6%95%b4%e7%90%86%e8%b5%84%e6%96%99" title="整理资料">整理资料<sup>8</sup></a></li>
+    
+  </ul>
+</div>
+
+
+
+  
+
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+      
+			<li><a href="https://xueshaoyi.github.io/tags/appache" title="appache">appache<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/bigdata" title="bigdata">bigdata<sup>3</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/concurrenthashmap" title="concurrenthashmap">concurrenthashmap<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/final" title="final">final<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/git" title="git">git<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/hadoop" title="hadoop">hadoop<sup>3</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/hashmap" title="hashmap">hashmap<sup>2</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/hashtable" title="hashtable">hashtable<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/hbase" title="hbase">hbase<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/hibernate" title="hibernate">hibernate<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/http" title="http">http<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/java" title="java">java<sup>16</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/java%e6%ba%90%e7%a0%81" title="java源码">java源码<sup>5</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/jvm" title="jvm">jvm<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/linux" title="linux">linux<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/mysql" title="mysql">mysql<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/redis" title="redis">redis<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/sql" title="sql">sql<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/static" title="static">static<sup>3</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/transient" title="transient">transient<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/tree" title="tree">tree<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/volatile" title="volatile">volatile<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/zookeeper" title="zookeeper">zookeeper<sup>2</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/%e7%b1%bb%e5%8a%a0%e8%bd%bd" title="类加载">类加载<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f" title="设计模式">设计模式<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/%e9%9b%86%e5%90%88%e7%b1%bb" title="集合类">集合类<sup>1</sup></a></li>
+      
+		</ul>
+</div>
+
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle">归档</p>
+    <ul class="archive-list">
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://xueshaoyi.github.io/post/#2017-07">2017年07月</a><span class="archive-list-count">14</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://xueshaoyi.github.io/post/#2017-06">2017年06月</a><span class="archive-list-count">2</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://xueshaoyi.github.io/post/#2017-05">2017年05月</a><span class="archive-list-count">4</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://xueshaoyi.github.io/post/#2017-04">2017年04月</a><span class="archive-list-count">1</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://xueshaoyi.github.io/post/#2017-03">2017年03月</a><span class="archive-list-count">2</span>
+      </li>
+      
+    </ul>
+
+  </div>
+
+
+  
+
+<div class="tagcloudlist">
+  <p class="asidetitle">标签云</p>
+  <div class="tagcloudlist clearfix">
+    
+    <a href="https://xueshaoyi.github.io/tags/appache" style="font-size: 12px;">appache</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/bigdata" style="font-size: 12px;">bigdata</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/concurrenthashmap" style="font-size: 12px;">concurrenthashmap</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/final" style="font-size: 12px;">final</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/git" style="font-size: 12px;">git</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/hadoop" style="font-size: 12px;">hadoop</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/hashmap" style="font-size: 12px;">hashmap</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/hashtable" style="font-size: 12px;">hashtable</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/hbase" style="font-size: 12px;">hbase</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/hibernate" style="font-size: 12px;">hibernate</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/http" style="font-size: 12px;">http</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/java" style="font-size: 12px;">java</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/java%e6%ba%90%e7%a0%81" style="font-size: 12px;">java源码</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/jvm" style="font-size: 12px;">jvm</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/linux" style="font-size: 12px;">linux</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/mysql" style="font-size: 12px;">mysql</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/redis" style="font-size: 12px;">redis</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/sql" style="font-size: 12px;">sql</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/static" style="font-size: 12px;">static</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/transient" style="font-size: 12px;">transient</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/tree" style="font-size: 12px;">tree</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/volatile" style="font-size: 12px;">volatile</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/zookeeper" style="font-size: 12px;">zookeeper</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/%e7%b1%bb%e5%8a%a0%e8%bd%bd" style="font-size: 12px;">类加载</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f" style="font-size: 12px;">设计模式</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/%e9%9b%86%e5%90%88%e7%b1%bb" style="font-size: 12px;">集合类</a>
+    
+  </div>
+</div>
+
+
+
+</aside>
+</div>
+
+  </div>
+  <footer><div id="footer" >
+  
+  <div class="line">
+    <span></span>
+    <div style='background:no-repeat url("https://xueshaoyi.github.io/img/Java.jpg") left top;-webkit-background-size:6.875em 6.875em;-moz-background-size:6.875em 6.875em;background-size:6.875em 6.875em;' class="author" ></div>
+  </div>
+  
+  
+  <section class="info">
+    <p>百年不变勤苍史 <br/> 如今只争学技书</p>
+  </section>
+  
+  <div class="social-font clearfix">
+    
+    <a href="http://weibo.com/Leo" target="_blank" title="weibo"></a>
+    
+    
+    
+    <a href="https://github.com/xueshaoyi" target="_blank" title="github"></a>
+    
+    
+    
+  </div>
+  <p class="copyright">Powered by <a href="http://gohugo.io" target="_blank" title="hugo">hugo</a> and Theme by <a href="https://github.com/coderzh/hugo-pacman-theme" target="_blank" title="hugo-pacman-theme">hugo-pacman-theme</a> © 2017
+    
+    <a href="https://xueshaoyi.github.io/" title="Shao Yi`s Blog">Shao Yi`s Blog</a>
+    
+  </p>
+</div>
+</footer>
+  <script src="https://xueshaoyi.github.io/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+done = false;
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  $('form.search').on('submit', function (event) {
+    if (false === done) {
+      event.preventDefault();
+      var orgVal = $(this).find('#search').val();
+      $(this).find('#search').val('site:https:\/\/xueshaoyi.github.io\/ ' + orgVal);
+      done = true;
+      $(this).submit();
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+<link rel="stylesheet" href="https://xueshaoyi.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="https://xueshaoyi.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-10147768-2', 'auto');
+  ga('send', 'pageview');
+  $('#messagesbsb').remove();
+</script>
+
+
+
+</body>
+</html>

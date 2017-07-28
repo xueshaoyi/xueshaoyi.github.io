@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mysql on Shao Yi`s Blog</title>
+    <link>https://xueshaoyi.github.io/categories/mysql/</link>
+    <description>Recent content in Mysql on Shao Yi`s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 27 Jul 2017 16:38:19 +0800</lastBuildDate>
+    
+	<atom:link href="https://xueshaoyi.github.io/categories/mysql/feed.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>SQL</title>
+      <link>https://xueshaoyi.github.io/post/2017/notes/sql/</link>
+      <pubDate>Thu, 27 Jul 2017 16:38:19 +0800</pubDate>
+      
+      <guid>https://xueshaoyi.github.io/post/2017/notes/sql/</guid>
+      <description>清空表数据：truncate Table tablename 查重 查找表中多余的重复记录，重复记录时根据单个字段来判断： SELECT * FROM RADA_CHN_DOR_L2_QC_F_TAB WHERE V_FILE_NAME IN (SELECT V_FILE_NAME FROM RADA_CHN_DOR_L2_QC_F_TAB GROUP BY V_FILE_NAME HAVING COUNT(V_FILE_NAME)&amp;gt;1) 删除表中多余的重复</description>
+    </item>
+    
+  </channel>
+</rss>

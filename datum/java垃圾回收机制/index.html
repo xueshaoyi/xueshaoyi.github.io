@@ -1,0 +1,677 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>JAVA垃圾回收机制 - Shao Yi`s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+  
+  <meta name="description" content="一．垃圾回收机制的作用和意义 Java语言中一个显著的特点就是引入了垃圾回收机制，使c&#43;&#43;程序员最头疼的内存管理的问题迎刃而解，它使得Java">
+  
+  <meta itemprop="name" content="JAVA垃圾回收机制 - Shao Yi`s Blog">
+  <meta itemprop="description" content="一．垃圾回收机制的作用和意义 Java语言中一个显著的特点就是引入了垃圾回收机制，使c&#43;&#43;程序员最头疼的内存管理的问题迎刃而解，它使得Java">
+  <meta itemprop="image" content="https://xueshaoyi.github.io/img/author.jpg">
+  
+  
+  <meta name="twitter:description" content="">
+  
+  <link rel="shortcut icon" href="https://xueshaoyi.github.io/img/favicon.ico"/>
+  <link rel="apple-touch-icon" href="https://xueshaoyi.github.io/apple-touch-icon.png" />
+  <link rel="apple-touch-icon-precomposed" href="https://xueshaoyi.github.io/apple-touch-icon.png" />
+  <link rel="stylesheet" href="https://xueshaoyi.github.io/highlight/styles/github.css">
+  <script src="https://xueshaoyi.github.io/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="https://xueshaoyi.github.io/font/hack/css/hack.min.css">
+  <link rel="stylesheet" href="https://xueshaoyi.github.io/css/style.css">
+</head>
+
+<body>
+  <header>
+    <div>
+  
+  <div id="imglogo">
+    <a href="https://xueshaoyi.github.io/"><img src="https://xueshaoyi.github.io/img/shaoyi.jpg" style="border-radius: 50%;" alt="Shao Yi`s Blog" title="Shao Yi`s Blog"/></a>
+  </div>
+  
+  <div id="textlogo">
+    <h1 class="site-name"><a href="https://xueshaoyi.github.io/"  title="Shao Yi`s Blog">Shao Yi`s Blog</a></h1>
+    <h2 class="blog-motto">学海无涯，回头是岸啊！！！</h2>
+  </div>
+  <div class="navbar"><a class="navbutton navmobile" href="#" title="menu"></a></div>
+  <nav class="animated">
+    <ul>
+      
+      <li><a href="/">首页</a></li>
+      
+      <li><a href="/about">关于</a></li>
+      
+      <li><a href="/datum">资料</a></li>
+      
+      <li>
+        <form class="search" method="get" action="https://www.google.com/search">
+          <div>
+            <input type="text" id="search" name="q" placeholder="">
+          </div>
+        </form>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+  </header>
+  <div id="container">
+    <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody">
+    <header class="article-info clearfix">
+  <h1 itemprop="name">
+      <a href="https://xueshaoyi.github.io/datum/java%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" title="JAVA垃圾回收机制" itemprop="url">JAVA垃圾回收机制</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://github.com/xueshaoyi" title=""></a>
+    
+  </p>
+  <p class="article-time">
+    <time datetime="2017-07-28 10:26:19 &#43;0800 CST" itemprop="datePublished">2017年07月28日</time>
+  </p>
+</header>
+
+	<div class="article-content">
+    
+		<div class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#一-垃圾回收机制的作用和意义">一．垃圾回收机制的作用和意义</a></li>
+<li><a href="#二-垃圾回收机制的算法">二．垃圾回收机制的算法：</a>
+<ul>
+<li><a href="#1-引用计数法-reference-counting-collector">1.引用计数法(Reference Counting Collector)</a></li>
+<li><a href="#2-根搜索算法">2.根搜索算法</a></li>
+<li><a href="#3-标记-清除算法分析">3.标记-清除算法分析</a></li>
+<li><a href="#4-标记-整理算法">4.标记-整理算法</a></li>
+<li><a href="#5-copying算法">5．copying算法</a></li>
+<li><a href="#6-generation算法-generational-collector">6.generation算法(Generational Collector)</a></li>
+</ul></li>
+<li><a href="#三-gc-垃圾收集器">三.GC（垃圾收集器）</a></li>
+<li><a href="#四-gc的执行机制">四．GC的执行机制</a></li>
+<li><a href="#五-减少gc开销的措施">五．减少GC开销的措施</a></li>
+<li><a href="#六-java有了gc同样会出现内存泄露问题">六．Java有了GC同样会出现内存泄露问题</a></li>
+</ul>
+</nav>
+		</div>
+    
+    
+
+<h1 id="一-垃圾回收机制的作用和意义">一．垃圾回收机制的作用和意义</h1>
+
+<p>Java语言中一个显著的特点就是引入了垃圾回收机制，使c++程序员最头疼的内存管理的问题迎刃而解，它使得Java程序员在编写程序的时候不再需要考虑内存管理。由于有个垃圾回收机制，Java中的对象不再有“作用域”的概念，只有对象的引用才有“作用域”。垃圾回收可以有效的防止内存泄露，有效的使用空闲的内存。同时整理内存的碎片。</p>
+
+<p>ps:</p>
+
+<p>内存泄露是指该内存空间使用完毕之后未回收，在不涉及复杂数据结构的一般情况下，Java 的内存泄露表现为一个内存对象的生命周期超出了程序需要它的时间长度，我们有时也将其称为“对象游离”。</p>
+
+<p>内存碎片：</p>
+
+<p>内部碎片：就是已经被分配出去（能明确指出属于哪个进程）却不能被利用的内存空间。</p>
+
+<p>外部碎片：外部碎片指的是还没有被分配出去（不属于任何进程），但由于太小了无法分配给申请内存空间的新进程的内存空闲区域。</p>
+
+<h1 id="二-垃圾回收机制的算法">二．垃圾回收机制的算法：</h1>
+
+<p>垃圾收集算法的核心思想是：对虚拟机可用内存空间，即堆空间中的对象进行识别，如果对象正在被引用，那么称其为存活对象，反之，如果对象不再被引 用，则为垃圾对象，可以回收其占据的空间，用于再分配。垃圾收集算法的选择和垃圾收集系统参数的合理调节直接影响着系统性能，因此需要开发人员做比较深入 的了解。</p>
+
+<h2 id="1-引用计数法-reference-counting-collector">1.引用计数法(Reference Counting Collector)</h2>
+
+<p>1.1算法分析</p>
+
+<p>　　引用计数是垃圾收集器中的早期策略。在这种方法中，堆中每个对象实例都有一个引用计数。当一个对象被创建时，且将该对象实例分配给一个变量，该变量计数设置为1。当任何其它变量被赋值为这个对象的引用时，计数加1（a = b,则b引用的对象实例的计数器+1），但当一个对象实例的某个引用超过了生命周期或者被设置为一个新值时，对象实例的引用计数器减1。任何引用计数器为0的对象实例可以被当作垃圾收集。当一个对象实例被垃圾收集时，它引用的任何对象实例的引用计数器减1。</p>
+
+<p>1.2优缺点</p>
+
+<p>优点：</p>
+
+<p>　　引用计数收集器可以很快的执行，交织在程序运行中。对程序需要不被长时间打断的实时环境比较有利。</p>
+
+<p>缺点： </p>
+
+<p>　　无法检测出循环引用。如父对象有一个对子对象的引用，子对象反过来引用父对象。这样，他们的引用计数永远不可能为0.</p>
+
+<p>1.3引用计数算法无法解决循环引用问题，例如：</p>
+
+<pre><code>public class Main{
+    public static void main(String[] args){
+        MyObject object1 = new MyObject();
+        MyObject object2 = new MyObject();
+
+        object1.object = object2;
+        object2.object = object1;
+
+        object1 = null;
+        object2 = null;
+    }
+}
+</code></pre>
+
+<p>最后面两句将object1和object2赋值为null，也就是说object1和object2指向的对象已经不可能再被访问，但是由于它们互相引用对方，导致它们的引用计数器都不为0，那么垃圾收集器就永远不会回收它们。</p>
+
+<h2 id="2-根搜索算法">2.根搜索算法</h2>
+
+<p>根搜索算法是从离散数学中的图论引入的，程序把所有的引用关系看作一张图，从一个节点GC ROOT开始，寻找对应的引用节点，找到这个节点以后，继续寻找这个节点的引用节点，当所有的引用节点寻找完毕之后，剩余的节点则被认为是没有被引用到的节点，即无用的节点。</p>
+
+<p>java中可作为GC Root的对象有</p>
+
+<ol>
+<li>虚拟机栈中引用的对象（本地变量表）</li>
+<li>方法区中静态属性引用的对象</li>
+<li>方法区中常量引用的对象</li>
+<li>本地方法栈中引用的对象（Native对象)</li>
+</ol>
+
+<p><img src="https://xueshaoyi.github.io/img/Obj.png" alt="" /></p>
+
+<h2 id="3-标记-清除算法分析">3.标记-清除算法分析</h2>
+
+<p>标记-清除算法采用从根集合进行扫描，对存活的对象对象标记，标记完毕后，再扫描整个空间中未被标记的对象，进行回收，如上图所示。标记-清除算法不需要进行对象的移动，并且仅对不存活的对象进行处理，在存活对象比较多的情况下极为高效，但由于标记-清除算法直接回收不存活的对象，因此会造成内存碎片。
+<img src="https://xueshaoyi.github.io/img/yinyong.png" alt="" /></p>
+
+<h2 id="4-标记-整理算法">4.标记-整理算法</h2>
+
+<p>标记-整理算法采用标记-清除算法一样的方式进行对象的标记，但在清除时不同，在回收不存活的对象占用的空间后，会将所有的存活对象往左端空闲空间移动，并更新对应的指针。标记-整理算法是在标记-清除算法的基础上，又进行了对象的移动，因此成本更高，但是却解决了内存碎片的问题。在基于Compacting算法的收集器的实现中，一般增加句柄和句柄表。
+<img src="https://xueshaoyi.github.io/img/biaojizhengli.png" alt="" /></p>
+
+<h2 id="5-copying算法">5．copying算法</h2>
+
+<p>该算法的提出是为了克服句柄的开销和解决堆碎片的垃圾回收。它开始时把堆分成 一个对象 面和多个空闲面， 程序从对象面为对象分配空间，当对象满了，基于copying算法的垃圾 收集就从根集中扫描活动对象，并将每个 活动对象复制到空闲面(使得活动对象所占的内存之间没有空闲洞)，这样空闲面变成了对象面，原来的对象面变成了空闲面，程序会在新的对象面中分配内存。一种典型的基于coping算法的垃圾回收是stop-and-copy算法，它将堆分成对象面和空闲区域面，在对象面与空闲区域面的切换过程中，程序暂停执行。
+<img src="https://xueshaoyi.github.io/img/copying.png" alt="" /></p>
+
+<h2 id="6-generation算法-generational-collector">6.generation算法(Generational Collector)</h2>
+
+<p><img src="https://xueshaoyi.gitbub.io/img/generation.png" alt="" />
+分代的垃圾回收策略，是基于这样一个事实：不同的对象的生命周期是不一样的。因此，不同生命周期的对象可以采取不同的回收算法，以便提高回收效率。</p>
+
+<p>年轻代（Young Generation）
+1. 所有新生成的对象首先都是放在年轻代的。年轻代的目标就是尽可能快速的收集掉那些生命周期短的对象。
+2. 新生代内存按照8:1:1的比例分为一个eden区和两个survivor(survivor0,survivor1)区。一个Eden区，两个 Survivor区(一般而言)。大部分对象在Eden区中生成。回收时先将eden区存活对象复制到一个survivor0区，然后清空eden区，当这个survivor0区也存放满了时，则将eden区和survivor0区存活对象复制到另一个survivor1区，然后清空eden和这个survivor0区，此时survivor0区是空的，然后将survivor0区和survivor1区交换，即保持survivor1区为空， 如此往复。
+3. 当survivor1区不足以存放 eden和survivor0的存活对象时，就将存活对象直接存放到老年代。若是老年代也满了就会触发一次Full GC，也就是新生代、老年代都进行回收
+4. 新生代发生的GC也叫做Minor GC，MinorGC发生频率比较高(不一定等Eden区满了才触发)</p>
+
+<p>年老代（Old Generation）</p>
+
+<ol>
+<li>在年轻代中经历了N次垃圾回收后仍然存活的对象，就会被放到年老代中。因此，可以认为年老代中存放的都是一些生命周期较长的对象。</li>
+<li>内存比新生代也大很多(大概比例是1:2)，当老年代内存满时触发Major GC即Full GC，Full GC发生频率比较低，老年代对象存活时间比较长，存活率标记高。</li>
+</ol>
+
+<p>持久代（Permanent Generation）</p>
+
+<p>用于存放静态文件，如Java类、方法等。持久代对垃圾回收没有显著影响，但是有些应用可能动态生成或者调用一些class，例如Hibernate 等，在这种时候需要设置一个比较大的持久代空间来存放这些运行过程中新增的类。</p>
+
+<h1 id="三-gc-垃圾收集器">三.GC（垃圾收集器）</h1>
+
+<p>新生代收集器使用的收集器：Serial、PraNew、Parallel Scavenge</p>
+
+<p>老年代收集器使用的收集器：Serial Old、Parallel Old、CMS</p>
+
+<p><img src="https://xueshaoyi.gitbub.io/img/young.png" alt="" /></p>
+
+<p>Serial收集器（复制算法)</p>
+
+<p>　　新生代单线程收集器，标记和清理都是单线程，优点是简单高效。</p>
+
+<p>Serial Old收集器(标记-整理算法)</p>
+
+<p>　　老年代单线程收集器，Serial收集器的老年代版本。</p>
+
+<p>ParNew收集器(停止-复制算法)　</p>
+
+<p>　　新生代收集器，可以认为是Serial收集器的多线程版本,在多核CPU环境下有着比Serial更好的表现。</p>
+
+<p>Parallel Scavenge收集器(停止-复制算法)</p>
+
+<p>　　并行收集器，追求高吞吐量，高效利用CPU。吞吐量一般为99%， 吞吐量= 用户线程时间/(用户线程时间+GC线程时间)。适合后台应用等对交互相应要求不高的场景。</p>
+
+<p>Parallel Old收集器(停止-复制算法)</p>
+
+<p>　　Parallel Scavenge收集器的老年代版本，并行收集器，吞吐量优先</p>
+
+<p>CMS(Concurrent Mark Sweep)收集器（标记-清理算法）</p>
+
+<p>　　高并发、低停顿，追求最短GC回收停顿时间，cpu占用比较高，响应时间快，停顿时间短，多核cpu 追求高响应时间的选择</p>
+
+<h1 id="四-gc的执行机制">四．GC的执行机制</h1>
+
+<p>由于对象进行了分代处理，因此垃圾回收区域、时间也不一样。GC有两种类型：Scavenge GC和Full GC。</p>
+
+<p>Scavenge GC</p>
+
+<p>    一般情况下，当新对象生成，并且在Eden申请空间失败时，就会触发Scavenge GC，对Eden区域进行GC，清除非存活对象，并且把尚且存活的对象移动到Survivor区。然后整理Survivor的两个区。这种方式的GC是对年轻代的Eden区进行，不会影响到年老代。因为大部分对象都是从Eden区开始的，同时Eden区不会分配的很大，所以Eden区的GC会频繁进行。因而，一般在这里需要使用速度快、效率高的算法，使Eden去能尽快空闲出来。</p>
+
+<p>Full GC</p>
+
+<p>    对整个堆进行整理，包括Young、Tenured和Perm。Full GC因为需要对整个堆进行回收，所以比Scavenge GC要慢，因此应该尽可能减少Full GC的次数。在对JVM调优的过程中，很大一部分工作就是对于FullGC的调节。有如下原因可能导致Full GC：
+1. 年老代（Tenured）被写满
+2. 持久代（Perm）被写满 
+3. System.gc()被显示调用 
+4. 上一次GC之后Heap的各域分配策略动态变化</p>
+
+<h1 id="五-减少gc开销的措施">五．减少GC开销的措施</h1>
+
+<p>根据上述GC的机制,程序的运行会直接影响系统环境的变化,从而影响GC的触发。若不针对GC的特点进行设计和编码,就会出现内存驻留等一系列负面 影响。为了避免这些影响,基本的原则就是尽可能地减少垃圾和减少GC过程中的开销。具体措施包括以下几个方面:
+1. 不要显式调用System.gc()
+此函数建议JVM进行主GC,虽然只是建议而非一定,但很多情况下它会触发主GC,从而增加主GC的频率,也即增加了间歇性停顿的次数。
+2. 尽量减少临时对象的使用
+临时对象在跳出函数调用后,会成为垃圾,少用临时变量就相当于减少了垃圾的产生,从而延长了出现上述第二个触发条件出现的时间,减少了主GC的机 会。
+3. 对象不用时最好显式置为Null
+一般而言,为Null的对象都会被作为垃圾处理,所以将不用的对象显式地设为Null,有利于GC收集器判定垃圾,从而提高了GC的效率。
+4. 尽量使用StringBuffer,而不用String来累加字符串（详见blog另一篇文章JAVA中String与 StringBuffer）
+由于String是固定长的字符串对象,累加String对象时,并非在一个String对象中扩增,而是重新创建新的String对象,如 Str5=Str1+Str2+Str3+Str4,这条语句执行过程中会产生多个垃圾对象,因为对次作“+”操作时都必须创建新的String对象,但 这些过渡对象对系统来说是没有实际意义的,只会增加更多的垃圾。避免这种情况可以改用StringBuffer来累加字符串,因StringBuffer 是可变长的,它在原有基础上进行扩增,不会产生中间对象。
+5. 能用基本类型如Int,Long,就不用Integer,Long对象
+基本类型变量占用的内存资源比相应对象占用的少得多,如果没有必要,最好使用基本变量。
+6. 尽量少用静态对象变量
+静态变量属于全局变量,不会被GC回收,它们会一直占用内存。
+7. 分散对象创建或删除的时间
+集中在短时间内大量创建新对象,特别是大对象,会导致突然需要大量内存,JVM在面临这种情况时,只能进行主GC,以回收内存或整合内存碎片,从而 增加主GC的频率。集中删除对象,道理也是一样的。它使得突然出现了大量的垃圾对象,空闲空间必然减少,从而大大增加了下一次创建新对象时强制主GC的机 会。</p>
+
+<h1 id="六-java有了gc同样会出现内存泄露问题">六．Java有了GC同样会出现内存泄露问题</h1>
+
+<ul>
+<li>静态集合类像HashMap、Vector等的使用最容易出现内存泄露，这些静态变量的生命周期和应用程序一致，所有的对象Object也不能被释放，因为他们也将一直被Vector等应用着。</li>
+</ul>
+
+<pre><code>Static Vector v = new Vector();
+for(int i = 1; i&lt;100;i++){
+    Object o =  new Object();
+    v.add(o);
+    o = null;
+}
+</code></pre>
+
+<p>在这个例子中，代码栈中存在Vector 对象的引用 v 和 Object 对象的引用 o 。在 For 循环中，我们不断的生成新的对象，然后将其添加到 Vector 对象中，之后将 o 引用置空。问题是当 o 引用被置空后，如果发生 GC，我们创建的 Object 对象是否能够被 GC 回收呢？答案是否定的。因为， GC 在跟踪代码栈中的引用时，会发现 v 引用，而继续往下跟踪，就会发现 v 引用指向的内存空间中又存在指向 Object 对象的引用。也就是说尽管o 引用已经被置空，但是 Object 对象仍然存在其他的引用，是可以被访问到的，所以 GC 无法将其释放掉。如果在此循环之后， Object 对象对程序已经没有任何作用，那么我们就认为此 Java 程序发生了内存泄漏。</p>
+
+<ul>
+<li>各种连接，数据库连接，网络连接，IO连接等没有显示调用close关闭，不被GC回收导致内存泄露。</li>
+<li>监听器的使用，在释放对象的同时没有相应删除监听器的时候也可能导致内存泄露。</li>
+</ul>
+
+	</div>
+  <footer class="article-footer clearfix">
+  
+
+<div class="article-tags">
+  <span></span>
+  
+  <a href="https://xueshaoyi.github.io/tags/java">java</a>
+  
+  <a href="https://xueshaoyi.github.io/tags/jvm">JVM</a>
+  
+</div>
+
+
+
+
+
+<div class="article-categories">
+  <span></span>
+  
+  <a class="article-category-link" href="https://xueshaoyi.github.io/categories/%E6%95%B4%E7%90%86%E8%B5%84%E6%96%99">整理资料</a>
+  
+</div>
+
+
+
+  <div class="article-share" id="share">
+    <div data-url="https://xueshaoyi.github.io/datum/java%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" data-title="JAVA垃圾回收机制" data-tsina="1816308191" class="share clearfix">
+    </div>
+  </div>
+</footer>
+
+	</article>
+  
+
+
+<section class="comment">
+<div id="disqus_thread"></div>
+</section>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://xueshaoyi.github.io/datum/java%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/";
+this.page.identifier = "https://xueshaoyi.github.io/datum/java%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+
+s.src = '//xueshaoyi.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+</div>
+
+    <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+  
+
+<div class="categorieslist">
+  <p class="asidetitle">分类</p>
+  <ul>
+    
+    <li><a href="https://xueshaoyi.github.io/categories/github" title="github">github<sup>1</sup></a></li>
+    
+    <li><a href="https://xueshaoyi.github.io/categories/java%e5%9f%ba%e7%a1%80" title="java基础">java基础<sup>13</sup></a></li>
+    
+    <li><a href="https://xueshaoyi.github.io/categories/linux" title="linux">linux<sup>1</sup></a></li>
+    
+    <li><a href="https://xueshaoyi.github.io/categories/mysql" title="mysql">mysql<sup>1</sup></a></li>
+    
+    <li><a href="https://xueshaoyi.github.io/categories/%e5%a4%a7%e6%95%b0%e6%8d%ae" title="大数据">大数据<sup>5</sup></a></li>
+    
+    <li><a href="https://xueshaoyi.github.io/categories/%e6%95%b0%e6%8d%ae%e5%ba%93" title="数据库">数据库<sup>2</sup></a></li>
+    
+    <li><a href="https://xueshaoyi.github.io/categories/%e6%95%b4%e7%90%86%e8%b5%84%e6%96%99" title="整理资料">整理资料<sup>8</sup></a></li>
+    
+  </ul>
+</div>
+
+
+
+  
+
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+      
+			<li><a href="https://xueshaoyi.github.io/tags/appache" title="appache">appache<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/bigdata" title="bigdata">bigdata<sup>3</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/concurrenthashmap" title="concurrenthashmap">concurrenthashmap<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/final" title="final">final<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/git" title="git">git<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/hadoop" title="hadoop">hadoop<sup>3</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/hashmap" title="hashmap">hashmap<sup>2</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/hashtable" title="hashtable">hashtable<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/hbase" title="hbase">hbase<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/hibernate" title="hibernate">hibernate<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/http" title="http">http<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/java" title="java">java<sup>16</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/java%e6%ba%90%e7%a0%81" title="java源码">java源码<sup>5</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/jvm" title="jvm">jvm<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/linux" title="linux">linux<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/mysql" title="mysql">mysql<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/redis" title="redis">redis<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/sql" title="sql">sql<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/static" title="static">static<sup>3</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/transient" title="transient">transient<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/tree" title="tree">tree<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/volatile" title="volatile">volatile<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/zookeeper" title="zookeeper">zookeeper<sup>2</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/%e7%b1%bb%e5%8a%a0%e8%bd%bd" title="类加载">类加载<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f" title="设计模式">设计模式<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/%e9%9b%86%e5%90%88%e7%b1%bb" title="集合类">集合类<sup>1</sup></a></li>
+      
+		</ul>
+</div>
+
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle">归档</p>
+    <ul class="archive-list">
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://xueshaoyi.github.io/post/#2017-07">2017年07月</a><span class="archive-list-count">14</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://xueshaoyi.github.io/post/#2017-06">2017年06月</a><span class="archive-list-count">2</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://xueshaoyi.github.io/post/#2017-05">2017年05月</a><span class="archive-list-count">4</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://xueshaoyi.github.io/post/#2017-04">2017年04月</a><span class="archive-list-count">1</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://xueshaoyi.github.io/post/#2017-03">2017年03月</a><span class="archive-list-count">2</span>
+      </li>
+      
+    </ul>
+
+  </div>
+
+
+  
+
+<div class="tagcloudlist">
+  <p class="asidetitle">标签云</p>
+  <div class="tagcloudlist clearfix">
+    
+    <a href="https://xueshaoyi.github.io/tags/appache" style="font-size: 12px;">appache</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/bigdata" style="font-size: 12px;">bigdata</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/concurrenthashmap" style="font-size: 12px;">concurrenthashmap</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/final" style="font-size: 12px;">final</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/git" style="font-size: 12px;">git</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/hadoop" style="font-size: 12px;">hadoop</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/hashmap" style="font-size: 12px;">hashmap</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/hashtable" style="font-size: 12px;">hashtable</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/hbase" style="font-size: 12px;">hbase</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/hibernate" style="font-size: 12px;">hibernate</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/http" style="font-size: 12px;">http</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/java" style="font-size: 12px;">java</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/java%e6%ba%90%e7%a0%81" style="font-size: 12px;">java源码</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/jvm" style="font-size: 12px;">jvm</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/linux" style="font-size: 12px;">linux</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/mysql" style="font-size: 12px;">mysql</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/redis" style="font-size: 12px;">redis</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/sql" style="font-size: 12px;">sql</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/static" style="font-size: 12px;">static</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/transient" style="font-size: 12px;">transient</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/tree" style="font-size: 12px;">tree</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/volatile" style="font-size: 12px;">volatile</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/zookeeper" style="font-size: 12px;">zookeeper</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/%e7%b1%bb%e5%8a%a0%e8%bd%bd" style="font-size: 12px;">类加载</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f" style="font-size: 12px;">设计模式</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/%e9%9b%86%e5%90%88%e7%b1%bb" style="font-size: 12px;">集合类</a>
+    
+  </div>
+</div>
+
+
+
+</aside>
+</div>
+
+  </div>
+  <footer><div id="footer" >
+  
+  <div class="line">
+    <span></span>
+    <div style='background:no-repeat url("https://xueshaoyi.github.io/img/Java.jpg") left top;-webkit-background-size:6.875em 6.875em;-moz-background-size:6.875em 6.875em;background-size:6.875em 6.875em;' class="author" ></div>
+  </div>
+  
+  
+  <section class="info">
+    <p>百年不变勤苍史 <br/> 如今只争学技书</p>
+  </section>
+  
+  <div class="social-font clearfix">
+    
+    <a href="http://weibo.com/Leo" target="_blank" title="weibo"></a>
+    
+    
+    
+    <a href="https://github.com/xueshaoyi" target="_blank" title="github"></a>
+    
+    
+    
+  </div>
+  <p class="copyright">Powered by <a href="http://gohugo.io" target="_blank" title="hugo">hugo</a> and Theme by <a href="https://github.com/coderzh/hugo-pacman-theme" target="_blank" title="hugo-pacman-theme">hugo-pacman-theme</a> © 2017
+    
+    <a href="https://xueshaoyi.github.io/" title="Shao Yi`s Blog">Shao Yi`s Blog</a>
+    
+  </p>
+</div>
+</footer>
+  <script src="https://xueshaoyi.github.io/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+done = false;
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  $('form.search').on('submit', function (event) {
+    if (false === done) {
+      event.preventDefault();
+      var orgVal = $(this).find('#search').val();
+      $(this).find('#search').val('site:https:\/\/xueshaoyi.github.io\/ ' + orgVal);
+      done = true;
+      $(this).submit();
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-10147768-2', 'auto');
+  ga('send', 'pageview');
+  $('#messagesbsb').remove();
+</script>
+
+
+
+</body>
+</html>

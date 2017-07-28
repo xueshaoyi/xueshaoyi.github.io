@@ -13,10 +13,10 @@
     
     <item>
       <title>Linux统计文件个数操作</title>
-      <link>https://xueshaoyi.github.io/post/2017/linux%E7%BB%9F%E8%AE%A1%E6%96%87%E4%BB%B6%E4%B8%AA%E6%95%B0%E6%93%8D%E4%BD%9C/</link>
+      <link>https://xueshaoyi.github.io/post/2017/notes/linux%E7%BB%9F%E8%AE%A1%E6%96%87%E4%BB%B6%E4%B8%AA%E6%95%B0%E6%93%8D%E4%BD%9C/</link>
       <pubDate>Wed, 26 Jul 2017 17:10:19 +0800</pubDate>
       
-      <guid>https://xueshaoyi.github.io/post/2017/linux%E7%BB%9F%E8%AE%A1%E6%96%87%E4%BB%B6%E4%B8%AA%E6%95%B0%E6%93%8D%E4%BD%9C/</guid>
+      <guid>https://xueshaoyi.github.io/post/2017/notes/linux%E7%BB%9F%E8%AE%A1%E6%96%87%E4%BB%B6%E4%B8%AA%E6%95%B0%E6%93%8D%E4%BD%9C/</guid>
       <description>统计某文件夹下文件个数 ls -l |grep &amp;ldquo;^-&amp;rdquo;|wc -l 统计某文件夹下目录的个数 ls -l |grep &amp;ldquo;^-d&amp;rdquo;|wc -l 统计文件夹下文件的个数，包括子文件夹下的 ls -lR|grep &amp;ldquo;^-&amp;rdquo;|wc -l ls -lR 长列表输出该目录下文件</description>
     </item>
     
