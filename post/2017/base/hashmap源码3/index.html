@@ -2,18 +2,18 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>Final - Shao Yi`s Blog</title>
+  <title>HashMap源码(3)静态工具方法hash()、tableSizeFor() - Shao Yi`s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="Final">
+  <meta name="description" content="HashMap#hash() 为什么要有HashMap的hash()方法，难道不能直接使用KV中K原有的hash值吗？在HashMap的put、get操作时为什么不能直">
   
-  <meta itemprop="name" content="Final - Shao Yi`s Blog">
-  <meta itemprop="description" content="Final">
+  <meta itemprop="name" content="HashMap源码(3)静态工具方法hash()、tableSizeFor() - Shao Yi`s Blog">
+  <meta itemprop="description" content="HashMap#hash() 为什么要有HashMap的hash()方法，难道不能直接使用KV中K原有的hash值吗？在HashMap的put、get操作时为什么不能直">
   <meta itemprop="image" content="https://xueshaoyi.github.io/img/author.jpg">
   
   
   <meta name="twitter:description" content="">
-  <link rel="alternate" href="https://xueshaoyi.github.io/feed.xml" title="Shao Yi`s Blog" type="application/rss+xml"/>
+  
   <link rel="shortcut icon" href="https://xueshaoyi.github.io/img/favicon.ico"/>
   <link rel="apple-touch-icon" href="https://xueshaoyi.github.io/apple-touch-icon.png" />
   <link rel="apple-touch-icon-precomposed" href="https://xueshaoyi.github.io/apple-touch-icon.png" />
@@ -59,21 +59,227 @@
 
   </header>
   <div id="container">
-    <div id="main">
-      
-      <h2 id="2017-07">2017-07</h2>
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://xueshaoyi.github.io/post/2017/zhishi/java%E7%9A%84final%E5%85%B3%E9%94%AE%E5%AD%97/" title="java的final关键字" itemprop="url">
-    <h1 itemprop="name">java的final关键字</h1>
-    <p itemprop="description">Java中的final关键字非常重要，它可以应用于类、方法以及变量。将变量，方法和类声明为final代表了什么？使用final的好处是什么？</p>
-    <time datetime="2017-07-17 13:13:55 &#43;0800 CST" itemprop="datePublished">2017年07月17日</time>
-  </a>
-</section>
+    <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody">
+    <header class="article-info clearfix">
+  <h1 itemprop="name">
+      <a href="https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%813/" title="HashMap源码(3)静态工具方法hash()、tableSizeFor()" itemprop="url">HashMap源码(3)静态工具方法hash()、tableSizeFor()</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://github.com/xueshaoyi" title=""></a>
+    
+  </p>
+  <p class="article-time">
+    <time datetime="2017-07-30 16:31:19 &#43;0800 CST" itemprop="datePublished">2017年07月30日</time>
+  </p>
+</header>
 
-      
-      
+	<div class="article-content">
+    
+		<div class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#hashmap-hash">HashMap#hash()</a></li>
+<li><a href="#hashmap-tablesizefor">HashMap#tableSizeFor()</a></li>
+</ul>
+</nav>
+		</div>
+    
+    
+
+<h1 id="hashmap-hash">HashMap#hash()</h1>
+
+<p>为什么要有HashMap的hash()方法，难道不能直接使用KV中K原有的hash值吗？在HashMap的put、get操作时为什么不能直接使用K中原有的hash值。</p>
+
+<pre><code>    /**
+     * Computes key.hashCode() and spreads (XORs) higher bits of hash
+     * to lower.  Because the table uses power-of-two masking, sets of
+     * hashes that vary only in bits above the current mask will
+     * always collide. (Among known examples are sets of Float keys
+     * holding consecutive whole numbers in small tables.)  So we
+     * apply a transform that spreads the impact of higher bits
+     * downward. There is a tradeoff between speed, utility, and
+     * quality of bit-spreading. Because many common sets of hashes
+     * are already reasonably distributed (so don't benefit from
+     * spreading), and because we use trees to handle large sets of
+     * collisions in bins, we just XOR some shifted bits in the
+     * cheapest possible way to reduce systematic lossage, as well as
+     * to incorporate impact of the highest bits that would otherwise
+     * never be used in index calculations because of table bounds.
+     */
+    static final int hash(Object key) {
+        int h;
+        return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);
+    }
+</code></pre>
+
+<p>从上面的代码可以看到key的hash值的计算方法。key的hash值高16位不变，低16位与高16位异或作为key的最终hash值。（h &gt;&gt;&gt; 16，表示无符号右移16位，高位补0，任何数跟0异或都是其本身，因此key的hash值高16位不变。）
+<img src="http://img.blog.csdn.net/20160408155045341" alt="" /></p>
+
+<p>为什么要这么干呢？</p>
+
+<p>这个与HashMap中table下标的计算有关。</p>
+
+<pre><code>n = table.length;
+index = （n-1） &amp; hash;
+</code></pre>
+
+<p>因为，table的长度都是2的幂，因此index仅与hash值的低n位有关，hash值的高位都被与操作置为0了。
+假设table.length=2^4=16。
+<img src="http://img.blog.csdn.net/20160408155102734" alt="" />
+由上图可以看到，只有hash值的低4位参与了运算。</p>
+
+<p>这样做很容易产生碰撞。设计者权衡了speed, utility, and quality，将高16位与低16位异或来减少这种影响。设计者考虑到现在的hashCode分布的已经很不错了，而且当发生较大碰撞时也用树形存储降低了冲突。仅仅异或一下，既减少了系统的开销，也不会造成的因为高位没有参与下标的计算(table长度比较小时)，从而引起的碰撞。</p>
+
+<h1 id="hashmap-tablesizefor">HashMap#tableSizeFor()</h1>
+
+<pre><code>    static final int MAXIMUM_CAPACITY = 1 &lt;&lt; 30;
+    /**
+     * Returns a power of two size for the given target capacity.
+     */
+    static final int tableSizeFor(int cap) {
+        int n = cap - 1;
+        n |= n &gt;&gt;&gt; 1;
+        n |= n &gt;&gt;&gt; 2;
+        n |= n &gt;&gt;&gt; 4;
+        n |= n &gt;&gt;&gt; 8;
+        n |= n &gt;&gt;&gt; 16;
+        return (n &lt; 0) ? 1 : (n &gt;= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
+    }
+</code></pre>
+
+<p>这个方法被调用到的地方：</p>
+
+<pre><code>    public HashMap(int initialCapacity, float loadFactor) {
+        /**省略此处代码**/
+        this.loadFactor = loadFactor;
+        this.threshold = tableSizeFor(initialCapacity);
+    }
+</code></pre>
+
+<p>由此可以看到，当在实例化HashMap实例时，如果给定了initialCapacity，由于HashMap的capacity都是2的幂，因此这个方法用于找到大于等于initialCapacity的最小的2的幂（initialCapacity如果就是2的幂，则返回的还是这个数）。</p>
+
+<p>下面分析这个算法：</p>
+
+<p>首先，为什么要对cap做减1操作。int n = cap - 1;</p>
+
+<p>这是为了防止，cap已经是2的幂。如果cap已经是2的幂， 又没有执行这个减1操作，则执行完后面的几条无符号右移操作之后，返回的capacity将是这个cap的2倍。如果不懂，要看完后面的几个无符号右移之后再回来看看。</p>
+
+<p>下面看看这几个无符号右移操作：</p>
+
+<p>如果n这时为0了（经过了cap-1之后），则经过后面的几次无符号右移依然是0，最后返回的capacity是1（最后有个n+1的操作）。</p>
+
+<p>这里只讨论n不等于0的情况。</p>
+
+<p><strong>第一次右移</strong></p>
+
+<pre><code>n|=n&gt;&gt;&gt;1
+</code></pre>
+
+<p>由于n不等于0，则n的二进制表示中总会有一bit为1，这时考虑最高位的1。通过无符号右移1位，则将最高位的1右移了1位，再做或操作，使得n的二进制表示中与最高位的1紧邻的右边一位也为1，如000011xxxxxx。</p>
+
+<p><strong>第二次右移</strong></p>
+
+<pre><code>n |= n &gt;&gt;&gt; 2;
+</code></pre>
+
+<p>注意，这个n已经经过了n |= n &gt;&gt;&gt; 1; 操作。假设此时n为000011xxxxxx ，则n无符号右移两位，会将最高位两个连续的1右移两位，然后再与原来的n做或操作，这样n的二进制表示的高位中会有4个连续的1。如00001111xxxxxx 。</p>
+
+<p><strong>第三次右移</strong></p>
+
+<pre><code>n |= n &gt;&gt;&gt; 4;
+</code></pre>
+
+<p>这次把已经有的高位中的连续的4个1，右移4位，再做或操作，这样n的二进制表示的高位中会有8个连续的1。如00001111 1111xxxxxx 。</p>
+
+<p><strong>以此类推</strong></p>
+
+<p>注意，容量最大也就是32bit的正数，因此最后n |= n &gt;&gt;&gt; 16; ，最多也就32个1，但是这时已经大于了MAXIMUM_CAPACITY ，所以取值到MAXIMUM_CAPACITY 。</p>
+
+<p>举一个例子说明下吧。
+<img src="http://img.blog.csdn.net/20160408183651111" alt="" />
+这个算法着实牛逼啊！</p>
+
+<p>注意，得到的这个capacity却被赋值给了threshold。</p>
+
+<pre><code>this.threshold = tableSizeFor(initialCapacity);
+</code></pre>
+
+<p>开始以为这个是个Bug，感觉应该这么写：</p>
+
+<pre><code>this.threshold = tableSizeFor(initialCapacity) * this.loadFactor;
+</code></pre>
+
+<p>这样才符合threshold的意思（当HashMap的size到达threshold这个阈值时会扩容）。</p>
+
+<p>但是，请注意，在构造方法中，并没有对table这个成员变量进行初始化，table的初始化被推迟到了put方法中，在put方法中会对threshold重新计算，put方法的具体实现请看这篇博文。</p>
+
+<p>这样才符合threshold的意思（当HashMap的size到达threshold这个阈值时会扩容）。</p>
+
+<p>但是，请注意，在构造方法中，并没有对table这个成员变量进行初始化，table的初始化被推迟到了put方法中，在put方法中会对threshold重新计算，put方法的具体实现请看这篇博文。</p>
+
+	</div>
+  <footer class="article-footer clearfix">
+  
+
+<div class="article-tags">
+  <span></span>
+  
+  <a href="https://xueshaoyi.github.io/tags/java">Java</a>
+  
+  <a href="https://xueshaoyi.github.io/tags/java%E6%BA%90%E7%A0%81">java源码</a>
+  
+</div>
+
+
+
+
+
+<div class="article-categories">
+  <span></span>
+  
+  <a class="article-category-link" href="https://xueshaoyi.github.io/categories/java%E5%9F%BA%E7%A1%80">Java基础</a>
+  
+</div>
+
+
+
+  <div class="article-share" id="share">
+    <div data-url="https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%813/" data-title="HashMap源码(3)静态工具方法hash()、tableSizeFor()" data-tsina="1816308191" class="share clearfix">
     </div>
+  </div>
+</footer>
+
+	</article>
+  
+
+
+<section class="comment">
+<div id="disqus_thread"></div>
+</section>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%813/";
+this.page.identifier = "https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%813/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+
+s.src = '//xueshaoyi.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+</div>
+
     <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -355,6 +561,38 @@ $(document).ready(function(){
 
 <script type="text/javascript">
 $(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
   var $this = $('.share'),
       url = $this.attr('data-url'),
       encodedUrl = encodeURIComponent(url),
@@ -381,6 +619,27 @@ $(document).ready(function(){
 });
 </script>
 
+
+<link rel="stylesheet" href="https://xueshaoyi.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="https://xueshaoyi.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
 
 
 <script>

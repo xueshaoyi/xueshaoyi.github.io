@@ -6,10 +6,64 @@
     <description>Recent content on Shao Yi`s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 28 Jul 2017 13:55:19 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 30 Jul 2017 20:36:19 +0800</lastBuildDate>
     
 	<atom:link href="https://xueshaoyi.github.io/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>JVM调优</title>
+      <link>https://xueshaoyi.github.io/datum/jvm%E8%B0%83%E4%BC%98/</link>
+      <pubDate>Sun, 30 Jul 2017 20:36:19 +0800</pubDate>
+      
+      <guid>https://xueshaoyi.github.io/datum/jvm%E8%B0%83%E4%BC%98/</guid>
+      <description>一、JVM内存模型及垃圾收集算法 1.根据Java虚拟机规范，JVM将内存划分为： New（年轻代） Tenured（年老代） 永久代（Perm） 其</description>
+    </item>
+    
+    <item>
+      <title>HashMap源码(5)put()方法</title>
+      <link>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%815/</link>
+      <pubDate>Sun, 30 Jul 2017 18:01:19 +0800</pubDate>
+      
+      <guid>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%815/</guid>
+      <description>HashMap#put() /** * Associates the specified value with the specified key in this map. * If the map previously contained a mapping for the key, the old * value is replaced. * * @param key key with which the specified value is to be associated * @param value value to be associated with the specified key * @return the previous value associated with &amp;lt;tt&amp;gt;key&amp;lt;/tt&amp;gt;, or * &amp;lt;tt&amp;gt;null&amp;lt;/tt&amp;gt; if there was</description>
+    </item>
+    
+    <item>
+      <title>HashMap源码(3)静态工具方法hash()、tableSizeFor()</title>
+      <link>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%813/</link>
+      <pubDate>Sun, 30 Jul 2017 16:31:19 +0800</pubDate>
+      
+      <guid>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%813/</guid>
+      <description>HashMap#hash() 为什么要有HashMap的hash()方法，难道不能直接使用KV中K原有的hash值吗？在HashMap的put、get操作时为什么不能直</description>
+    </item>
+    
+    <item>
+      <title>HashMap源码(4)resize()方法</title>
+      <link>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%814/</link>
+      <pubDate>Sun, 30 Jul 2017 16:31:19 +0800</pubDate>
+      
+      <guid>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%814/</guid>
+      <description>HashMap#resize() 在HashMap源码(2)最后有相关源码： 源码的注释翻译为： 初始化或者翻倍表大小。如果表为null，则根据存放在threshold变量中的</description>
+    </item>
+    
+    <item>
+      <title>HashMap源码(2)</title>
+      <link>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%812/</link>
+      <pubDate>Sun, 30 Jul 2017 15:56:19 +0800</pubDate>
+      
+      <guid>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%812/</guid>
+      <description>HashMap初始化 初始化的几种情况： /** * Constructs an empty &amp;lt;tt&amp;gt;HashMap&amp;lt;/tt&amp;gt; with the specified initial * capacity and load factor. * * @param initialCapacity the initial capacity * @param loadFactor the load factor * @throws IllegalArgumentException if the initial capacity is negative * or the load factor is nonpositive */ public HashMap(int initialCapacity, float loadFactor) {</description>
+    </item>
+    
+    <item>
+      <title>HashMap源码(1)</title>
+      <link>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%811/</link>
+      <pubDate>Sun, 30 Jul 2017 13:56:19 +0800</pubDate>
+      
+      <guid>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%811/</guid>
+      <description>常量定义 1.默认容量 /** * The default initial capacity - MUST be a power of two. */ static final int DEFAULT_INITIAL_CAPACITY = 1 &amp;lt;&amp;lt; 4; // aka 16 默认初始化的容量是16，必须是2的幂。 2.最大容量 /** * The maximum capacity, used if a higher value</description>
+    </item>
     
     <item>
       <title>JAVA中值类型和引用类型</title>

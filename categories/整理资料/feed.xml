@@ -6,10 +6,19 @@
     <description>Recent content in 整理资料 on Shao Yi`s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 28 Jul 2017 13:55:19 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 30 Jul 2017 20:36:19 +0800</lastBuildDate>
     
 	<atom:link href="https://xueshaoyi.github.io/categories/%E6%95%B4%E7%90%86%E8%B5%84%E6%96%99/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>JVM调优</title>
+      <link>https://xueshaoyi.github.io/datum/jvm%E8%B0%83%E4%BC%98/</link>
+      <pubDate>Sun, 30 Jul 2017 20:36:19 +0800</pubDate>
+      
+      <guid>https://xueshaoyi.github.io/datum/jvm%E8%B0%83%E4%BC%98/</guid>
+      <description>一、JVM内存模型及垃圾收集算法 1.根据Java虚拟机规范，JVM将内存划分为： New（年轻代） Tenured（年老代） 永久代（Perm） 其</description>
+    </item>
     
     <item>
       <title>JAVA中值类型和引用类型</title>

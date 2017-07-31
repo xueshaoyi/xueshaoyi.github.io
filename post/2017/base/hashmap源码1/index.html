@@ -2,18 +2,18 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>Final - Shao Yi`s Blog</title>
+  <title>HashMap源码(1) - Shao Yi`s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="Final">
+  <meta name="description" content="常量定义 1.默认容量 /** * The default initial capacity - MUST be a power of two. */ static final int DEFAULT_INITIAL_CAPACITY = 1 &lt;&lt; 4; // aka 16 默认初始化的容量是16，必须是2的幂。 2.最大容量 /** * The maximum capacity, used if a higher value">
   
-  <meta itemprop="name" content="Final - Shao Yi`s Blog">
-  <meta itemprop="description" content="Final">
+  <meta itemprop="name" content="HashMap源码(1) - Shao Yi`s Blog">
+  <meta itemprop="description" content="常量定义 1.默认容量 /** * The default initial capacity - MUST be a power of two. */ static final int DEFAULT_INITIAL_CAPACITY = 1 &lt;&lt; 4; // aka 16 默认初始化的容量是16，必须是2的幂。 2.最大容量 /** * The maximum capacity, used if a higher value">
   <meta itemprop="image" content="https://xueshaoyi.github.io/img/author.jpg">
   
   
   <meta name="twitter:description" content="">
-  <link rel="alternate" href="https://xueshaoyi.github.io/feed.xml" title="Shao Yi`s Blog" type="application/rss+xml"/>
+  
   <link rel="shortcut icon" href="https://xueshaoyi.github.io/img/favicon.ico"/>
   <link rel="apple-touch-icon" href="https://xueshaoyi.github.io/apple-touch-icon.png" />
   <link rel="apple-touch-icon-precomposed" href="https://xueshaoyi.github.io/apple-touch-icon.png" />
@@ -59,21 +59,303 @@
 
   </header>
   <div id="container">
-    <div id="main">
-      
-      <h2 id="2017-07">2017-07</h2>
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://xueshaoyi.github.io/post/2017/zhishi/java%E7%9A%84final%E5%85%B3%E9%94%AE%E5%AD%97/" title="java的final关键字" itemprop="url">
-    <h1 itemprop="name">java的final关键字</h1>
-    <p itemprop="description">Java中的final关键字非常重要，它可以应用于类、方法以及变量。将变量，方法和类声明为final代表了什么？使用final的好处是什么？</p>
-    <time datetime="2017-07-17 13:13:55 &#43;0800 CST" itemprop="datePublished">2017年07月17日</time>
-  </a>
-</section>
+    <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody">
+    <header class="article-info clearfix">
+  <h1 itemprop="name">
+      <a href="https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%811/" title="HashMap源码(1)" itemprop="url">HashMap源码(1)</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://github.com/xueshaoyi" title=""></a>
+    
+  </p>
+  <p class="article-time">
+    <time datetime="2017-07-30 13:56:19 &#43;0800 CST" itemprop="datePublished">2017年07月30日</time>
+  </p>
+</header>
 
-      
-      
+	<div class="article-content">
+    
+		<div class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#常量定义">常量定义</a></li>
+<li><a href="#成员变量">成员变量</a></li>
+<li><a href="#内部数据结构node">内部数据结构Node</a></li>
+</ul></li>
+</ul>
+</nav>
+		</div>
+    
+    
+
+<h2 id="常量定义">常量定义</h2>
+
+<p><strong>1.默认容量</strong></p>
+
+<pre><code>/**
+* The default initial capacity - MUST be a power of two.
+*/
+static final int DEFAULT_INITIAL_CAPACITY = 1 &lt;&lt; 4; // aka 16
+</code></pre>
+
+<p>默认初始化的容量是16，必须是2的幂。</p>
+
+<p><strong>2.最大容量</strong></p>
+
+<pre><code>/**
+ * The maximum capacity, used if a higher value is implicitly specified
+ * by either of the constructors with arguments.
+ * MUST be a power of two &lt;= 1&lt;&lt;30.
+ */
+static final int MAXIMUM_CAPACITY = 1 &lt;&lt; 30;
+</code></pre>
+
+<p>最大容量是2^30</p>
+
+<p><strong>3.装载因子</strong></p>
+
+<pre><code>/**
+ * The load factor used when none specified in constructor.
+ */
+static final float DEFAULT_LOAD_FACTOR = 0.75f;
+</code></pre>
+
+<p>默认装载因子是0.75，当map的使用容量超过设置的容量的0.75之后会扩充容量</p>
+
+<p><strong>4.由链表转换成树的阈值TREEIFY_THRESHOLD</strong></p>
+
+<pre><code>/**
+ * The bin count threshold for using a tree rather than list for a
+ * bin.  Bins are converted to trees when adding an element to a
+ * bin with at least this many nodes. The value must be greater
+ * than 2 and should be at least 8 to mesh with assumptions in
+ * tree removal about conversion back to plain bins upon
+ * shrinkage.
+ */
+static final int TREEIFY_THRESHOLD = 8;
+</code></pre>
+
+<p>一个桶中bin（箱子）的存储方式由链表转换成树的阈值。即当桶中bin的数量超过TREEIFY_THRESHOLD时使用树来代替链表。默认值是8</p>
+
+<p><strong>5.由树转换成链表的阈值UNTREEIFY_THRESHOLD</strong></p>
+
+<pre><code>/**
+ * The bin count threshold for untreeifying a (split) bin during a
+ * resize operation. Should be less than TREEIFY_THRESHOLD, and at
+ * most 6 to mesh with shrinkage detection under removal.
+ */
+static final int UNTREEIFY_THRESHOLD = 6;
+</code></pre>
+
+<p>当执行resize操作时，当桶中bin的数量少于UNTREEIFY_THRESHOLD时使用链表来代替树。默认值是6</p>
+
+<p><strong>6.MIN_TREEIFY_CAPACITY</strong></p>
+
+<pre><code>/**
+ * The smallest table capacity for which bins may be treeified.
+ * (Otherwise the table is resized if too many nodes in a bin.)
+ * Should be at least 4 * TREEIFY_THRESHOLD to avoid conflicts
+ * between resizing and treeification thresholds.
+ */
+static final int MIN_TREEIFY_CAPACITY = 64;
+</code></pre>
+
+<p>当桶中的bin被树化时最小的hash表容量。（如果没有达到这个阈值，即hash表容量小于MIN_TREEIFY_CAPACITY，当桶中bin的数量太多时会执行resize扩容操作）这个MIN_TREEIFY_CAPACITY的值至少是TREEIFY_THRESHOLD的4倍。</p>
+
+<h2 id="成员变量">成员变量</h2>
+
+<p><strong>1.table</strong></p>
+
+<pre><code>    /**
+     * The table, initialized on first use, and resized as
+     * necessary. When allocated, length is always a power of two.
+     * (We also tolerate length zero in some operations to allow
+     * bootstrapping mechanics that are currently not needed.)
+     */
+    transient Node&lt;K,V&gt;[] table;
+</code></pre>
+
+<p>存放KV数据的数组。第一次使用的时候被初始化，根据需要可以重新resize。分配的长度总是2的幂。</p>
+
+<p><strong>2.entrySet</strong></p>
+
+<pre><code>/**
+     * Holds cached entrySet(). Note that AbstractMap fields are used
+     * for keySet() and values().
+     */
+    transient Set&lt;Map.Entry&lt;K,V&gt;&gt; entrySet;
+</code></pre>
+
+<p>当被调用entrySet时被赋值。通过keySet()方法可以得到map key的集合，通过values方法可以得到map value的集合。</p>
+
+<p><strong>3.size</strong></p>
+
+<pre><code>    /**
+     * The number of key-value mappings contained in this map.
+     */
+    transient int size;
+</code></pre>
+
+<p>存放在map中的KV映射的总数。</p>
+
+<p><strong>4.modCount</strong></p>
+
+<pre><code>    /**
+     * The number of times this HashMap has been structurally modified
+     * Structural modifications are those that change the number of mappings in
+     * the HashMap or otherwise modify its internal structure (e.g.,
+     * rehash).  This field is used to make iterators on Collection-views of
+     * the HashMap fail-fast.  (See ConcurrentModificationException).
+     */
+    transient int modCount;
+</code></pre>
+
+<p>HashMap被结构性修改的次数。（结构性修改是指改变了KV映射数量的操作或者修改了HashMap的内部结构（如 rehash）。这个用于fail-fast。</p>
+
+<p><strong>5.threshold</strong></p>
+
+<pre><code>    /**
+     * The next size value at which to resize (capacity * load factor).
+     *
+     * @serial
+     */
+    // (The javadoc description is true upon serialization.
+    // Additionally, if the table array has not been allocated, this
+    // field holds the initial array capacity, or zero signifying
+    // DEFAULT_INITIAL_CAPACITY.)
+    int threshold;
+</code></pre>
+
+<p>当需要resize时的阈值。即当HashMap中KV映射的数量（即size）超过了threshold就会resize。threshold=capacity*loadFactor。</p>
+
+<p><strong>6.loadFactor</strong></p>
+
+<pre><code>    /**
+     * The load factor for the hash table.
+     *
+     * @serial
+     */
+    final float loadFactor;
+</code></pre>
+
+<p>装载因子。</p>
+
+<p><strong>注意</strong>，在成员变量中并没有capacity这个数据。当然capacity可以通过threshold和loadFactor计算得来。</p>
+
+<h2 id="内部数据结构node">内部数据结构Node</h2>
+
+<p>在被树化的时候使用到的Node节点来存储:</p>
+
+<pre><code>/**
+ * Basic hash bin node, used for most entries.  (See below for
+ * TreeNode subclass, and in LinkedHashMap for its Entry subclass.)
+ */
+static class Node&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; {
+    final int hash;
+    final K key;
+    V value;
+    Node&lt;K,V&gt; next;
+
+    Node(int hash, K key, V value, Node&lt;K,V&gt; next) {
+        this.hash = hash;
+        this.key = key;
+        this.value = value;
+        this.next = next;
+    }
+
+    public final K getKey()        { return key; }
+    public final V getValue()      { return value; }
+    public final String toString() { return key + &quot;=&quot; + value; }
+
+    public final int hashCode() {
+        return Objects.hashCode(key) ^ Objects.hashCode(value);
+    }
+
+    public final V setValue(V newValue) {
+        V oldValue = value;
+        value = newValue;
+        return oldValue;
+    }
+
+    public final boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (o instanceof Map.Entry) {
+            Map.Entry&lt;?,?&gt; e = (Map.Entry&lt;?,?&gt;)o;
+            if (Objects.equals(key, e.getKey()) &amp;&amp;
+                Objects.equals(value, e.getValue()))
+                return true;
+        }
+        return false;
+    }
+}
+</code></pre>
+
+	</div>
+  <footer class="article-footer clearfix">
+  
+
+<div class="article-tags">
+  <span></span>
+  
+  <a href="https://xueshaoyi.github.io/tags/java">Java</a>
+  
+  <a href="https://xueshaoyi.github.io/tags/java%E6%BA%90%E7%A0%81">java源码</a>
+  
+</div>
+
+
+
+
+
+<div class="article-categories">
+  <span></span>
+  
+  <a class="article-category-link" href="https://xueshaoyi.github.io/categories/java%E5%9F%BA%E7%A1%80">Java基础</a>
+  
+</div>
+
+
+
+  <div class="article-share" id="share">
+    <div data-url="https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%811/" data-title="HashMap源码(1)" data-tsina="1816308191" class="share clearfix">
     </div>
+  </div>
+</footer>
+
+	</article>
+  
+
+
+<section class="comment">
+<div id="disqus_thread"></div>
+</section>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%811/";
+this.page.identifier = "https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%811/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+
+s.src = '//xueshaoyi.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+</div>
+
     <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -355,6 +637,38 @@ $(document).ready(function(){
 
 <script type="text/javascript">
 $(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
   var $this = $('.share'),
       url = $this.attr('data-url'),
       encodedUrl = encodeURIComponent(url),
@@ -381,6 +695,27 @@ $(document).ready(function(){
 });
 </script>
 
+
+<link rel="stylesheet" href="https://xueshaoyi.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="https://xueshaoyi.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
 
 
 <script>
