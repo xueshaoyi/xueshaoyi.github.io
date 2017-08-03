@@ -6,10 +6,19 @@
     <description>Recent content in Java源码 on Shao Yi`s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 30 Jul 2017 18:01:19 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 03 Aug 2017 18:01:19 +0800</lastBuildDate>
     
 	<atom:link href="https://xueshaoyi.github.io/tags/java%E6%BA%90%E7%A0%81/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>HashMap源码(6)computeIfAbsent</title>
+      <link>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%816/</link>
+      <pubDate>Thu, 03 Aug 2017 18:01:19 +0800</pubDate>
+      
+      <guid>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%816/</guid>
+      <description>这个是Java8里面新增的功能 代码： public V computeIfAbsent(K key, Function&amp;lt;? super K, ? extends V&amp;gt; mappingFunction) { if (mappingFunction == null) throw new NullPointerException(); int hash = hash(key); Node&amp;lt;K,V&amp;gt;[] tab; Node&amp;lt;K,V&amp;gt; first; int n, i; int binCount = 0; TreeNode&amp;lt;K,V&amp;gt; t = null; Node&amp;lt;K,V&amp;gt; old = null; if (size &amp;gt; threshold || (tab = table) == null</description>
+    </item>
     
     <item>
       <title>HashMap源码(5)put()方法</title>

@@ -63,6 +63,15 @@
     <div id="main">
       
       <section class="post" itemscope itemprop="blogPost">
+    <a href="https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%816/" title="HashMap源码(6)computeIfAbsent" itemprop="url">
+    <h1 itemprop="name">HashMap源码(6)computeIfAbsent</h1>
+    <p itemprop="description">这个是Java8里面新增的功能 代码： public V computeIfAbsent(K key, Function&lt;? super K, ? extends V&gt; mappingFunction) { if (mappingFunction == null) throw new NullPointerException(); int hash = hash(key); Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; first; int n, i; int binCount = 0; TreeNode&lt;K,V&gt; t = null; Node&lt;K,V&gt; old = null; if (size &gt; threshold || (tab = table) == null</p>
+    <time datetime="2017-08-03 18:01:19 &#43;0800 CST" itemprop="datePublished">2017年08月03日</time>
+  </a>
+</section>
+
+      
+      <section class="post" itemscope itemprop="blogPost">
     <a href="https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%815/" title="HashMap源码(5)put()方法" itemprop="url">
     <h1 itemprop="name">HashMap源码(5)put()方法</h1>
     <p itemprop="description">HashMap#put() /** * Associates the specified value with the specified key in this map. * If the map previously contained a mapping for the key, the old * value is replaced. * * @param key key with which the specified value is to be associated * @param value value to be associated with the specified key * @return the previous value associated with &lt;tt&gt;key&lt;/tt&gt;, or * &lt;tt&gt;null&lt;/tt&gt; if there was</p>
@@ -143,15 +152,6 @@
 </section>
 
       
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://xueshaoyi.github.io/post/2017/base/arraylist%E6%BA%90%E7%A0%812/" title="ArrayList源码(2)" itemprop="url">
-    <h1 itemprop="name">ArrayList源码(2)</h1>
-    <p itemprop="description">现在接着说ArrayList的另外一个常用方法remove(). remove同样也是存在两个方法 １. public E remove(int index) { rangeCheck(index); modCount++; E oldValue = elementData(index); int numMoved = size - index - 1; if</p>
-    <time datetime="2017-07-18 18:49:19 &#43;0800 CST" itemprop="datePublished">2017年07月18日</time>
-  </a>
-</section>
-
-      
       <nav id="page-nav" class="clearfix">
         <a class="page-number" href="https://xueshaoyi.github.io/post/">More...</a>
       </nav>
@@ -168,7 +168,7 @@
     
     <li><a href="https://xueshaoyi.github.io/categories/github" title="github">github<sup>1</sup></a></li>
     
-    <li><a href="https://xueshaoyi.github.io/categories/java%e5%9f%ba%e7%a1%80" title="java基础">java基础<sup>18</sup></a></li>
+    <li><a href="https://xueshaoyi.github.io/categories/java%e5%9f%ba%e7%a1%80" title="java基础">java基础<sup>19</sup></a></li>
     
     <li><a href="https://xueshaoyi.github.io/categories/linux" title="linux">linux<sup>1</sup></a></li>
     
@@ -213,9 +213,9 @@
       
 			<li><a href="https://xueshaoyi.github.io/tags/http" title="http">http<sup>1</sup></a></li>
       
-			<li><a href="https://xueshaoyi.github.io/tags/java" title="java">java<sup>23</sup></a></li>
+			<li><a href="https://xueshaoyi.github.io/tags/java" title="java">java<sup>24</sup></a></li>
       
-			<li><a href="https://xueshaoyi.github.io/tags/java%e6%ba%90%e7%a0%81" title="java源码">java源码<sup>10</sup></a></li>
+			<li><a href="https://xueshaoyi.github.io/tags/java%e6%ba%90%e7%a0%81" title="java源码">java源码<sup>11</sup></a></li>
       
 			<li><a href="https://xueshaoyi.github.io/tags/jvm" title="jvm">jvm<sup>2</sup></a></li>
       
@@ -252,6 +252,11 @@
   <div class="archiveslist">
     <p class="asidetitle">归档</p>
     <ul class="archive-list">
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://xueshaoyi.github.io/post/#2017-08">2017年08月</a><span class="archive-list-count">1</span>
+      </li>
       
       
       <li class="archive-list-item">
