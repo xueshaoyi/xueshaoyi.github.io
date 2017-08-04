@@ -17,7 +17,7 @@
       <pubDate>Fri, 04 Aug 2017 12:01:19 +0800</pubDate>
       
       <guid>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%818/</guid>
-      <description></description>
+      <description>这个和之前的两个方法相同。 @Override public V compute(K key, BiFunction&amp;lt;? super K, ? super V, ? extends V&amp;gt; remappingFunction) { if (remappingFunction == null) throw new NullPointerException(); int hash = hash(key); Node&amp;lt;K,V&amp;gt;[] tab; Node&amp;lt;K,V&amp;gt; first; int n, i; int binCount = 0; TreeNode&amp;lt;K,V&amp;gt; t = null; Node&amp;lt;K,V&amp;gt; old = null; if (size &amp;gt; threshold || (tab = table) == null ||</description>
     </item>
     
     <item>

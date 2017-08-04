@@ -66,7 +66,7 @@
       <section class="post" itemscope itemprop="blogPost">
     <a href="https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%818/" title="HashMap源码(8)compute" itemprop="url">
     <h1 itemprop="name">HashMap源码(8)compute</h1>
-    <p itemprop="description"></p>
+    <p itemprop="description">这个和之前的两个方法相同。 @Override public V compute(K key, BiFunction&lt;? super K, ? super V, ? extends V&gt; remappingFunction) { if (remappingFunction == null) throw new NullPointerException(); int hash = hash(key); Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; first; int n, i; int binCount = 0; TreeNode&lt;K,V&gt; t = null; Node&lt;K,V&gt; old = null; if (size &gt; threshold || (tab = table) == null ||</p>
     <time datetime="2017-08-04 12:01:19 &#43;0800 CST" itemprop="datePublished">2017年08月04日</time>
   </a>
 </section>

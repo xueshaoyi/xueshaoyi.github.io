@@ -5,10 +5,10 @@
   <title>HashMap源码(8)compute - Shao Yi`s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="">
+  <meta name="description" content="这个和之前的两个方法相同。 @Override public V compute(K key, BiFunction&lt;? super K, ? super V, ? extends V&gt; remappingFunction) { if (remappingFunction == null) throw new NullPointerException(); int hash = hash(key); Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; first; int n, i; int binCount = 0; TreeNode&lt;K,V&gt; t = null; Node&lt;K,V&gt; old = null; if (size &gt; threshold || (tab = table) == null ||">
   
   <meta itemprop="name" content="HashMap源码(8)compute - Shao Yi`s Blog">
-  <meta itemprop="description" content="">
+  <meta itemprop="description" content="这个和之前的两个方法相同。 @Override public V compute(K key, BiFunction&lt;? super K, ? super V, ? extends V&gt; remappingFunction) { if (remappingFunction == null) throw new NullPointerException(); int hash = hash(key); Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; first; int n, i; int binCount = 0; TreeNode&lt;K,V&gt; t = null; Node&lt;K,V&gt; old = null; if (size &gt; threshold || (tab = table) == null ||">
   <meta itemprop="image" content="https://xueshaoyi.github.io/img/author.jpg">
   
   
@@ -82,7 +82,139 @@
       
 		</div>
     
-    
+    <p>这个和之前的两个方法相同。</p>
+
+<pre><code>@Override
+public V compute(K key,
+                 BiFunction&lt;? super K, ? super V, ? extends V&gt; remappingFunction) {
+    if (remappingFunction == null)
+        throw new NullPointerException();
+    int hash = hash(key);
+    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; first; int n, i;
+    int binCount = 0;
+    TreeNode&lt;K,V&gt; t = null;
+    Node&lt;K,V&gt; old = null;
+    if (size &gt; threshold || (tab = table) == null ||
+        (n = tab.length) == 0)
+        n = (tab = resize()).length;
+    if ((first = tab[i = (n - 1) &amp; hash]) != null) {
+        if (first instanceof TreeNode)
+            old = (t = (TreeNode&lt;K,V&gt;)first).getTreeNode(hash, key);
+        else {
+            Node&lt;K,V&gt; e = first; K k;
+            do {
+                if (e.hash == hash &amp;&amp;
+                    ((k = e.key) == key || (key != null &amp;&amp; key.equals(k)))) {
+                    old = e;
+                    break;
+                }
+                ++binCount;
+            } while ((e = e.next) != null);
+        }
+    }
+    V oldValue = (old == null) ? null : old.value;
+    V v = remappingFunction.apply(key, oldValue);
+    if (old != null) {
+        if (v != null) {
+            old.value = v;
+            afterNodeAccess(old);
+        }
+        else
+            removeNode(hash, key, null, false, true);
+    }
+    else if (v != null) {
+        if (t != null)
+            t.putTreeVal(this, tab, hash, key, v);
+        else {
+            tab[i] = newNode(hash, key, v, first);
+            if (binCount &gt;= TREEIFY_THRESHOLD - 1)
+                treeifyBin(tab, hash);
+        }
+        ++modCount;
+        ++size;
+        afterNodeInsertion(true);
+    }
+    return v;
+}
+</code></pre>
+
+<p>本方法，如果map中没有相关的key，其可以创建一个。无论该key的value是否存在他都会执行你所传的方法执行，只是当你方法执行后的返回值如果是null的话会删掉该key。其他都正常。</p>
+
+<p>相关测试代码：</p>
+
+<p>当map中没有该key的情况：</p>
+
+<pre><code>public static void main(String[] args) {
+    Map&lt;String, String&gt; map = new HashMap&lt;&gt;();
+    map.put(&quot;k&quot;,&quot;k&quot;);
+    map.compute(&quot;j&quot;,(k,v)-&gt;genValue1(k,v));
+    System.out.println(&quot;map中没有相关key：&quot;+map);
+}
+static String genValue1(String k,String v){
+    System.out.println(k+v);
+    return k+v;
+}
+结果：
+jnull
+map中没有相关key：{j=jnull, k=k}
+</code></pre>
+
+<p>当map中有该key，但是value为空的时候：</p>
+
+<pre><code>public static void main(String[] args) {
+    Map&lt;String, String&gt; map = new HashMap&lt;&gt;();
+    map.put(&quot;k&quot;,&quot;k&quot;);
+    map.put(&quot;j&quot;,null);
+    map.compute(&quot;j&quot;,(k,v)-&gt;genValue1(k,v));
+    System.out.println(&quot;map中有相关key,但是value为null：&quot;+map);
+}
+static String genValue1(String k,String v){
+    System.out.println(k+v);
+    return k+v;
+}
+结果：
+jnull
+map中有相关key,但是value为null：{j=jnull, k=k}
+</code></pre>
+
+<p>当map中有该key，value不为空的时候：</p>
+
+<pre><code>public static void main(String[] args) {
+    Map&lt;String, String&gt; map = new HashMap&lt;&gt;();
+    map.put(&quot;k&quot;,&quot;k&quot;);
+    map.put(&quot;j&quot;,&quot;zhang&quot;);
+    map.compute(&quot;j&quot;,(k,v)-&gt;genValue1(k,v));
+    System.out.println(&quot;map中有相关key,value不为null：&quot;+map);
+}
+static String genValue1(String k,String v){
+    System.out.println(k+v);
+    return k+v;
+}
+结果：
+jzhang
+map中有相关key,value不为null：{j=jzhang, k=k}
+</code></pre>
+
+<p>当map中有该key，value不为空,但是处理方法处理结果为null的时候：</p>
+
+<pre><code>public static void main(String[] args) {
+    Map&lt;String, String&gt; map = new HashMap&lt;&gt;();
+    map.put(&quot;k&quot;,&quot;k&quot;);
+    map.put(&quot;j&quot;,&quot;zhang&quot;);
+    map.compute(&quot;j&quot;,(k,v)-&gt;genValue1(k,v));
+    System.out.println(&quot;map中有相关key,value不为null,处理结果为努力：&quot;+map);
+}
+static String genValue1(String k,String v){
+    System.out.println(k+v);
+    return k+v;
+}
+结果：
+jzhang
+map中有相关key,value不为null,处理结果为努力：{k=k}
+</code></pre>
+
+<p>只有当处理方法的返回值为null的时候将会删除key，其他情况都会添加或者修改key,value.</p>
+
 	</div>
   <footer class="article-footer clearfix">
   

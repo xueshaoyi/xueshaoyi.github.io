@@ -130,6 +130,10 @@
     map.computeIfPresent(&quot;j&quot;,(k,v)-&gt;genValue1(k,&quot;me&quot;));
     System.out.println(&quot;map中没有相关key的时候：&quot;+map);
 }
+static String genValue1(String k,String v){
+    System.out.println(k+v);
+    return k+v;
+}
 结果：
 map中没有相关key的时候：{k=k}
 </code></pre>
@@ -142,6 +146,10 @@ map中没有相关key的时候：{k=k}
     map.put(&quot;j&quot;,null);
     map.computeIfPresent(&quot;j&quot;,(k,v)-&gt;genValue1(k,&quot;me&quot;));
     System.out.println(&quot;map中有相关key,但是value是null：&quot;+map);
+}
+static String genValue1(String k,String v){
+    System.out.println(k+v);
+    return k+v;
 }
 结果：
 map中有相关key,但是value是null：{j=null, k=k}
@@ -156,6 +164,10 @@ map中有相关key,但是value是null：{j=null, k=k}
     map.computeIfPresent(&quot;j&quot;,(k,v)-&gt;genValue1(k,&quot;:key+value&quot;));
     System.out.println(&quot;map中有相关key,value不是null,处理结果为null：&quot;+map);
 }
+static String genValue1(String k,String v){
+    System.out.println(k+v);
+    return null;
+}
 结果：
 j:key+value
 map中有相关key,value不是null,处理结果为null：{k=k}
@@ -169,6 +181,10 @@ map中有相关key,value不是null,处理结果为null：{k=k}
     map.put(&quot;j&quot;,&quot;m&quot;);
     map.computeIfPresent(&quot;j&quot;,(k,v)-&gt;genValue1(k,&quot;:key+value&quot;));
     System.out.println(&quot;map中有相关key,value不是null,处理结果不为null：&quot;+map);
+}
+static String genValue1(String k,String v){
+    System.out.println(k+v);
+    return k+v;
 }
 结果：
 j:key+value
