@@ -2,18 +2,18 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>Hibernate - Shao Yi`s Blog</title>
+  <title>HashMap源码(9)merge - Shao Yi`s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="Hibernate">
+  <meta name="description" content="hashmap里面的这个merge方法，融合的意思，将新的value和旧的value进行融合。 @Override public V merge(K key, V value, BiFunction&lt;? super V, ? super V, ? extends V&gt; remappingFunction) { if (value == null) throw">
   
-  <meta itemprop="name" content="Hibernate - Shao Yi`s Blog">
-  <meta itemprop="description" content="Hibernate">
+  <meta itemprop="name" content="HashMap源码(9)merge - Shao Yi`s Blog">
+  <meta itemprop="description" content="hashmap里面的这个merge方法，融合的意思，将新的value和旧的value进行融合。 @Override public V merge(K key, V value, BiFunction&lt;? super V, ? super V, ? extends V&gt; remappingFunction) { if (value == null) throw">
   <meta itemprop="image" content="https://xueshaoyi.github.io/img/author.jpg">
   
   
   <meta name="twitter:description" content="">
-  <link rel="alternate" href="https://xueshaoyi.github.io/feed.xml" title="Shao Yi`s Blog" type="application/rss+xml"/>
+  
   <link rel="shortcut icon" href="https://xueshaoyi.github.io/img/favicon.ico"/>
   <link rel="apple-touch-icon" href="https://xueshaoyi.github.io/apple-touch-icon.png" />
   <link rel="apple-touch-icon-precomposed" href="https://xueshaoyi.github.io/apple-touch-icon.png" />
@@ -59,21 +59,220 @@
 
   </header>
   <div id="container">
-    <div id="main">
-      
-      <h2 id="2017-07">2017-07</h2>
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://xueshaoyi.github.io/datum/hibernate%E9%85%8D%E7%BD%AE%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A/" title="Hibernate配置详细解释" itemprop="url">
-    <h1 itemprop="name">Hibernate配置详细解释</h1>
-    <p itemprop="description">``` &lt;?xml version=&lsquo;1.0&rsquo; encoding=&lsquo;gb2312&rsquo;?&gt; &lt;!DOCTYPE hibernate-configuration PUBLIC &ldquo;-//Hibernate/Hibernate Configuration DTD 3.0//EN&rdquo; &ldquo;http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd&quot;&gt; &lt;!--声明Hibernate配置文件的开始--&gt; &lt;hibernate-configuration&gt; com.mysql.jdbc.Driver &lt;!--设置数据库的连接url:jdbc:m</p>
-    <time datetime="2017-07-24 12:58:19 &#43;0800 CST" itemprop="datePublished">2017年07月24日</time>
-  </a>
-</section>
+    <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody">
+    <header class="article-info clearfix">
+  <h1 itemprop="name">
+      <a href="https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%819/" title="HashMap源码(9)merge" itemprop="url">HashMap源码(9)merge</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://github.com/xueshaoyi" title=""></a>
+    
+  </p>
+  <p class="article-time">
+    <time datetime="2017-08-04 13:50:19 &#43;0800 CST" itemprop="datePublished">2017年08月04日</time>
+  </p>
+</header>
 
+	<div class="article-content">
+    
+		<div class="toc-article">
+			<strong class="toc-title">文章目录</strong>
       
-      
+		</div>
+    
+    <p>hashmap里面的这个merge方法，融合的意思，将新的value和旧的value进行融合。</p>
+
+<pre><code>@Override
+public V merge(K key, V value,
+               BiFunction&lt;? super V, ? super V, ? extends V&gt; remappingFunction) {
+    if (value == null)
+        throw new NullPointerException();
+    if (remappingFunction == null)
+        throw new NullPointerException();
+    int hash = hash(key);
+    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; first; int n, i;
+    int binCount = 0;
+    TreeNode&lt;K,V&gt; t = null;
+    Node&lt;K,V&gt; old = null;
+    if (size &gt; threshold || (tab = table) == null ||
+        (n = tab.length) == 0)
+        n = (tab = resize()).length;
+    if ((first = tab[i = (n - 1) &amp; hash]) != null) {
+        if (first instanceof TreeNode)
+            old = (t = (TreeNode&lt;K,V&gt;)first).getTreeNode(hash, key);
+        else {
+            Node&lt;K,V&gt; e = first; K k;
+            do {
+                if (e.hash == hash &amp;&amp;
+                    ((k = e.key) == key || (key != null &amp;&amp; key.equals(k)))) {
+                    old = e;
+                    break;
+                }
+                ++binCount;
+            } while ((e = e.next) != null);
+        }
+    }
+    if (old != null) {
+        V v;
+        if (old.value != null)
+            v = remappingFunction.apply(old.value, value);
+        else
+            v = value;
+        if (v != null) {
+            old.value = v;
+            afterNodeAccess(old);
+        }
+        else
+            removeNode(hash, key, null, false, true);
+        return v;
+    }
+    if (value != null) {
+        if (t != null)
+            t.putTreeVal(this, tab, hash, key, value);
+        else {
+            tab[i] = newNode(hash, key, value, first);
+            if (binCount &gt;= TREEIFY_THRESHOLD - 1)
+                treeifyBin(tab, hash);
+        }
+        ++modCount;
+        ++size;
+        afterNodeInsertion(true);
+    }
+    return value;
+}
+</code></pre>
+
+<p>从其调用v = remappingFunction.apply(old.value, value);这个方法中可以看出来，初入的是old.value和value这两个值进行操作，所以你写的方法里面获取的两个值是这两个value进行操作的。</p>
+
+<p>直接案例代码：</p>
+
+<p>当map为null没存任何值时：</p>
+
+<pre><code>public static void main(String[] args) {
+    Map&lt;String, String&gt; map = new HashMap&lt;&gt;();
+    map.merge(&quot;j&quot;,&quot; yi&quot;,(k,v)-&gt;genValue1(k,v));
+    System.out.println(&quot;当map中没有任何值时：&quot; +map);
+}
+static String genValue1(String k,String v){
+    System.out.println(k+v);
+    return k+v;
+}
+结果：
+当map中没有任何值时：{j= yi}
+</code></pre>
+
+<p>当该key的value为null时：</p>
+
+<pre><code>public static void main(String[] args) {
+    Map&lt;String, String&gt; map = new HashMap&lt;&gt;();
+    map.put(&quot;j&quot;,null);
+    map.merge(&quot;j&quot;,&quot; yi&quot;,(k,v)-&gt;genValue1(k,v));
+    System.out.println(&quot;当该key的value为null时：&quot; +map);
+}
+static String genValue1(String k,String v){
+    System.out.println(k+v);
+    return k+v;
+}
+结果：
+当该key的value为null时：{j= yi}
+</code></pre>
+
+<p>当存在该key且有值时：</p>
+
+<pre><code>public static void main(String[] args) {
+    Map&lt;String, String&gt; map = new HashMap&lt;&gt;();
+    map.put(&quot;j&quot;,&quot;xue&quot;);
+    map.merge(&quot;j&quot;,&quot; yi&quot;,(k,v)-&gt;genValue1(k,v));
+    System.out.println(&quot;当存在该key且有值时：&quot; +map);
+}
+static String genValue1(String k,String v){
+    System.out.println(k+v);
+    return k+v;
+}
+结果：
+xue yi
+当存在该key且有值时：{j=xue yi}
+</code></pre>
+
+<p>当进行数据操作时返回值为null：</p>
+
+<pre><code>public static void main(String[] args) {
+    Map&lt;String, String&gt; map = new HashMap&lt;&gt;();
+    map.put(&quot;j&quot;,&quot;xue&quot;);
+    map.merge(&quot;j&quot;,&quot; yi&quot;,(k,v)-&gt;genValue1(k,v));
+    System.out.println(&quot;当进行数据操作时返回值为null：&quot; +map);
+}
+static String genValue1(String k,String v){
+    System.out.println(k+v);
+    return null;
+}
+结果：
+xue yi
+当进行数据操作时返回值为null：{}
+</code></pre>
+
+	</div>
+  <footer class="article-footer clearfix">
+  
+
+<div class="article-tags">
+  <span></span>
+  
+  <a href="https://xueshaoyi.github.io/tags/java">Java</a>
+  
+  <a href="https://xueshaoyi.github.io/tags/java%E6%BA%90%E7%A0%81">java源码</a>
+  
+</div>
+
+
+
+
+
+<div class="article-categories">
+  <span></span>
+  
+  <a class="article-category-link" href="https://xueshaoyi.github.io/categories/java%E5%9F%BA%E7%A1%80">Java基础</a>
+  
+</div>
+
+
+
+  <div class="article-share" id="share">
+    <div data-url="https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%819/" data-title="HashMap源码(9)merge" data-tsina="1816308191" class="share clearfix">
     </div>
+  </div>
+</footer>
+
+	</article>
+  
+
+
+<section class="comment">
+<div id="disqus_thread"></div>
+</section>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%819/";
+this.page.identifier = "https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%819/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+
+s.src = '//xueshaoyi.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+</div>
+
     <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -360,6 +559,38 @@ $(document).ready(function(){
 
 <script type="text/javascript">
 $(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
   var $this = $('.share'),
       url = $this.attr('data-url'),
       encodedUrl = encodeURIComponent(url),
@@ -386,6 +617,27 @@ $(document).ready(function(){
 });
 </script>
 
+
+<link rel="stylesheet" href="https://xueshaoyi.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="https://xueshaoyi.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
 
 
 <script>

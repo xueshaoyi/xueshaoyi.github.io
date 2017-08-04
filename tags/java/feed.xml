@@ -6,10 +6,19 @@
     <description>Recent content in Java on Shao Yi`s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 04 Aug 2017 12:01:19 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 04 Aug 2017 13:50:19 +0800</lastBuildDate>
     
 	<atom:link href="https://xueshaoyi.github.io/tags/java/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>HashMap源码(9)merge</title>
+      <link>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%819/</link>
+      <pubDate>Fri, 04 Aug 2017 13:50:19 +0800</pubDate>
+      
+      <guid>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%819/</guid>
+      <description>hashmap里面的这个merge方法，融合的意思，将新的value和旧的value进行融合。 @Override public V merge(K key, V value, BiFunction&amp;lt;? super V, ? super V, ? extends V&amp;gt; remappingFunction) { if (value == null) throw</description>
+    </item>
     
     <item>
       <title>HashMap源码(8)compute</title>
