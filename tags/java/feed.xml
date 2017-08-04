@@ -6,10 +6,28 @@
     <description>Recent content in Java on Shao Yi`s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 03 Aug 2017 18:01:19 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 04 Aug 2017 12:01:19 +0800</lastBuildDate>
     
 	<atom:link href="https://xueshaoyi.github.io/tags/java/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>HashMap源码(8)compute</title>
+      <link>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%818/</link>
+      <pubDate>Fri, 04 Aug 2017 12:01:19 +0800</pubDate>
+      
+      <guid>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%818/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>HashMap源码(7)computeIfPresent</title>
+      <link>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%817/</link>
+      <pubDate>Fri, 04 Aug 2017 10:01:19 +0800</pubDate>
+      
+      <guid>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%817/</guid>
+      <description>这个方法和computeIfAbsent这个都是Java8的新的内容，都是可以在添加map的时候添加一个方法来对key进行操作存储value</description>
+    </item>
     
     <item>
       <title>HashMap源码(6)computeIfAbsent</title>
