@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>Zookeeper - Shao Yi`s Blog</title>
+  <title>HashMap源码(10)forEach、replaceAll - Shao Yi`s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="Zookeeper概述 Zookeeper是一个工具，可以实现集群中的分布式协调服务。 所谓的分布式协调服务，就是在集群的节点中进行可靠的消息传">
+  <meta name="description" content="jdk8新方法forEach更好的遍历map数组进行操作了。 现在先看看以前的遍历写法： 以前总结的： String key = null; String value = null; for(Map.Entry&lt;String,String&gt; entry:map.entrySet()){ key = entry.getKey(); value = entry.getValue(); System.out.println(&quot;key;&quot;&#43; key&#43;&quot;,value:&quot;&#43;value); } for(String key:">
   
-  <meta itemprop="name" content="Zookeeper - Shao Yi`s Blog">
-  <meta itemprop="description" content="Zookeeper概述 Zookeeper是一个工具，可以实现集群中的分布式协调服务。 所谓的分布式协调服务，就是在集群的节点中进行可靠的消息传">
+  <meta itemprop="name" content="HashMap源码(10)forEach、replaceAll - Shao Yi`s Blog">
+  <meta itemprop="description" content="jdk8新方法forEach更好的遍历map数组进行操作了。 现在先看看以前的遍历写法： 以前总结的： String key = null; String value = null; for(Map.Entry&lt;String,String&gt; entry:map.entrySet()){ key = entry.getKey(); value = entry.getValue(); System.out.println(&quot;key;&quot;&#43; key&#43;&quot;,value:&quot;&#43;value); } for(String key:">
   <meta itemprop="image" content="https://xueshaoyi.github.io/img/author.jpg">
   
   
@@ -65,7 +65,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://xueshaoyi.github.io/post/2017/bigdata/zookeeper/" title="Zookeeper" itemprop="url">Zookeeper</a>
+      <a href="https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%8110/" title="HashMap源码(10)forEach、replaceAll" itemprop="url">HashMap源码(10)forEach、replaceAll</a>
   </h1>
   <p class="article-author">By
     
@@ -73,7 +73,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2017-05-11 13:13:19 &#43;0800 CST" itemprop="datePublished">2017年05月11日</time>
+    <time datetime="2017-08-07 12:38:19 &#43;0800 CST" itemprop="datePublished">2017年08月07日</time>
   </p>
 </header>
 
@@ -81,77 +81,118 @@
     
 		<div class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-      <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#zookeeper概述">Zookeeper概述</a></li>
-<li><a href="#zookeeper的特点">Zookeeper的特点</a></li>
-<li><a href="#zookeeper的数据模型">zookeeper的数据模型</a></li>
-<li><a href="#zookeeper原理">zookeeper原理</a></li>
-</ul></li>
-</ul>
-</nav>
+      
 		</div>
     
-    
+    <p>jdk8新方法forEach更好的遍历map数组进行操作了。</p>
 
-<h2 id="zookeeper概述">Zookeeper概述</h2>
+<p>现在先看看以前的遍历写法：</p>
 
-<p>　　Zookeeper是一个工具，可以实现集群中的分布式协调服务。
-　　所谓的分布式协调服务，就是在集群的节点中进行可靠的消息传递，来协调集群的工作。
-　　Zookeeper之所以能够实现分布式协调服务，靠的就是它能够保证分布式数据一致性。
-　　所谓的分布式数据一致性，指的就是可以在集群中保证数据传递的一致性。
-　　Zookeeper能够提供的分布式协调服务包括：数据发布订阅、负载均衡、命名服务、分布式协调/通知、集群管理、分布式锁、分布式队列等功能</p>
+<p>以前总结的：</p>
 
-<h2 id="zookeeper的特点">Zookeeper的特点</h2>
+<pre><code>String key = null;
+String value = null;
+for(Map.Entry&lt;String,String&gt; entry:map.entrySet()){
+    key = entry.getKey();
+    value = entry.getValue();
+    System.out.println(&quot;key;&quot;+ key+&quot;,value:&quot;+value);
+}
+</code></pre>
 
-<p>　　Zookeeper工作在集群中，对集群提供分布式协调服务，它提供的分布式协调服务具有如下的特点：
-　　</p>
+<pre><code>for(String key: map.keySet()){
+    System.out.println(&quot;key:&quot;+key);
+}
+for(String value:map.values()){
+    System.out.println(&quot;value&quot;+value);
+}
+</code></pre>
+
+<p>这个进行遍历的方法将key和 value两个值分开了。</p>
+
+<p>还有常用的是使用Iterator进行遍历：
+1. 使用范式</p>
+
+<pre><code>Iterator&lt;Map.Entry&lt;String,String&gt;&gt; iterator = map.entrySet().iterator();
+while (iterator.hasNext()){
+    Map.Entry&lt;String,String&gt; entry = iterator.next();
+    System.out.println(&quot;key:&quot;+entry.getKey()+&quot;,value:&quot;+entry.getValue());
+}
+</code></pre>
 
 <ol>
-<li>顺序一致性（从同一个客户端发起的事务请求，最终将会严格按照其发起顺序被应用到zookeeper中）</li>
-<li>原子性（所有事务请求的处理结果在整个集群中所有机器上的应用情况是一致的，即，要么整个集群中所有机器都成功应用了某一事务，要么都没有应用，一定不会出现集群中部分机器应用了改事务，另外一部分没有应用的情况。）</li>
-<li>单一视图（无论客户端连接的是哪个zookeeper服务器，其看到的服务端数据模型都是一致的。）</li>
-<li>可靠性（一旦服务端成功的应用了一个事务，并完成对客户端的响应，那么该事务所引起的服务端状态变更将会一直保留下来，除非有另一个事务又对其进行了改变。）</li>
-<li>实时性（zookeeper并不是一种强一致性，只能保证顺序一致性和最终一致性，只能称为达到了伪实时性。）</li>
+<li>不适用范式
+<code>
+Iterator entries = map.entrySet().iterator();
+while (entries.hasNext()){
+Map.Entry entry = (Map.Entry)entries.next();
+String key = (String)entry.getKey();
+String value = (String)entry.getValue();
+System.out.println(&quot;key:&quot;+entry.getKey()+&quot;,value:&quot;+entry.getValue());
+}
+</code>
+该种方式看起来冗余却有其优点所在。首先，在老版本java中这是惟一遍历map的方式。另一个好处是，你可以在遍历时调用iterator.remove()来删除entries，另两个方法则不能。根据javadoc的说明，如果在for-each遍历中尝试使用此方法，结果是不可预测的。</li>
 </ol>
 
-<h2 id="zookeeper的数据模型">zookeeper的数据模型</h2>
+<p>jdk8的forEach方法：</p>
 
-<p>　　zookeeper中可以保存数据，正是利用zookeeper可以保存数据这一特点，我们的集群通过在zookeeper里存取数据来进行消息的传递。
-　　zookeeper中保存数据的结构非常类似于文件系统。都是由节点组成的树形结构。不同的是文件系统是由文件夹和文件来组成的树，而zookeeper中是由ZNODE来组成的树。
-　　每一个ZNODE里都可以存放一段数据，ZNODE下还可以挂载零个或多个子ZNODE节点，从而组成一个树形结构。</p>
+<pre><code>map.forEach((k,v)-&gt;sout(k,v));
+static void sout(String k,String v){
+    System.out.println(&quot;forEach key:&quot;+k);
+    System.out.println(&quot;forEach value&quot;+ v);
+}
+</code></pre>
 
-<h2 id="zookeeper原理">zookeeper原理</h2>
+<p>改方法直接在定义一个处理key和value的方法就可以了，方便不用特意用之前的方法。方便了很多</p>
 
-<p>zookeeper为了保证可靠性，不能用一台机器，而应该是一个集群</p>
+<p>源码：</p>
 
-<pre><code>        为了保证zookeeper集群数据能够一致，必须有一个拍板说了算的人，这就是leader，其他的是follower。
-        某一时刻集群里只能有且仅有一个leader。
-        leader可以执行增删改和查询操作，而follower只能进行查询操作。
-        所有的更新操作都会被转交给leader来处理，leader批准的任务，再发送给follower去执行来保证和leader的一致性。
-        由于网络是不稳定的，为了保证执行顺序的一致，所有的任务都会被赋予一个唯一的顺序的编号，一定是按照这个编号来执行任务，保证任务顺序的一致性。
+<pre><code>@Override
+public void forEach(BiConsumer&lt;? super K, ? super V&gt; action) {
+    Node&lt;K,V&gt;[] tab;
+    if (action == null)
+        throw new NullPointerException();
+    if (size &gt; 0 &amp;&amp; (tab = table) != null) {
+        int mc = modCount;
+        for (int i = 0; i &lt; tab.length; ++i) {
+            for (Node&lt;K,V&gt; e = tab[i]; e != null; e = e.next)
+                action.accept(e.key, e.value);
+        }
+        if (modCount != mc)
+            throw new ConcurrentModificationException();
+    }
+}
+</code></pre>
 
-        那么什么时候leader可以认为一个客户端的请求可以算是处理成功了呢？
-        如果只有leader或少数机器来认可这个任务，则leader和这些少量机器如果挂掉，则选出来的新的leader并不知道之前批准过的这个任务，最终会违反数据的可靠性。
-        所以要求leader在批准一个任务之前应该保证集群里大部分的机器应该是知道这个提案的，这样即使自己挂掉，根据过半同意选出来的leader肯定是知道这个提案的。
-        而如果leader一定要等到所有follower都同一才执行提案也不好，因为知道有一个机器挂掉，leader就无法工作，也相当于单节点了，无法保证集群可靠性。
-        所以，只要过半同一leader就可以认为一个提案通过。     
+<hr />
 
-        所以，
-        leader在收到客户端提交过来的任务后，会向集群中所有的follower发送提案等待follower的投票，follower们收到这个提议后，会进行投票，同意或者不同意，
-        leader会回收follower的投票，一旦受到过半的投票表示同意，则leader认为这个提案通过，再发送命令要求所有的follower都进行这个提案中的任务。
+<p>replaceAll()方法也是遍历整个map对value进行操作改变：</p>
 
-        由于需要过半的机器同一才能执行任务，所以一旦集群中过半的机器挂掉，整个集群就无法工作了。
+<pre><code>@Override
+public void replaceAll(BiFunction&lt;? super K, ? super V, ? extends V&gt; function) {
+    Node&lt;K,V&gt;[] tab;
+    if (function == null)
+        throw new NullPointerException();
+    if (size &gt; 0 &amp;&amp; (tab = table) != null) {
+        int mc = modCount;
+        for (int i = 0; i &lt; tab.length; ++i) {
+            for (Node&lt;K,V&gt; e = tab[i]; e != null; e = e.next) {
+                e.value = function.apply(e.key, e.value);
+            }
+        }
+        if (modCount != mc)
+            throw new ConcurrentModificationException();
+    }
+}
+</code></pre>
 
-        从而可以推导出：
-            zookeeper集群必须保证过半存活才能工作
-            zookeeper的集群中的机器数量最好应该是奇数个，因为需要过半存活集群才能工作，所以偶数个机器提供的集群可靠性其实和偶数-1个机器提供的集群可靠性是一样的。
-
-        leader选举的问题：
-            最开始集群启动时，会选择最先启动的机器作为leader。
-            当leader挂掉后，会通过过半投票选出具有最高任务编号的称为新的leader。
+<pre><code>map.replaceAll((k,v)-&gt;replaceA(k,v));
+static String replaceA(String k,String v){
+//        if(k.equals(&quot;k&quot;))
+        v=v+&quot;value +123&quot;;
+    return v;
+}
+结果：
+{j=xue yivalue +123, k=kejivalue +123}
 </code></pre>
 
 	</div>
@@ -161,7 +202,9 @@
 <div class="article-tags">
   <span></span>
   
-  <a href="https://xueshaoyi.github.io/tags/zookeeper">Zookeeper</a>
+  <a href="https://xueshaoyi.github.io/tags/java">Java</a>
+  
+  <a href="https://xueshaoyi.github.io/tags/java%E6%BA%90%E7%A0%81">java源码</a>
   
 </div>
 
@@ -172,14 +215,14 @@
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://xueshaoyi.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE">大数据</a>
+  <a class="article-category-link" href="https://xueshaoyi.github.io/categories/java%E5%9F%BA%E7%A1%80">Java基础</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://xueshaoyi.github.io/post/2017/bigdata/zookeeper/" data-title="Zookeeper" data-tsina="1816308191" class="share clearfix">
+    <div data-url="https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%8110/" data-title="HashMap源码(10)forEach、replaceAll" data-tsina="1816308191" class="share clearfix">
     </div>
   </div>
 </footer>
@@ -195,8 +238,8 @@
 
 
 var disqus_config = function () {
-this.page.url = "https://xueshaoyi.github.io/post/2017/bigdata/zookeeper/";
-this.page.identifier = "https://xueshaoyi.github.io/post/2017/bigdata/zookeeper/";
+this.page.url = "https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%8110/";
+this.page.identifier = "https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%8110/";
 };
 (function() { 
 var d = document, s = d.createElement('script');

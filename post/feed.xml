@@ -6,15 +6,24 @@
     <description>Recent content in Posts on Shao Yi`s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 04 Aug 2017 13:50:19 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 07 Aug 2017 12:38:19 +0800</lastBuildDate>
     
 	<atom:link href="https://xueshaoyi.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>HashMap源码(10)forEach、replaceAll</title>
+      <link>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%8110/</link>
+      <pubDate>Mon, 07 Aug 2017 12:38:19 +0800</pubDate>
+      
+      <guid>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%8110/</guid>
+      <description>jdk8新方法forEach更好的遍历map数组进行操作了。 现在先看看以前的遍历写法： 以前总结的： String key = null; String value = null; for(Map.Entry&amp;lt;String,String&amp;gt; entry:map.entrySet()){ key = entry.getKey(); value = entry.getValue(); System.out.println(&amp;quot;key;&amp;quot;+ key+&amp;quot;,value:&amp;quot;+value); } for(String key:</description>
+    </item>
+    
+    <item>
       <title>HashMap源码(9)merge</title>
       <link>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%819/</link>
-      <pubDate>Fri, 04 Aug 2017 13:50:19 +0800</pubDate>
+      <pubDate>Sun, 06 Aug 2017 15:50:19 +0800</pubDate>
       
       <guid>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%819/</guid>
       <description>hashmap里面的这个merge方法，融合的意思，将新的value和旧的value进行融合。 @Override public V merge(K key, V value, BiFunction&amp;lt;? super V, ? super V, ? extends V&amp;gt; remappingFunction) { if (value == null) throw</description>
@@ -23,7 +32,7 @@
     <item>
       <title>HashMap源码(8)compute</title>
       <link>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%818/</link>
-      <pubDate>Fri, 04 Aug 2017 12:01:19 +0800</pubDate>
+      <pubDate>Sat, 05 Aug 2017 18:01:19 +0800</pubDate>
       
       <guid>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%818/</guid>
       <description>这个和之前的两个方法相同。 @Override public V compute(K key, BiFunction&amp;lt;? super K, ? super V, ? extends V&amp;gt; remappingFunction) { if (remappingFunction == null) throw new NullPointerException(); int hash = hash(key); Node&amp;lt;K,V&amp;gt;[] tab; Node&amp;lt;K,V&amp;gt; first; int n, i; int binCount = 0; TreeNode&amp;lt;K,V&amp;gt; t = null; Node&amp;lt;K,V&amp;gt; old = null; if (size &amp;gt; threshold || (tab = table) == null ||</description>
@@ -32,7 +41,7 @@
     <item>
       <title>HashMap源码(7)computeIfPresent</title>
       <link>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%817/</link>
-      <pubDate>Fri, 04 Aug 2017 10:01:19 +0800</pubDate>
+      <pubDate>Sat, 05 Aug 2017 13:01:19 +0800</pubDate>
       
       <guid>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%817/</guid>
       <description>这个方法和computeIfAbsent这个都是Java8的新的内容，都是可以在添加map的时候添加一个方法来对key进行操作存储value</description>
