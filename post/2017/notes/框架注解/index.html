@@ -129,13 +129,19 @@ public class Zoo
 }
 </code></pre>
 
-<p>这是详细一些的用法，说一下@Resource的装配顺序：
-- @Resource后面没有任何内容，默认通过name属性去匹配bean，找不到再按type去匹配
-- 指定了name或者type则根据指定的类型去匹配bean指定了name和type则根据指定的name和type去匹配bean，任何一个不匹配都将报错</p>
+<p>这是详细一些的用法，说一下@Resource的装配顺序：</p>
 
-<p>然后，区分一下@Autowired和@Resource两个注解的区别：
-- @Autowired默认按照byType方式进行bean匹配，@Resource默认按照byName方式进行bean匹配
-- @Autowired是Spring的注解，@Resource是J2EE的注解，这个看一下导入注解的时候这两个注解的包名就一清二楚了</p>
+<ul>
+<li>@Resource后面没有任何内容，默认通过name属性去匹配bean，找不到再按type去匹配</li>
+<li>指定了name或者type则根据指定的类型去匹配bean指定了name和type则根据指定的name和type去匹配bean，任何一个不匹配都将报错</li>
+</ul>
+
+<p>然后，区分一下@Autowired和@Resource两个注解的区别：</p>
+
+<ul>
+<li>@Autowired默认按照byType方式进行bean匹配，@Resource默认按照byName方式进行bean匹配</li>
+<li>@Autowired是Spring的注解，@Resource是J2EE的注解，这个看一下导入注解的时候这两个注解的包名就一清二楚了</li>
+</ul>
 
 <p>Spring属于第三方的，J2EE是Java自己的东西，因此，建议使用@Resource注解，以减少代码和Spring之间的耦合。</p>
 
@@ -177,9 +183,12 @@ public class Zoo
 }
 </code></pre>
 
-<p>这样，Zoo.java在Spring容器中存在的形式就是&rdquo;zoo&rdquo;，即可以通过ApplicationContext的getBean(&ldquo;zoo&rdquo;)方法来得到Zoo.java。@Service注解，其实做了两件事情：
-- 声明Zoo.java是一个bean，这点很重要，因为Zoo.java是一个bean，其他的类才可以使用@Autowired将Zoo作为一个成员变量自动注入
-- Zoo.java在bean中的id是&rdquo;zoo&rdquo;，即类名且首字母小写</p>
+<p>这样，Zoo.java在Spring容器中存在的形式就是&rdquo;zoo&rdquo;，即可以通过ApplicationContext的getBean(&ldquo;zoo&rdquo;)方法来得到Zoo.java。@Service注解，其实做了两件事情：</p>
+
+<ul>
+<li>声明Zoo.java是一个bean，这点很重要，因为Zoo.java是一个bean，其他的类才可以使用@Autowired将Zoo作为一个成员变量自动注入</li>
+<li>Zoo.java在bean中的id是&rdquo;zoo&rdquo;，即类名且首字母小写</li>
+</ul>
 
 <p>如果，我不想用这种形式怎么办，就想让Zoo.java在Spring容器中的名字叫做&rdquo;Zoo&rdquo;，可以的：</p>
 
