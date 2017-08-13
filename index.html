@@ -65,6 +65,42 @@
     <div id="main">
       
       <section class="post" itemscope itemprop="blogPost">
+    <a href="https://xueshaoyi.github.io/post/2017/notes/transient/" title="Spring的@Transient" itemprop="url">
+    <h1 itemprop="name">Spring的@Transient</h1>
+    <p itemprop="description">@transient 就是在给某个javabean上需要添加个属性，但是这个属性你又不希望给存到数据库中去，仅仅是做个临时变量，用一下。不修改已经存在数据库的数</p>
+    <time datetime="2017-08-13 19:13:19 &#43;0800 CST" itemprop="datePublished">2017年08月13日</time>
+  </a>
+</section>
+
+      
+      <section class="post" itemscope itemprop="blogPost">
+    <a href="https://xueshaoyi.github.io/post/2017/notes/spring%E7%9A%84transactional%E6%B3%A8%E8%A7%A3%E8%AF%A6%E7%BB%86%E7%94%A8%E6%B3%95/" title="spring的@Transactional注解详细用法" itemprop="url">
+    <h1 itemprop="name">spring的@Transactional注解详细用法</h1>
+    <p itemprop="description">概述 事务管理对于企业应用来说是至关重要的，即使出现异常情况，它也可以保证数据的一致性。 Spring Framework对事务管理提供了一致的抽象，其特点</p>
+    <time datetime="2017-08-12 19:13:19 &#43;0800 CST" itemprop="datePublished">2017年08月12日</time>
+  </a>
+</section>
+
+      
+      <section class="post" itemscope itemprop="blogPost">
+    <a href="https://xueshaoyi.github.io/post/2017/notes/%E6%A1%86%E6%9E%B6%E6%B3%A8%E8%A7%A3/" title="Spring注解" itemprop="url">
+    <h1 itemprop="name">Spring注解</h1>
+    <p itemprop="description">注释配置相对于 XML 配置具有很多的优势： 它可以充分利用 Java 的反射机制获取类结构信息，这些信息可以有效减少配置的工作。如使用 JPA 注释配置 ORM 映射时，我们</p>
+    <time datetime="2017-08-12 10:13:19 &#43;0800 CST" itemprop="datePublished">2017年08月12日</time>
+  </a>
+</section>
+
+      
+      <section class="post" itemscope itemprop="blogPost">
+    <a href="https://xueshaoyi.github.io/post/2017/base/string%E6%BA%90%E7%A0%811/" title="String源码(1)" itemprop="url">
+    <h1 itemprop="name">String源码(1)</h1>
+    <p itemprop="description">String是最常用的类没有之一，现在开始看一些String的源码。 先看String的hashCode实现。 /** * Returns a hash code for this string. The hash code for a * {@code</p>
+    <time datetime="2017-08-08 18:50:19 &#43;0800 CST" itemprop="datePublished">2017年08月08日</time>
+  </a>
+</section>
+
+      
+      <section class="post" itemscope itemprop="blogPost">
     <a href="https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%8110/" title="HashMap源码(10)forEach、replaceAll" itemprop="url">
     <h1 itemprop="name">HashMap源码(10)forEach、replaceAll</h1>
     <p itemprop="description">jdk8新方法forEach更好的遍历map数组进行操作了。 现在先看看以前的遍历写法： 以前总结的： String key = null; String value = null; for(Map.Entry&lt;String,String&gt; entry:map.entrySet()){ key = entry.getKey(); value = entry.getValue(); System.out.println(&quot;key;&quot;+ key+&quot;,value:&quot;+value); } for(String key:</p>
@@ -118,42 +154,6 @@
 </section>
 
       
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%813/" title="HashMap源码(3)静态工具方法hash()、tableSizeFor()" itemprop="url">
-    <h1 itemprop="name">HashMap源码(3)静态工具方法hash()、tableSizeFor()</h1>
-    <p itemprop="description">HashMap#hash() 为什么要有HashMap的hash()方法，难道不能直接使用KV中K原有的hash值吗？在HashMap的put、get操作时为什么不能直</p>
-    <time datetime="2017-07-30 16:31:19 &#43;0800 CST" itemprop="datePublished">2017年07月30日</time>
-  </a>
-</section>
-
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%814/" title="HashMap源码(4)resize()方法" itemprop="url">
-    <h1 itemprop="name">HashMap源码(4)resize()方法</h1>
-    <p itemprop="description">HashMap#resize() 在HashMap源码(2)最后有相关源码： 源码的注释翻译为： 初始化或者翻倍表大小。如果表为null，则根据存放在threshold变量中的</p>
-    <time datetime="2017-07-30 16:31:19 &#43;0800 CST" itemprop="datePublished">2017年07月30日</time>
-  </a>
-</section>
-
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%812/" title="HashMap源码(2)" itemprop="url">
-    <h1 itemprop="name">HashMap源码(2)</h1>
-    <p itemprop="description">HashMap初始化 初始化的几种情况： /** * Constructs an empty &lt;tt&gt;HashMap&lt;/tt&gt; with the specified initial * capacity and load factor. * * @param initialCapacity the initial capacity * @param loadFactor the load factor * @throws IllegalArgumentException if the initial capacity is negative * or the load factor is nonpositive */ public HashMap(int initialCapacity, float loadFactor) {</p>
-    <time datetime="2017-07-30 15:56:19 &#43;0800 CST" itemprop="datePublished">2017年07月30日</time>
-  </a>
-</section>
-
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%811/" title="HashMap源码(1)" itemprop="url">
-    <h1 itemprop="name">HashMap源码(1)</h1>
-    <p itemprop="description">常量定义 1.默认容量 /** * The default initial capacity - MUST be a power of two. */ static final int DEFAULT_INITIAL_CAPACITY = 1 &lt;&lt; 4; // aka 16 默认初始化的容量是16，必须是2的幂。 2.最大容量 /** * The maximum capacity, used if a higher value</p>
-    <time datetime="2017-07-30 13:56:19 &#43;0800 CST" itemprop="datePublished">2017年07月30日</time>
-  </a>
-</section>
-
-      
       <nav id="page-nav" class="clearfix">
         <a class="page-number" href="https://xueshaoyi.github.io/post/">More...</a>
       </nav>
@@ -170,7 +170,7 @@
     
     <li><a href="https://xueshaoyi.github.io/categories/github" title="github">github<sup>1</sup></a></li>
     
-    <li><a href="https://xueshaoyi.github.io/categories/java%e5%9f%ba%e7%a1%80" title="java基础">java基础<sup>23</sup></a></li>
+    <li><a href="https://xueshaoyi.github.io/categories/java%e5%9f%ba%e7%a1%80" title="java基础">java基础<sup>24</sup></a></li>
     
     <li><a href="https://xueshaoyi.github.io/categories/linux" title="linux">linux<sup>1</sup></a></li>
     
@@ -181,6 +181,8 @@
     <li><a href="https://xueshaoyi.github.io/categories/%e6%95%b0%e6%8d%ae%e5%ba%93" title="数据库">数据库<sup>2</sup></a></li>
     
     <li><a href="https://xueshaoyi.github.io/categories/%e6%95%b4%e7%90%86%e8%b5%84%e6%96%99" title="整理资料">整理资料<sup>10</sup></a></li>
+    
+    <li><a href="https://xueshaoyi.github.io/categories/%e6%a1%86%e6%9e%b6" title="框架">框架<sup>3</sup></a></li>
     
   </ul>
 </div>
@@ -215,9 +217,9 @@
       
 			<li><a href="https://xueshaoyi.github.io/tags/http" title="http">http<sup>1</sup></a></li>
       
-			<li><a href="https://xueshaoyi.github.io/tags/java" title="java">java<sup>28</sup></a></li>
+			<li><a href="https://xueshaoyi.github.io/tags/java" title="java">java<sup>29</sup></a></li>
       
-			<li><a href="https://xueshaoyi.github.io/tags/java%e6%ba%90%e7%a0%81" title="java源码">java源码<sup>15</sup></a></li>
+			<li><a href="https://xueshaoyi.github.io/tags/java%e6%ba%90%e7%a0%81" title="java源码">java源码<sup>16</sup></a></li>
       
 			<li><a href="https://xueshaoyi.github.io/tags/jvm" title="jvm">jvm<sup>2</sup></a></li>
       
@@ -226,6 +228,8 @@
 			<li><a href="https://xueshaoyi.github.io/tags/mysql" title="mysql">mysql<sup>1</sup></a></li>
       
 			<li><a href="https://xueshaoyi.github.io/tags/redis" title="redis">redis<sup>1</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/spring" title="spring">spring<sup>3</sup></a></li>
       
 			<li><a href="https://xueshaoyi.github.io/tags/sql" title="sql">sql<sup>1</sup></a></li>
       
@@ -238,6 +242,8 @@
 			<li><a href="https://xueshaoyi.github.io/tags/volatile" title="volatile">volatile<sup>1</sup></a></li>
       
 			<li><a href="https://xueshaoyi.github.io/tags/zookeeper" title="zookeeper">zookeeper<sup>2</sup></a></li>
+      
+			<li><a href="https://xueshaoyi.github.io/tags/%e6%b3%a8%e8%a7%a3" title="注解">注解<sup>3</sup></a></li>
       
 			<li><a href="https://xueshaoyi.github.io/tags/%e7%b1%bb%e5%8a%a0%e8%bd%bd" title="类加载">类加载<sup>1</sup></a></li>
       
@@ -257,7 +263,7 @@
       
       
       <li class="archive-list-item">
-        <a class="archive-list-link" href="https://xueshaoyi.github.io/post/#2017-08">2017年08月</a><span class="archive-list-count">5</span>
+        <a class="archive-list-link" href="https://xueshaoyi.github.io/post/#2017-08">2017年08月</a><span class="archive-list-count">9</span>
       </li>
       
       
@@ -330,6 +336,8 @@
     
     <a href="https://xueshaoyi.github.io/tags/redis" style="font-size: 12px;">redis</a>
     
+    <a href="https://xueshaoyi.github.io/tags/spring" style="font-size: 12px;">spring</a>
+    
     <a href="https://xueshaoyi.github.io/tags/sql" style="font-size: 12px;">sql</a>
     
     <a href="https://xueshaoyi.github.io/tags/static" style="font-size: 12px;">static</a>
@@ -341,6 +349,8 @@
     <a href="https://xueshaoyi.github.io/tags/volatile" style="font-size: 12px;">volatile</a>
     
     <a href="https://xueshaoyi.github.io/tags/zookeeper" style="font-size: 12px;">zookeeper</a>
+    
+    <a href="https://xueshaoyi.github.io/tags/%e6%b3%a8%e8%a7%a3" style="font-size: 12px;">注解</a>
     
     <a href="https://xueshaoyi.github.io/tags/%e7%b1%bb%e5%8a%a0%e8%bd%bd" style="font-size: 12px;">类加载</a>
     
