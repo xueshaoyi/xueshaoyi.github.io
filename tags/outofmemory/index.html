@@ -2,18 +2,18 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>HashMap源码(5)put()方法 - Shao Yi`s Blog</title>
+  <title>Outofmemory - Shao Yi`s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="HashMap#put() /** * Associates the specified value with the specified key in this map. * If the map previously contained a mapping for the key, the old * value is replaced. * * @param key key with which the specified value is to be associated * @param value value to be associated with the specified key * @return the previous value associated with &lt;tt&gt;key&lt;/tt&gt;, or * &lt;tt&gt;null&lt;/tt&gt; if there was">
+  <meta name="description" content="Outofmemory">
   
-  <meta itemprop="name" content="HashMap源码(5)put()方法 - Shao Yi`s Blog">
-  <meta itemprop="description" content="HashMap#put() /** * Associates the specified value with the specified key in this map. * If the map previously contained a mapping for the key, the old * value is replaced. * * @param key key with which the specified value is to be associated * @param value value to be associated with the specified key * @return the previous value associated with &lt;tt&gt;key&lt;/tt&gt;, or * &lt;tt&gt;null&lt;/tt&gt; if there was">
+  <meta itemprop="name" content="Outofmemory - Shao Yi`s Blog">
+  <meta itemprop="description" content="Outofmemory">
   <meta itemprop="image" content="https://xueshaoyi.github.io/img/author.jpg">
   
   
   <meta name="twitter:description" content="">
-  
+  <link rel="alternate" href="https://xueshaoyi.github.io/feed.xml" title="Shao Yi`s Blog" type="application/rss+xml"/>
   <link rel="shortcut icon" href="https://xueshaoyi.github.io/img/favicon.ico"/>
   <link rel="apple-touch-icon" href="https://xueshaoyi.github.io/apple-touch-icon.png" />
   <link rel="apple-touch-icon-precomposed" href="https://xueshaoyi.github.io/apple-touch-icon.png" />
@@ -61,261 +61,21 @@
 
   </header>
   <div id="container">
-    <div id="main" class="post" itemscope itemprop="blogPost">
-	<article itemprop="articleBody">
-    <header class="article-info clearfix">
-  <h1 itemprop="name">
-      <a href="https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%815/" title="HashMap源码(5)put()方法" itemprop="url">HashMap源码(5)put()方法</a>
-  </h1>
-  <p class="article-author">By
-    
-      <a href="https://github.com/xueshaoyi" title=""></a>
-    
-  </p>
-  <p class="article-time">
-    <time datetime="2017-07-30 18:01:19 &#43;0800 CST" itemprop="datePublished">2017年07月30日</time>
-  </p>
-</header>
-
-	<div class="article-content">
-    
-		<div class="toc-article">
-			<strong class="toc-title">文章目录</strong>
-      <nav id="TableOfContents">
-<ul>
-<li><a href="#hashmap-put">HashMap#put()</a></li>
-<li><a href="#hashmap-get">HashMap#get()</a></li>
-<li><a href="#hashmap-containskey">HashMap#containsKey()</a></li>
-</ul>
-</nav>
-		</div>
-    
-    
-
-<h1 id="hashmap-put">HashMap#put()</h1>
-
-<pre><code>/**
- * Associates the specified value with the specified key in this map.
- * If the map previously contained a mapping for the key, the old
- * value is replaced.
- *
- * @param key key with which the specified value is to be associated
- * @param value value to be associated with the specified key
- * @return the previous value associated with &lt;tt&gt;key&lt;/tt&gt;, or
- *         &lt;tt&gt;null&lt;/tt&gt; if there was no mapping for &lt;tt&gt;key&lt;/tt&gt;.
- *         (A &lt;tt&gt;null&lt;/tt&gt; return can also indicate that the map
- *         previously associated &lt;tt&gt;null&lt;/tt&gt; with &lt;tt&gt;key&lt;/tt&gt;.)
- */
-public V put(K key, V value) {
-    return putVal(hash(key), key, value, false, true);
-}
-
-/**
- * Implements Map.put and related methods
- *
- * @param hash hash for key
- * @param key the key
- * @param value the value to put
- * @param onlyIfAbsent if true, don't change existing value
- * @param evict if false, the table is in creation mode.
- * @return previous value, or null if none
- */
-final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
-               boolean evict) {
-    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; int n, i;
-    if ((tab = table) == null || (n = tab.length) == 0)
-        n = (tab = resize()).length;
-    if ((p = tab[i = (n - 1) &amp; hash]) == null)
-        tab[i] = newNode(hash, key, value, null);
-    else {
-        Node&lt;K,V&gt; e; K k;
-        if (p.hash == hash &amp;&amp;
-            ((k = p.key) == key || (key != null &amp;&amp; key.equals(k))))
-            e = p;
-        else if (p instanceof TreeNode)
-            e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, tab, hash, key, value);
-        else {
-            for (int binCount = 0; ; ++binCount) {
-                if ((e = p.next) == null) {
-                    p.next = newNode(hash, key, value, null);
-                    if (binCount &gt;= TREEIFY_THRESHOLD - 1) // -1 for 1st
-                        treeifyBin(tab, hash);
-                    break;
-                }
-                if (e.hash == hash &amp;&amp;
-                    ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))
-                    break;
-                p = e;
-            }
-        }
-        if (e != null) { // existing mapping for key
-            V oldValue = e.value;
-            if (!onlyIfAbsent || oldValue == null)
-                e.value = value;
-            afterNodeAccess(e);
-            return oldValue;
-        }
-    }
-    ++modCount;
-    if (++size &gt; threshold)
-        resize();
-    afterNodeInsertion(evict);
-    return null;
-}
-</code></pre>
-
-<p>put方法将KV放在map中。如果，该key已经存放在map中，则用新值直接替换旧值。</p>
-
-<p>put的返回值：如果该key已经存放在map中，则返回其映射的旧值；如果不存在，则返回null，表示没有该key对应的映射（也有可能原来的映射是key-null）。</p>
-
-<p>当new HashMap实例时，并没有初始化其成员变量transient Node<K,V>[] table;，也就是说并没有为table分配内存。只有当put元素时才通过resize方法对table进行初始化。因此，建议先看HashMap#resize()方法。</p>
-
-<p>put方法分两种情况，bucket是以链表形式存储的还是以树形结构存储的。如果是key已存在则修改旧值，并返回旧值，如果key不存在，则执行插入操作，返回null。如果是插入操作还要modCount++。当如果是链表存储时，如果插入元素之后超过了TREEIFY_THRESHOLD，还要进行树化操作。</p>
-
-<p>注意：put操作，当发生碰撞时，如果是使用链表处理冲突，执行的尾插法。这个跟ConcurrentHashMap不同，ConcurrentHashMap执行的是头插法。因为，其HashEntry的next是final的。</p>
-
-<p>put操作的基本流程：
-- 通过hash值得到所在bucket的下标，如果为null，表示没有发生碰撞，则直接put
-- 如果发生了碰撞，则解决发生碰撞的实现方式：链表还是树。
-- 如果能够找到该key的结点，则执行更新操作，无需对modCount增1。
-- 如果没有找到该key的结点，则执行插入操作，需要对modCount增1。
-- 在执行插入操作时，如果bucket中bin的数量超过TREEIFY_THRESHOLD，则要树化。
-- 在执行插入操作之后，如果size超过了threshold，这要扩容。</p>
-
-<h1 id="hashmap-get">HashMap#get()</h1>
-
-<pre><code>/**
- * Returns the value to which the specified key is mapped,
- * or {@code null} if this map contains no mapping for the key.
- *
- * &lt;p&gt;More formally, if this map contains a mapping from a key
- * {@code k} to a value {@code v} such that {@code (key==null ? k==null :
- * key.equals(k))}, then this method returns {@code v}; otherwise
- * it returns {@code null}.  (There can be at most one such mapping.)
- *
- * &lt;p&gt;A return value of {@code null} does not &lt;i&gt;necessarily&lt;/i&gt;
- * indicate that the map contains no mapping for the key; it's also
- * possible that the map explicitly maps the key to {@code null}.
- * The {@link #containsKey containsKey} operation may be used to
- * distinguish these two cases.
- *
- * @see #put(Object, Object)
- */
-public V get(Object key) {
-    Node&lt;K,V&gt; e;
-    return (e = getNode(hash(key), key)) == null ? null : e.value;
-}
-/**
- * Implements Map.get and related methods
- *
- * @param hash hash for key
- * @param key the key
- * @return the node, or null if none
- */
-final Node&lt;K,V&gt; getNode(int hash, Object key) {
-    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; first, e; int n; K k;
-    if ((tab = table) != null &amp;&amp; (n = tab.length) &gt; 0 &amp;&amp;
-        (first = tab[(n - 1) &amp; hash]) != null) {
-        if (first.hash == hash &amp;&amp; // always check first node
-            ((k = first.key) == key || (key != null &amp;&amp; key.equals(k))))
-            return first;
-        if ((e = first.next) != null) {
-            if (first instanceof TreeNode)
-                return ((TreeNode&lt;K,V&gt;)first).getTreeNode(hash, key);
-            do {
-                if (e.hash == hash &amp;&amp;
-                    ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))
-                    return e;
-            } while ((e = e.next) != null);
-        }
-    }
-    return null;
-}
-</code></pre>
-
-<p>上面注释中说的比较重要一点就是：如果返回值是null，并不一定是没有这种KV映射，也有可能是该key映射的值value是null，即key-null的映射。也就是说，使用get方法并不能判断这个key是否存在，只能通过containsKey方法来实现.</p>
-
-<p>由此可见get方法调用的是getNode方法，返回一个Node。getNode方法接受两个参数hash值和key值。</p>
-
-<p>首先判断first Node，在判断的时候，先看hash值是否相等，再看地址是否相等，再看equals的返回值。这个写的挺好。</p>
-
-<p>然后再遍历，判断first是不是树节点，是的话，在树中查找；否则，遍历链表。</p>
-
-<h1 id="hashmap-containskey">HashMap#containsKey()</h1>
-
-<pre><code>/**
- * Returns &lt;tt&gt;true&lt;/tt&gt; if this map contains a mapping for the
- * specified key.
- *
- * @param   key   The key whose presence in this map is to be tested
- * @return &lt;tt&gt;true&lt;/tt&gt; if this map contains a mapping for the specified
- * key.
- */
-public boolean containsKey(Object key) {
-    return getNode(hash(key), key) != null;
-}
-</code></pre>
-
-	</div>
-  <footer class="article-footer clearfix">
-  
-
-<div class="article-tags">
-  <span></span>
-  
-  <a href="https://xueshaoyi.github.io/tags/java">Java</a>
-  
-  <a href="https://xueshaoyi.github.io/tags/java%E6%BA%90%E7%A0%81">java源码</a>
-  
-</div>
-
-
-
-
-
-<div class="article-categories">
-  <span></span>
-  
-  <a class="article-category-link" href="https://xueshaoyi.github.io/categories/java%E5%9F%BA%E7%A1%80">Java基础</a>
-  
-</div>
-
-
-
-  <div class="article-share" id="share">
-    <div data-url="https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%815/" data-title="HashMap源码(5)put()方法" data-tsina="1816308191" class="share clearfix">
-    </div>
-  </div>
-</footer>
-
-	</article>
-  
-
-
-<section class="comment">
-<div id="disqus_thread"></div>
+    <div id="main">
+      
+      <h2 id="2017-08">2017-08</h2>
+      
+      <section class="post" itemscope itemprop="blogPost">
+    <a href="https://xueshaoyi.github.io/post/2017/notes/outofmemory/" title="Tomcat运行项目内存溢出" itemprop="url">
+    <h1 itemprop="name">Tomcat运行项目内存溢出</h1>
+    <p itemprop="description">测试环境中突然发生这种错误 运行内存发生了溢出 Tomcat下catalina.sh下配置的JAVA_OPTS定义了运行的相关内存等设置 JAVA_OPTS=&quot;-Xms400m -Xmx400m -Xss1024K -XX:PermSize=64m</p>
+    <time datetime="2017-08-15 13:10:19 &#43;0800 CST" itemprop="datePublished">2017年08月15日</time>
+  </a>
 </section>
-<script>
 
-
-var disqus_config = function () {
-this.page.url = "https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%815/";
-this.page.identifier = "https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%815/";
-};
-(function() { 
-var d = document, s = d.createElement('script');
-
-s.src = '//xueshaoyi.disqus.com/embed.js';
-
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-</div>
-
+      
+      
+    </div>
     <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -618,38 +378,6 @@ $(document).ready(function(){
 
 <script type="text/javascript">
 $(document).ready(function(){
-  var ai = $('.article-content>iframe'),
-      ae = $('.article-content>embed'),
-      t  = $('#toc'),
-      h  = $('article h2')
-      ah = $('article h2'),
-      ta = $('#toc.toc-aside'),
-      o  = $('.openaside'),
-      c  = $('.closeaside');
-  if(ai.length>0){
-    ai.wrap('<div class="video-container" />');
-  };
-  if(ae.length>0){
-   ae.wrap('<div class="video-container" />');
-  };
-  if(ah.length==0){
-    t.css('display','none');
-  }else{
-    c.click(function(){
-      ta.css('display', 'block').addClass('fadeIn');
-    });
-    o.click(function(){
-      ta.css('display', 'none');
-    });
-    $(window).scroll(function(){
-      ta.css("top",Math.max(140,320-$(this).scrollTop()));
-    });
-  };
-});
-</script>
-
-<script type="text/javascript">
-$(document).ready(function(){
   var $this = $('.share'),
       url = $this.attr('data-url'),
       encodedUrl = encodeURIComponent(url),
@@ -676,27 +404,6 @@ $(document).ready(function(){
 });
 </script>
 
-
-<link rel="stylesheet" href="https://xueshaoyi.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="https://xueshaoyi.github.io/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-  $('.article-content').each(function(i){
-    $(this).find('img').each(function(){
-      if ($(this).parent().hasClass('fancybox')) return;
-      var alt = this.alt;
-      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
-      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
-    });
-    $(this).find('.fancybox').each(function(){
-      $(this).attr('rel', 'article' + i);
-    });
-  });
-  if($.fancybox){
-    $('.fancybox').fancybox();
-  }
-});
-</script>
 
 
 <script>

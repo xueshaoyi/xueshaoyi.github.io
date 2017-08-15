@@ -6,10 +6,19 @@
     <description>Recent content on Shao Yi`s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 13 Aug 2017 19:13:19 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 15 Aug 2017 13:10:19 +0800</lastBuildDate>
     
 	<atom:link href="https://xueshaoyi.github.io/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Tomcat运行项目内存溢出</title>
+      <link>https://xueshaoyi.github.io/post/2017/notes/outofmemory/</link>
+      <pubDate>Tue, 15 Aug 2017 13:10:19 +0800</pubDate>
+      
+      <guid>https://xueshaoyi.github.io/post/2017/notes/outofmemory/</guid>
+      <description>测试环境中突然发生这种错误 运行内存发生了溢出 Tomcat下catalina.sh下配置的JAVA_OPTS定义了运行的相关内存等设置 JAVA_OPTS=&amp;quot;-Xms400m -Xmx400m -Xss1024K -XX:PermSize=64m</description>
+    </item>
     
     <item>
       <title>Spring的@Transient</title>

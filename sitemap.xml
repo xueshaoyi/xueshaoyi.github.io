@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://xueshaoyi.github.io/post/2017/notes/outofmemory/</loc>
+    <lastmod>2017-08-15T13:10:19+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://xueshaoyi.github.io/post/2017/notes/transient/</loc>
     <lastmod>2017-08-13T19:13:19+08:00</lastmod>
   </url>
@@ -355,8 +360,8 @@
   </url>
   
   <url>
-    <loc>https://xueshaoyi.github.io/categories/linux/</loc>
-    <lastmod>2017-07-26T17:10:19+08:00</lastmod>
+    <loc>https://xueshaoyi.github.io/categories/jvm/</loc>
+    <lastmod>2017-08-15T13:10:19+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -367,8 +372,8 @@
   </url>
   
   <url>
-    <loc>https://xueshaoyi.github.io/categories/mysql/</loc>
-    <lastmod>2017-07-27T16:38:19+08:00</lastmod>
+    <loc>https://xueshaoyi.github.io/categories/linux/</loc>
+    <lastmod>2017-07-26T17:10:19+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -379,8 +384,20 @@
   </url>
   
   <url>
+    <loc>https://xueshaoyi.github.io/categories/mysql/</loc>
+    <lastmod>2017-07-27T16:38:19+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://xueshaoyi.github.io/tags/outofmemory/</loc>
+    <lastmod>2017-08-15T13:10:19+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://xueshaoyi.github.io/post/</loc>
-    <lastmod>2017-08-13T19:13:19+08:00</lastmod>
+    <lastmod>2017-08-15T13:10:19+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -392,7 +409,7 @@
   
   <url>
     <loc>https://xueshaoyi.github.io/</loc>
-    <lastmod>2017-08-13T19:13:19+08:00</lastmod>
+    <lastmod>2017-08-15T13:10:19+08:00</lastmod>
     <priority>0</priority>
   </url>
   

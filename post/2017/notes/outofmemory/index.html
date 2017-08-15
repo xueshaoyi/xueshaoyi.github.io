@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>HashMap源码(5)put()方法 - Shao Yi`s Blog</title>
+  <title>Tomcat运行项目内存溢出 - Shao Yi`s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="HashMap#put() /** * Associates the specified value with the specified key in this map. * If the map previously contained a mapping for the key, the old * value is replaced. * * @param key key with which the specified value is to be associated * @param value value to be associated with the specified key * @return the previous value associated with &lt;tt&gt;key&lt;/tt&gt;, or * &lt;tt&gt;null&lt;/tt&gt; if there was">
+  <meta name="description" content="测试环境中突然发生这种错误 运行内存发生了溢出 Tomcat下catalina.sh下配置的JAVA_OPTS定义了运行的相关内存等设置 JAVA_OPTS=&quot;-Xms400m -Xmx400m -Xss1024K -XX:PermSize=64m">
   
-  <meta itemprop="name" content="HashMap源码(5)put()方法 - Shao Yi`s Blog">
-  <meta itemprop="description" content="HashMap#put() /** * Associates the specified value with the specified key in this map. * If the map previously contained a mapping for the key, the old * value is replaced. * * @param key key with which the specified value is to be associated * @param value value to be associated with the specified key * @return the previous value associated with &lt;tt&gt;key&lt;/tt&gt;, or * &lt;tt&gt;null&lt;/tt&gt; if there was">
+  <meta itemprop="name" content="Tomcat运行项目内存溢出 - Shao Yi`s Blog">
+  <meta itemprop="description" content="测试环境中突然发生这种错误 运行内存发生了溢出 Tomcat下catalina.sh下配置的JAVA_OPTS定义了运行的相关内存等设置 JAVA_OPTS=&quot;-Xms400m -Xmx400m -Xss1024K -XX:PermSize=64m">
   <meta itemprop="image" content="https://xueshaoyi.github.io/img/author.jpg">
   
   
@@ -65,7 +65,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%815/" title="HashMap源码(5)put()方法" itemprop="url">HashMap源码(5)put()方法</a>
+      <a href="https://xueshaoyi.github.io/post/2017/notes/outofmemory/" title="Tomcat运行项目内存溢出" itemprop="url">Tomcat运行项目内存溢出</a>
   </h1>
   <p class="article-author">By
     
@@ -73,7 +73,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2017-07-30 18:01:19 &#43;0800 CST" itemprop="datePublished">2017年07月30日</time>
+    <time datetime="2017-08-15 13:10:19 &#43;0800 CST" itemprop="datePublished">2017年08月15日</time>
   </p>
 </header>
 
@@ -81,180 +81,78 @@
     
 		<div class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-      <nav id="TableOfContents">
-<ul>
-<li><a href="#hashmap-put">HashMap#put()</a></li>
-<li><a href="#hashmap-get">HashMap#get()</a></li>
-<li><a href="#hashmap-containskey">HashMap#containsKey()</a></li>
-</ul>
-</nav>
+      
 		</div>
     
-    
+    <p>测试环境中突然发生这种错误
+<img src="http://xueshaoyi.github.io/img/OutOfMemory.png" alt="" /></p>
 
-<h1 id="hashmap-put">HashMap#put()</h1>
+<p>运行内存发生了溢出</p>
 
-<pre><code>/**
- * Associates the specified value with the specified key in this map.
- * If the map previously contained a mapping for the key, the old
- * value is replaced.
- *
- * @param key key with which the specified value is to be associated
- * @param value value to be associated with the specified key
- * @return the previous value associated with &lt;tt&gt;key&lt;/tt&gt;, or
- *         &lt;tt&gt;null&lt;/tt&gt; if there was no mapping for &lt;tt&gt;key&lt;/tt&gt;.
- *         (A &lt;tt&gt;null&lt;/tt&gt; return can also indicate that the map
- *         previously associated &lt;tt&gt;null&lt;/tt&gt; with &lt;tt&gt;key&lt;/tt&gt;.)
- */
-public V put(K key, V value) {
-    return putVal(hash(key), key, value, false, true);
-}
+<p>Tomcat下catalina.sh下配置的JAVA_OPTS定义了运行的相关内存等设置</p>
 
-/**
- * Implements Map.put and related methods
- *
- * @param hash hash for key
- * @param key the key
- * @param value the value to put
- * @param onlyIfAbsent if true, don't change existing value
- * @param evict if false, the table is in creation mode.
- * @return previous value, or null if none
- */
-final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
-               boolean evict) {
-    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; int n, i;
-    if ((tab = table) == null || (n = tab.length) == 0)
-        n = (tab = resize()).length;
-    if ((p = tab[i = (n - 1) &amp; hash]) == null)
-        tab[i] = newNode(hash, key, value, null);
-    else {
-        Node&lt;K,V&gt; e; K k;
-        if (p.hash == hash &amp;&amp;
-            ((k = p.key) == key || (key != null &amp;&amp; key.equals(k))))
-            e = p;
-        else if (p instanceof TreeNode)
-            e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, tab, hash, key, value);
-        else {
-            for (int binCount = 0; ; ++binCount) {
-                if ((e = p.next) == null) {
-                    p.next = newNode(hash, key, value, null);
-                    if (binCount &gt;= TREEIFY_THRESHOLD - 1) // -1 for 1st
-                        treeifyBin(tab, hash);
-                    break;
-                }
-                if (e.hash == hash &amp;&amp;
-                    ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))
-                    break;
-                p = e;
-            }
-        }
-        if (e != null) { // existing mapping for key
-            V oldValue = e.value;
-            if (!onlyIfAbsent || oldValue == null)
-                e.value = value;
-            afterNodeAccess(e);
-            return oldValue;
-        }
-    }
-    ++modCount;
-    if (++size &gt; threshold)
-        resize();
-    afterNodeInsertion(evict);
-    return null;
-}
+<pre><code>JAVA_OPTS=&quot;-Xms400m -Xmx400m -Xss1024K -XX:PermSize=64m -XX:MaxPermSize=128m&quot;
 </code></pre>
 
-<p>put方法将KV放在map中。如果，该key已经存放在map中，则用新值直接替换旧值。</p>
+<p>这些设置参数的意思：</p>
 
-<p>put的返回值：如果该key已经存放在map中，则返回其映射的旧值；如果不存在，则返回null，表示没有该key对应的映射（也有可能原来的映射是key-null）。</p>
+<p>-Xmx400m:设置jvm最大可用内存为400M。</p>
 
-<p>当new HashMap实例时，并没有初始化其成员变量transient Node<K,V>[] table;，也就是说并没有为table分配内存。只有当put元素时才通过resize方法对table进行初始化。因此，建议先看HashMap#resize()方法。</p>
+<p>-Xms400m:设置Jvm促使内存为400m,此值可以设置与-Xmx相同，以避免每次垃圾回收完成后jvm重新分配内存。</p>
 
-<p>put方法分两种情况，bucket是以链表形式存储的还是以树形结构存储的。如果是key已存在则修改旧值，并返回旧值，如果key不存在，则执行插入操作，返回null。如果是插入操作还要modCount++。当如果是链表存储时，如果插入元素之后超过了TREEIFY_THRESHOLD，还要进行树化操作。</p>
+<p>-Xss1024K:设置每个线程堆栈大小。jdk5.0以后每个线程堆栈大小为1M，以前每个线程堆栈大小为256K。更具应用的线程所需内存大小进行调整。在相同物理内存下，减小这个值能生成更多的线程。但是操作系统对一个进行内的线程数还是有限制的，不能无限生成，经验是在3000~5000左右。</p>
 
-<p>注意：put操作，当发生碰撞时，如果是使用链表处理冲突，执行的尾插法。这个跟ConcurrentHashMap不同，ConcurrentHashMap执行的是头插法。因为，其HashEntry的next是final的。</p>
+<p>-XX:PermSize=64m:jvm出事分配的非堆内存</p>
 
-<p>put操作的基本流程：
-- 通过hash值得到所在bucket的下标，如果为null，表示没有发生碰撞，则直接put
-- 如果发生了碰撞，则解决发生碰撞的实现方式：链表还是树。
-- 如果能够找到该key的结点，则执行更新操作，无需对modCount增1。
-- 如果没有找到该key的结点，则执行插入操作，需要对modCount增1。
-- 在执行插入操作时，如果bucket中bin的数量超过TREEIFY_THRESHOLD，则要树化。
-- 在执行插入操作之后，如果size超过了threshold，这要扩容。</p>
+<p>-XX:MaxPermSize=128m:设置jvm最大允许分配的非堆内存，按需分配。</p>
 
-<h1 id="hashmap-get">HashMap#get()</h1>
+<p>后来我问运维人员，给了我一份设置让我替换</p>
 
-<pre><code>/**
- * Returns the value to which the specified key is mapped,
- * or {@code null} if this map contains no mapping for the key.
- *
- * &lt;p&gt;More formally, if this map contains a mapping from a key
- * {@code k} to a value {@code v} such that {@code (key==null ? k==null :
- * key.equals(k))}, then this method returns {@code v}; otherwise
- * it returns {@code null}.  (There can be at most one such mapping.)
- *
- * &lt;p&gt;A return value of {@code null} does not &lt;i&gt;necessarily&lt;/i&gt;
- * indicate that the map contains no mapping for the key; it's also
- * possible that the map explicitly maps the key to {@code null}.
- * The {@link #containsKey containsKey} operation may be used to
- * distinguish these two cases.
- *
- * @see #put(Object, Object)
- */
-public V get(Object key) {
-    Node&lt;K,V&gt; e;
-    return (e = getNode(hash(key), key)) == null ? null : e.value;
-}
-/**
- * Implements Map.get and related methods
- *
- * @param hash hash for key
- * @param key the key
- * @return the node, or null if none
- */
-final Node&lt;K,V&gt; getNode(int hash, Object key) {
-    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; first, e; int n; K k;
-    if ((tab = table) != null &amp;&amp; (n = tab.length) &gt; 0 &amp;&amp;
-        (first = tab[(n - 1) &amp; hash]) != null) {
-        if (first.hash == hash &amp;&amp; // always check first node
-            ((k = first.key) == key || (key != null &amp;&amp; key.equals(k))))
-            return first;
-        if ((e = first.next) != null) {
-            if (first instanceof TreeNode)
-                return ((TreeNode&lt;K,V&gt;)first).getTreeNode(hash, key);
-            do {
-                if (e.hash == hash &amp;&amp;
-                    ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))
-                    return e;
-            } while ((e = e.next) != null);
-        }
-    }
-    return null;
-}
+<pre><code>JAVA_OPTS=&quot;-server -Dfile.encoding=UTF-8 -Xms1024m -Xmx2048m -XX:NewSize=512m -XX:MaxNewSize=1024m -XX:SurvivorRatio=64 -XX:PermSize=512m -XX:MaxPermSize=1024m&quot;
 </code></pre>
 
-<p>上面注释中说的比较重要一点就是：如果返回值是null，并不一定是没有这种KV映射，也有可能是该key映射的值value是null，即key-null的映射。也就是说，使用get方法并不能判断这个key是否存在，只能通过containsKey方法来实现.</p>
+<p>将相关参数的大小设置大了。之后就没有出现问题，不过我感觉按说是相关的代码存在问题，要不然为什么之前没有产生呢。</p>
 
-<p>由此可见get方法调用的是getNode方法，返回一个Node。getNode方法接受两个参数hash值和key值。</p>
+<p>我在网上找了个看了看总结：</p>
 
-<p>首先判断first Node，在判断的时候，先看hash值是否相等，再看地址是否相等，再看equals的返回值。这个写的挺好。</p>
+<p>产生java.lang.OutOfMemoryError这个错误的原因大都出去：JVM内存过小、程序不严密，从而产生了过多的垃圾。</p>
 
-<p>然后再遍历，判断first是不是树节点，是的话，在树中查找；否则，遍历链表。</p>
+<p>导致OutOfMemoryError异常的常见原因有以下几种：</p>
 
-<h1 id="hashmap-containskey">HashMap#containsKey()</h1>
+<ul>
+<li>内存中加载的数据量过于庞大，如一次从数据库取出过多数据；</li>
+<li>集合类中有对对象的引用，使用完后未清空，使得JVM不能回收；</li>
+<li>代码中存在死循环或循环产生过多重复的对象实体；</li>
+<li>使用的第三方软件中的BUG；</li>
+<li>启动参数内存值设定的过小；</li>
+</ul>
 
-<pre><code>/**
- * Returns &lt;tt&gt;true&lt;/tt&gt; if this map contains a mapping for the
- * specified key.
- *
- * @param   key   The key whose presence in this map is to be tested
- * @return &lt;tt&gt;true&lt;/tt&gt; if this map contains a mapping for the specified
- * key.
- */
-public boolean containsKey(Object key) {
-    return getNode(hash(key), key) != null;
-}
-</code></pre>
+<p>常见的错误提示：
+- tomcat:java.lang.OutOfMemoryError: PermGen space
+- tomcat:java.lang.OutOfMemoryError: Java heap space
+- weblogic:Root cause of ServletException
+- java.lang.OutOfMemoryError
+- resin:java.lang.OutOfMemoryError
+- java:java.lang.OutOfMemoryError</p>
+
+<p>解决相关问题主要是增加jvm的内存大小，还有就是优化代码，释放垃圾</p>
+
+<p><strong>优化代码：</strong></p>
+
+<p>主要包括避免死循环，应该及时释放种资源：内存，数据库的各种连接，防止一次载入太多的数据。导致java.lang.OutMemoryError的根本原因是程序不健壮。因此，从根本上解决Java内存溢出的唯一方法是修改程序，及时地释放没用的对象，释放内存空间。遇到该错误的时候一定要仔细检查程序。</p>
+
+<p><strong>Java代码导致OutOfMemoryError错误的解决：</strong></p>
+
+<p>需要重点排查的几点：</p>
+
+<ul>
+<li>检查代码中是否有死循环或递归调用。</li>
+<li>检查是否有大循环重复产生新对象实体。</li>
+<li>检查对数据库查询中，是否有一次获得全部数据的查询。一般来说，如果一次取十万条记录到内存，就可能引起内存溢出。这个问题比较隐蔽，在上线前，数据库中数据较少，不容易出问题，上线后，数据库中数据多了，一次查询就有可能引起内存溢出。因此对于数据库查询尽量采用分页的方式查询</li>
+<li>检查List、MAP等集合对象是否有使用完后，未清除的问题。List、MAP等集合对象会始终存有对对象的引用，使得这些对象不能被GC回收。</li>
+</ul>
+
+<p>《深入理解Java虚拟机..》书中2.4章节说到了相关的错误和之后的解决 问题。</p>
 
 	</div>
   <footer class="article-footer clearfix">
@@ -263,9 +161,7 @@ public boolean containsKey(Object key) {
 <div class="article-tags">
   <span></span>
   
-  <a href="https://xueshaoyi.github.io/tags/java">Java</a>
-  
-  <a href="https://xueshaoyi.github.io/tags/java%E6%BA%90%E7%A0%81">java源码</a>
+  <a href="https://xueshaoyi.github.io/tags/outofmemory">OutOfMemory</a>
   
 </div>
 
@@ -276,14 +172,14 @@ public boolean containsKey(Object key) {
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://xueshaoyi.github.io/categories/java%E5%9F%BA%E7%A1%80">Java基础</a>
+  <a class="article-category-link" href="https://xueshaoyi.github.io/categories/jvm">jvm</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%815/" data-title="HashMap源码(5)put()方法" data-tsina="1816308191" class="share clearfix">
+    <div data-url="https://xueshaoyi.github.io/post/2017/notes/outofmemory/" data-title="Tomcat运行项目内存溢出" data-tsina="1816308191" class="share clearfix">
     </div>
   </div>
 </footer>
@@ -299,8 +195,8 @@ public boolean containsKey(Object key) {
 
 
 var disqus_config = function () {
-this.page.url = "https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%815/";
-this.page.identifier = "https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%815/";
+this.page.url = "https://xueshaoyi.github.io/post/2017/notes/outofmemory/";
+this.page.identifier = "https://xueshaoyi.github.io/post/2017/notes/outofmemory/";
 };
 (function() { 
 var d = document, s = d.createElement('script');
