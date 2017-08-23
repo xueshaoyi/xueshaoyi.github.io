@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>GitHub git clone错误 - Shao Yi`s Blog</title>
+  <title>归并排序 - Shao Yi`s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="问题描述： 是Git管理代码，从git服务器上获取Contacts模块的代码： git clone your-git-server 提示：warning: remote HEAD refers to nonexistent ref, unable to checkout. 并且Contact">
+  <meta name="description" content="归并 归并排序（MERGE-SORT）是建立在归并操作上的一种有效的排序算法,该算法是采用分治法（Divide and Conquer）的一个非常典型">
   
-  <meta itemprop="name" content="GitHub git clone错误 - Shao Yi`s Blog">
-  <meta itemprop="description" content="问题描述： 是Git管理代码，从git服务器上获取Contacts模块的代码： git clone your-git-server 提示：warning: remote HEAD refers to nonexistent ref, unable to checkout. 并且Contact">
+  <meta itemprop="name" content="归并排序 - Shao Yi`s Blog">
+  <meta itemprop="description" content="归并 归并排序（MERGE-SORT）是建立在归并操作上的一种有效的排序算法,该算法是采用分治法（Divide and Conquer）的一个非常典型">
   <meta itemprop="image" content="https://xueshaoyi.github.io/img/author.jpg">
   
   
@@ -65,7 +65,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://xueshaoyi.github.io/post/2017/notes/github-git-clone%E9%94%99%E8%AF%AF/" title="GitHub git clone错误" itemprop="url">GitHub git clone错误</a>
+      <a href="https://xueshaoyi.github.io/post/2017/notes/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" title="归并排序" itemprop="url">归并排序</a>
   </h1>
   <p class="article-author">By
     
@@ -73,7 +73,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2017-07-01 13:13:19 &#43;0800 CST" itemprop="datePublished">2017年07月01日</time>
+    <time datetime="2017-08-23 19:13:19 &#43;0800 CST" itemprop="datePublished">2017年08月23日</time>
   </p>
 </header>
 
@@ -83,65 +83,22 @@
 			<strong class="toc-title">文章目录</strong>
       <nav id="TableOfContents">
 <ul>
-<li>
-<ul>
-<li><a href="#问题描述"><strong>问题描述：</strong></a></li>
-<li><a href="#解决方法"><strong>解决方法：</strong></a></li>
-</ul></li>
+<li><a href="#归并">归并</a></li>
 </ul>
 </nav>
 		</div>
     
     
 
-<h2 id="问题描述"><strong>问题描述：</strong></h2>
+<h1 id="归并">归并</h1>
 
-<p>是Git管理代码，从git服务器上获取Contacts模块的代码：</p>
+<p>归并排序（MERGE-SORT）是建立在归并操作上的一种有效的排序算法,该算法是采用分治法（Divide and Conquer）的一个非常典型的应用。将已有序的子序列合并，得到完全有序的序列；即先使每个子序列有序，再使子序列段间有序。若将两个有序表合并成一个有序表，称为二路归并。</p>
 
-<p>git clone your-git-server</p>
+<p>归并过程为：比较a[i]和b[j]的大小，若a[i]≤b[j]，则将第一个有序表中的元素a[i]复制到r[k]中，并令i和k分别加上1；否则将第二个有序表中的元素b[j]复制到r[k]中，并令j和k分别加上1，如此循环下去，直到其中一个有序表取完，然后再将另一个有序表中剩余的元素复制到r中从下标k到下标t的单元。归并排序的算法我们通常用递归实现，先把待排序区间[s,t]以中点二分，接着把左边子区间排序，再把右边子区间排序，最后把左区间和右区间用一次归并操作合并成有序的区间[s,t]。
+<img src="http://img.blog.csdn.net/20170814165150278?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2lsZW50d29sZnlo/font/5a6L5L2T/fontsize/400/fill/I0ZGMDAwMA==/dissolve/70/gravity/SouthEast" alt="" /></p>
 
-<p>提示：warning: remote HEAD refers to nonexistent ref, unable to checkout.</p>
-
-<p>并且Contacts模块的代码并没有下载到工作区。</p>
-
-<h2 id="解决方法"><strong>解决方法：</strong></h2>
-
-<p>原因是.git目录下.git/refs/heads不存在HEAD指向的文件，这个时候可以用git show-ref命令查看</p>
-
-<p>获得如下打印：</p>
-
-<p>5fa0b60252ca2c10fa3c2e12780d351c047c802d refs/remotes/origin/branch_qc_origin
-5fa0b60252ca2c10fa3c2e12780d351c047c802d refs/tags/XXXXXXXXXXXX
-48dee3a5f7b9cac98349e949275c652e02b0b67e refs/tags/PXXXXV0.0.0B01-bringup
-505a9bb0c6d815e6db561f7cb7ed0e20cd73ddde refs/tags/PXXXX_02550_201309260427
-e2b211a3c9d8dabec9fe1018b4f7db5c953832ea refs/tags/PXXXX_bsp_02550_201309260422
-0848e8b7922c78dbb364aa0e7c1b8375d16a70a3 refs/tags/branch_PXXXX_02550_201309190102
-7384803be7c8866393b96ebaaa7e1b2b119654e7 refs/tags/branch_PXXXX_02550_201309200102
-480f444dd26bb238aeaacf15da748ad861ea9378 refs/tags/branch_PXXXX_02550_201309210102</p>
-
-<p>&hellip;&hellip;</p>
-
-<p>可以看出，全部是标签tag，并没有类似refs/head/branch_name</p>
-
-<p>继续执行命令：</p>
-
-<p>git branch  //输入出空</p>
-
-<p>git branch -a //输出 remotes/origin/branch_qc_origin</p>
-
-<p>git checkout remotes/origin/branch_qc_origin // checkout的是git branch -a输出的内容</p>
-
-<p>这样通过ll命令查看，Contacts代码下载到工作目录了</p>
-
-<p>接着创建分支：git checkout -b remotes/origin/branch_qc_origin</p>
-
-<p>git branch //可以看到输出*remotes/origin/branch_qc_origin了，不再为空</p>
-
-<p>git branch -m remotes/origin/branch_qc_origin master  //重命名分支叫master</p>
-
-<p>git show-ref命令查看也能看到head了</p>
-
-<p>至此，问题得到解决。</p>
+<p>相关代码：
+<a href="https://github.com/xueshaoyi/javatest/blob/master/src/Sort/MergeSort.java">归并排序Java</a></p>
 
 	</div>
   <footer class="article-footer clearfix">
@@ -150,7 +107,7 @@ e2b211a3c9d8dabec9fe1018b4f7db5c953832ea refs/tags/PXXXX_bsp_02550_201309260422
 <div class="article-tags">
   <span></span>
   
-  <a href="https://xueshaoyi.github.io/tags/git">Git</a>
+  <a href="https://xueshaoyi.github.io/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95">排序算法</a>
   
 </div>
 
@@ -161,14 +118,14 @@ e2b211a3c9d8dabec9fe1018b4f7db5c953832ea refs/tags/PXXXX_bsp_02550_201309260422
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://xueshaoyi.github.io/categories/github">GitHub</a>
+  <a class="article-category-link" href="https://xueshaoyi.github.io/categories/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95">排序算法</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://xueshaoyi.github.io/post/2017/notes/github-git-clone%E9%94%99%E8%AF%AF/" data-title="GitHub git clone错误" data-tsina="1816308191" class="share clearfix">
+    <div data-url="https://xueshaoyi.github.io/post/2017/notes/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" data-title="归并排序" data-tsina="1816308191" class="share clearfix">
     </div>
   </div>
 </footer>
@@ -184,8 +141,8 @@ e2b211a3c9d8dabec9fe1018b4f7db5c953832ea refs/tags/PXXXX_bsp_02550_201309260422
 
 
 var disqus_config = function () {
-this.page.url = "https://xueshaoyi.github.io/post/2017/notes/github-git-clone%E9%94%99%E8%AF%AF/";
-this.page.identifier = "https://xueshaoyi.github.io/post/2017/notes/github-git-clone%E9%94%99%E8%AF%AF/";
+this.page.url = "https://xueshaoyi.github.io/post/2017/notes/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/";
+this.page.identifier = "https://xueshaoyi.github.io/post/2017/notes/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/";
 };
 (function() { 
 var d = document, s = d.createElement('script');

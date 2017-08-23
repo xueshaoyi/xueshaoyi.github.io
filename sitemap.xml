@@ -3,6 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://xueshaoyi.github.io/post/2017/notes/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2017-08-23T19:13:19+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xueshaoyi.github.io/post/2017/notes/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2017-08-22T19:13:19+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://xueshaoyi.github.io/post/2017/notes/outofmemory/</loc>
     <lastmod>2017-08-15T13:10:19+08:00</lastmod>
   </url>
@@ -397,7 +407,7 @@
   
   <url>
     <loc>https://xueshaoyi.github.io/post/</loc>
-    <lastmod>2017-08-15T13:10:19+08:00</lastmod>
+    <lastmod>2017-08-23T19:13:19+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -409,7 +419,7 @@
   
   <url>
     <loc>https://xueshaoyi.github.io/</loc>
-    <lastmod>2017-08-15T13:10:19+08:00</lastmod>
+    <lastmod>2017-08-23T19:13:19+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -464,6 +474,18 @@
   <url>
     <loc>https://xueshaoyi.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/</loc>
     <lastmod>2017-06-27T13:13:19+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://xueshaoyi.github.io/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2017-08-23T19:13:19+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://xueshaoyi.github.io/categories/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2017-08-23T19:13:19+08:00</lastmod>
     <priority>0</priority>
   </url>
   

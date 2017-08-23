@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>排序算法 on Shao Yi`s Blog</title>
+    <link>https://xueshaoyi.github.io/categories/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</link>
+    <description>Recent content in 排序算法 on Shao Yi`s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 23 Aug 2017 19:13:19 +0800</lastBuildDate>
+    
+	<atom:link href="https://xueshaoyi.github.io/categories/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/feed.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>归并排序</title>
+      <link>https://xueshaoyi.github.io/post/2017/notes/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Wed, 23 Aug 2017 19:13:19 +0800</pubDate>
+      
+      <guid>https://xueshaoyi.github.io/post/2017/notes/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</guid>
+      <description>归并 归并排序（MERGE-SORT）是建立在归并操作上的一种有效的排序算法,该算法是采用分治法（Divide and Conquer）的一个非常典型</description>
+    </item>
+    
+    <item>
+      <title>快速排序</title>
+      <link>https://xueshaoyi.github.io/post/2017/notes/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Tue, 22 Aug 2017 19:13:19 +0800</pubDate>
+      
+      <guid>https://xueshaoyi.github.io/post/2017/notes/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</guid>
+      <description>快速排序解释 快速排序（Quicksort)是对冒泡排序的一种改进。 快速排序由C.A.R.Hoare在1962年提出。它的基本思想是：通过一趟</description>
+    </item>
+    
+  </channel>
+</rss>

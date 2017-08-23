@@ -2,18 +2,18 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>GitHub git clone错误 - Shao Yi`s Blog</title>
+  <title>排序算法 - Shao Yi`s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="问题描述： 是Git管理代码，从git服务器上获取Contacts模块的代码： git clone your-git-server 提示：warning: remote HEAD refers to nonexistent ref, unable to checkout. 并且Contact">
+  <meta name="description" content="排序算法">
   
-  <meta itemprop="name" content="GitHub git clone错误 - Shao Yi`s Blog">
-  <meta itemprop="description" content="问题描述： 是Git管理代码，从git服务器上获取Contacts模块的代码： git clone your-git-server 提示：warning: remote HEAD refers to nonexistent ref, unable to checkout. 并且Contact">
+  <meta itemprop="name" content="排序算法 - Shao Yi`s Blog">
+  <meta itemprop="description" content="排序算法">
   <meta itemprop="image" content="https://xueshaoyi.github.io/img/author.jpg">
   
   
   <meta name="twitter:description" content="">
-  
+  <link rel="alternate" href="https://xueshaoyi.github.io/feed.xml" title="Shao Yi`s Blog" type="application/rss+xml"/>
   <link rel="shortcut icon" href="https://xueshaoyi.github.io/img/favicon.ico"/>
   <link rel="apple-touch-icon" href="https://xueshaoyi.github.io/apple-touch-icon.png" />
   <link rel="apple-touch-icon-precomposed" href="https://xueshaoyi.github.io/apple-touch-icon.png" />
@@ -61,146 +61,30 @@
 
   </header>
   <div id="container">
-    <div id="main" class="post" itemscope itemprop="blogPost">
-	<article itemprop="articleBody">
-    <header class="article-info clearfix">
-  <h1 itemprop="name">
-      <a href="https://xueshaoyi.github.io/post/2017/notes/github-git-clone%E9%94%99%E8%AF%AF/" title="GitHub git clone错误" itemprop="url">GitHub git clone错误</a>
-  </h1>
-  <p class="article-author">By
-    
-      <a href="https://github.com/xueshaoyi" title=""></a>
-    
-  </p>
-  <p class="article-time">
-    <time datetime="2017-07-01 13:13:19 &#43;0800 CST" itemprop="datePublished">2017年07月01日</time>
-  </p>
-</header>
-
-	<div class="article-content">
-    
-		<div class="toc-article">
-			<strong class="toc-title">文章目录</strong>
-      <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#问题描述"><strong>问题描述：</strong></a></li>
-<li><a href="#解决方法"><strong>解决方法：</strong></a></li>
-</ul></li>
-</ul>
-</nav>
-		</div>
-    
-    
-
-<h2 id="问题描述"><strong>问题描述：</strong></h2>
-
-<p>是Git管理代码，从git服务器上获取Contacts模块的代码：</p>
-
-<p>git clone your-git-server</p>
-
-<p>提示：warning: remote HEAD refers to nonexistent ref, unable to checkout.</p>
-
-<p>并且Contacts模块的代码并没有下载到工作区。</p>
-
-<h2 id="解决方法"><strong>解决方法：</strong></h2>
-
-<p>原因是.git目录下.git/refs/heads不存在HEAD指向的文件，这个时候可以用git show-ref命令查看</p>
-
-<p>获得如下打印：</p>
-
-<p>5fa0b60252ca2c10fa3c2e12780d351c047c802d refs/remotes/origin/branch_qc_origin
-5fa0b60252ca2c10fa3c2e12780d351c047c802d refs/tags/XXXXXXXXXXXX
-48dee3a5f7b9cac98349e949275c652e02b0b67e refs/tags/PXXXXV0.0.0B01-bringup
-505a9bb0c6d815e6db561f7cb7ed0e20cd73ddde refs/tags/PXXXX_02550_201309260427
-e2b211a3c9d8dabec9fe1018b4f7db5c953832ea refs/tags/PXXXX_bsp_02550_201309260422
-0848e8b7922c78dbb364aa0e7c1b8375d16a70a3 refs/tags/branch_PXXXX_02550_201309190102
-7384803be7c8866393b96ebaaa7e1b2b119654e7 refs/tags/branch_PXXXX_02550_201309200102
-480f444dd26bb238aeaacf15da748ad861ea9378 refs/tags/branch_PXXXX_02550_201309210102</p>
-
-<p>&hellip;&hellip;</p>
-
-<p>可以看出，全部是标签tag，并没有类似refs/head/branch_name</p>
-
-<p>继续执行命令：</p>
-
-<p>git branch  //输入出空</p>
-
-<p>git branch -a //输出 remotes/origin/branch_qc_origin</p>
-
-<p>git checkout remotes/origin/branch_qc_origin // checkout的是git branch -a输出的内容</p>
-
-<p>这样通过ll命令查看，Contacts代码下载到工作目录了</p>
-
-<p>接着创建分支：git checkout -b remotes/origin/branch_qc_origin</p>
-
-<p>git branch //可以看到输出*remotes/origin/branch_qc_origin了，不再为空</p>
-
-<p>git branch -m remotes/origin/branch_qc_origin master  //重命名分支叫master</p>
-
-<p>git show-ref命令查看也能看到head了</p>
-
-<p>至此，问题得到解决。</p>
-
-	</div>
-  <footer class="article-footer clearfix">
-  
-
-<div class="article-tags">
-  <span></span>
-  
-  <a href="https://xueshaoyi.github.io/tags/git">Git</a>
-  
-</div>
-
-
-
-
-
-<div class="article-categories">
-  <span></span>
-  
-  <a class="article-category-link" href="https://xueshaoyi.github.io/categories/github">GitHub</a>
-  
-</div>
-
-
-
-  <div class="article-share" id="share">
-    <div data-url="https://xueshaoyi.github.io/post/2017/notes/github-git-clone%E9%94%99%E8%AF%AF/" data-title="GitHub git clone错误" data-tsina="1816308191" class="share clearfix">
-    </div>
-  </div>
-</footer>
-
-	</article>
-  
-
-
-<section class="comment">
-<div id="disqus_thread"></div>
+    <div id="main">
+      
+      <h2 id="2017-08">2017-08</h2>
+      
+      <section class="post" itemscope itemprop="blogPost">
+    <a href="https://xueshaoyi.github.io/post/2017/notes/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" title="归并排序" itemprop="url">
+    <h1 itemprop="name">归并排序</h1>
+    <p itemprop="description">归并 归并排序（MERGE-SORT）是建立在归并操作上的一种有效的排序算法,该算法是采用分治法（Divide and Conquer）的一个非常典型</p>
+    <time datetime="2017-08-23 19:13:19 &#43;0800 CST" itemprop="datePublished">2017年08月23日</time>
+  </a>
 </section>
-<script>
 
+      
+      <section class="post" itemscope itemprop="blogPost">
+    <a href="https://xueshaoyi.github.io/post/2017/notes/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" title="快速排序" itemprop="url">
+    <h1 itemprop="name">快速排序</h1>
+    <p itemprop="description">快速排序解释 快速排序（Quicksort)是对冒泡排序的一种改进。 快速排序由C.A.R.Hoare在1962年提出。它的基本思想是：通过一趟</p>
+    <time datetime="2017-08-22 19:13:19 &#43;0800 CST" itemprop="datePublished">2017年08月22日</time>
+  </a>
+</section>
 
-var disqus_config = function () {
-this.page.url = "https://xueshaoyi.github.io/post/2017/notes/github-git-clone%E9%94%99%E8%AF%AF/";
-this.page.identifier = "https://xueshaoyi.github.io/post/2017/notes/github-git-clone%E9%94%99%E8%AF%AF/";
-};
-(function() { 
-var d = document, s = d.createElement('script');
-
-s.src = '//xueshaoyi.disqus.com/embed.js';
-
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-</div>
-
+      
+      
+    </div>
     <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -509,38 +393,6 @@ $(document).ready(function(){
 
 <script type="text/javascript">
 $(document).ready(function(){
-  var ai = $('.article-content>iframe'),
-      ae = $('.article-content>embed'),
-      t  = $('#toc'),
-      h  = $('article h2')
-      ah = $('article h2'),
-      ta = $('#toc.toc-aside'),
-      o  = $('.openaside'),
-      c  = $('.closeaside');
-  if(ai.length>0){
-    ai.wrap('<div class="video-container" />');
-  };
-  if(ae.length>0){
-   ae.wrap('<div class="video-container" />');
-  };
-  if(ah.length==0){
-    t.css('display','none');
-  }else{
-    c.click(function(){
-      ta.css('display', 'block').addClass('fadeIn');
-    });
-    o.click(function(){
-      ta.css('display', 'none');
-    });
-    $(window).scroll(function(){
-      ta.css("top",Math.max(140,320-$(this).scrollTop()));
-    });
-  };
-});
-</script>
-
-<script type="text/javascript">
-$(document).ready(function(){
   var $this = $('.share'),
       url = $this.attr('data-url'),
       encodedUrl = encodeURIComponent(url),
@@ -567,27 +419,6 @@ $(document).ready(function(){
 });
 </script>
 
-
-<link rel="stylesheet" href="https://xueshaoyi.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="https://xueshaoyi.github.io/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-  $('.article-content').each(function(i){
-    $(this).find('img').each(function(){
-      if ($(this).parent().hasClass('fancybox')) return;
-      var alt = this.alt;
-      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
-      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
-    });
-    $(this).find('.fancybox').each(function(){
-      $(this).attr('rel', 'article' + i);
-    });
-  });
-  if($.fancybox){
-    $('.fancybox').fancybox();
-  }
-});
-</script>
 
 
 <script>
