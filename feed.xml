@@ -6,10 +6,19 @@
     <description>Recent content on Shao Yi`s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 23 Aug 2017 19:13:19 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 23 Aug 2017 19:28:02 +0800</lastBuildDate>
     
 	<atom:link href="https://xueshaoyi.github.io/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>学习吧，查阅吧</title>
+      <link>https://xueshaoyi.github.io/study/</link>
+      <pubDate>Wed, 23 Aug 2017 19:28:02 +0800</pubDate>
+      
+      <guid>https://xueshaoyi.github.io/study/</guid>
+      <description>开源、大数据的：简单之美 面试感悟&amp;mdash;-一名3年工作经验的程序员应该具备的技能：&amp;ldquo;一个博客&amp;rdquo; Java相关技术</description>
+    </item>
     
     <item>
       <title>归并排序</title>
@@ -108,15 +117,6 @@
       
       <guid>https://xueshaoyi.github.io/post/2017/base/hashmap%E6%BA%90%E7%A0%817/</guid>
       <description>这个方法和computeIfAbsent这个都是Java8的新的内容，都是可以在添加map的时候添加一个方法来对key进行操作存储value</description>
-    </item>
-    
-    <item>
-      <title>学习吧，查阅吧</title>
-      <link>https://xueshaoyi.github.io/study/</link>
-      <pubDate>Fri, 04 Aug 2017 12:28:02 +0800</pubDate>
-      
-      <guid>https://xueshaoyi.github.io/study/</guid>
-      <description>开源、大数据的：简单之美 面试感悟&amp;mdash;-一名3年工作经验的程序员应该具备的技能：&amp;ldquo;一个博客&amp;rdquo; Java相关技术</description>
     </item>
     
     <item>
