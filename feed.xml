@@ -6,10 +6,46 @@
     <description>Recent content on Shao Yi`s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 24 Aug 2017 12:13:19 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 27 Aug 2017 14:35:19 +0800</lastBuildDate>
     
 	<atom:link href="https://xueshaoyi.github.io/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>大顶堆排序</title>
+      <link>https://xueshaoyi.github.io/post/2017/notes/%E5%A4%A7%E9%A1%B6%E5%A0%86%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Sun, 27 Aug 2017 14:35:19 +0800</pubDate>
+      
+      <guid>https://xueshaoyi.github.io/post/2017/notes/%E5%A4%A7%E9%A1%B6%E5%A0%86%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</guid>
+      <description>大顶堆排序的步骤： 1、看明白Java实现大顶堆和小顶堆 2、在“//堆积排序”过程中，将堆顶的最大值和最后节点交换 3、调用ad_heap方法，</description>
+    </item>
+    
+    <item>
+      <title>插入排序</title>
+      <link>https://xueshaoyi.github.io/post/2017/notes/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Fri, 25 Aug 2017 17:35:19 +0800</pubDate>
+      
+      <guid>https://xueshaoyi.github.io/post/2017/notes/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</guid>
+      <description>插入排序（Insertion Sort）的算法描述是一种简单直观的排序算法。它的工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后</description>
+    </item>
+    
+    <item>
+      <title>选择排序</title>
+      <link>https://xueshaoyi.github.io/post/2017/notes/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Fri, 25 Aug 2017 17:35:19 +0800</pubDate>
+      
+      <guid>https://xueshaoyi.github.io/post/2017/notes/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</guid>
+      <description>选择排序(Selection sort)是一种简单直观的排序算法。它的工作原理如下。首先在未排序序列中找到最小（大）元素，存放到排序序列的起始</description>
+    </item>
+    
+    <item>
+      <title>冒泡排序</title>
+      <link>https://xueshaoyi.github.io/post/2017/notes/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Fri, 25 Aug 2017 12:13:19 +0800</pubDate>
+      
+      <guid>https://xueshaoyi.github.io/post/2017/notes/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</guid>
+      <description>冒泡排序（Bubble Sort）是一种简单的排序算法。它重复地走访过要排序的数列，一次比较两个元素，如果他们的顺序错误就把他们交换过来。走访</description>
+    </item>
     
     <item>
       <title>希尔排序</title>
